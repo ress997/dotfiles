@@ -6,7 +6,6 @@
   email = email@ress997.me
   name = ress997
 [alias]
-  git = !git
   p = push
   br = branch
   cm = commit
@@ -24,7 +23,7 @@
   algorithm = histogram
   tool = vimdiff
 [ghq]
-  root = ~/.local/share/ghq
+  root = ~/.ghq
 [help]
   autocorrect = 1
 [hub]
