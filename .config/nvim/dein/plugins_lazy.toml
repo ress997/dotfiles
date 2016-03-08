@@ -1,0 +1,19 @@
+[[plugins]]
+repo = 'editorconfig/editorconfig-vim'
+on_i = 1
+
+[[plugins]]
+repo = 'Shougo/neocomplete.vim'
+on_i = 1
+
+[[plugins]]
+repo = 'Shougo/deoplete.nvim'
+if = 'has("nvim")'
+on_i = 1
+
+[[plugins]]
+repo = 'Shougo/unite.vim'
+
+[[plugins]]
+repo = 'Shougo/neomru.vim'
+on_source = ['unite.vim']

@@ -1,0 +1,22 @@
+set line-graphics = utf-8
+set tab-size = 4
+set ignore-space = all
+set split-view-width = 80%
+set wrap-lines = yes
+
+# メインビューの表示設定
+set main-view = id:yes date:local author:full commit-title:graph=yes,refs=yes
+
+# Color Settings
+color default white black
+color cursor default magenta
+color date cyan default
+color delimiter cyan default
+color line-number yellow default
+color diff-header yellow default
+color diff-index blue default
+color diff-chunk magenta default
+color "Reported-by:" green default
+color graph-commit cyan default
+
+# vim: ft=config

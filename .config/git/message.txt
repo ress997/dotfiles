@@ -1,0 +1,22 @@
+# コードのフォーマットや構造にテコ入れ
+# - :diamond_shape_with_a_dot_inside: when improving the format/structure of the code
+# パフォーマンスを改善
+# - :rocket: when improving performance
+# ドキュメントを書いた時
+# - :pencil2: when writing docs
+# 新しいアイディア
+# - :bulb: new idea
+# 進行中の作業(作業中?)
+# - :construction: work in progress
+# 機能を追加
+# - :heavy_plus_sign: when adding feature
+# 機能を削除
+# - :heavy_minus_sign: when removing feature
+# バグを修正
+# - :bug: when fixing a bug
+# テスト関係
+# - :white_check_mark: when adding tests
+# セキュリティ関係
+# - :lock: when dealing with security
+# 依存関係をアップグレード
+# - :arrow_up: when upgrading dependencies

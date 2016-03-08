@@ -1,0 +1,8 @@
+#!/bin/bash
+
+if ! type ghq >/dev/null 2>&1; then
+  echo "ghq: not found" 1>&2
+  exit 1
+fi
+
+ghq list | sed 's|.[^/]*/||' | xargs -n 1 -P 10 ghq get -u
