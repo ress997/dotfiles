@@ -6,13 +6,19 @@ Overview
 
 ## Features
 
-- **OS X** EL Capitan (MacBook Pro, Retina 13-inch, Mid 2014)
+- **OS X** El Capitan (MacBook Pro, Retina 13-inch, Mid 2014)
 - **iTerm.app** (Build 2.1.4, Full-screen)
 - **Tmux** 2.1
 - **Zsh** 5.2
 - **NeoVim** 0.1.2
 
 ## Installation
+
+`bash -c "$(curl -fsSL dot.ress997.me)"`
+
+or
+
+`bash -c "$(wget -qO - dot.ress997.me)"`
 
 ## License [![MIT License](http://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](LICENSE)
 
