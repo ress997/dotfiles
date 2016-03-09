@@ -157,14 +157,24 @@ alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
 
 # Homebrew
-alias b='brew'
-alias bl='brew list'
-alias bd='brew doctor'
-alias bup='brew update'
+if has brew;then
+  alias b='brew'
+  alias bl='brew list'
+  alias bd='brew doctor'
+  alias bup='brew update'
+fi
 
 # ghq
-alias g='cd $(ghq root)/$(ghq list | $(available $FILTER))'
-alias gh='hub browse $(ghq list | $(available $FILTER) | cut -d "/" -f 2,3)'
+if has ghq;then
+  alias g='cd $(ghq root)/$(ghq list | $(available $FILTER))'
+  alias gh='hub browse $(ghq list | $(available $FILTER) | cut -d "/" -f 2,3)'
+fi
+
+# NeoVim
+if has nvim;then
+  alias n='nvim'
+  alias vim='nvim'
+fi
 
 # Global Alias
 alias -g L='| less'

@@ -1,6 +1,11 @@
 # Dotfile
 
-[![MIT License](http://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](LICENSE)
+<p align="center">
+	<a href="LICENSE">
+		<img src="//img.shields.io/badge/license-MIT-blue.svg?style=flat-square" alt="MIT License">
+	</a>
+
+</p>
 
 Overview
 
@@ -20,7 +25,7 @@ or
 
 `bash -c "$(wget -qO - dot.ress997.me)"`
 
-## License [![MIT License](http://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](LICENSE)
+## License
 
 Copyright (c) 2015 Aoi Tachibana
 
