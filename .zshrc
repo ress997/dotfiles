@@ -14,8 +14,7 @@ function is_screen_or_tmux_running() { is_screen_running || is_tmux_runnning; }
 function shell_has_started_interactively() { [ ! -z "$PS1" ]; }
 function is_ssh_running() { [ ! -z "$SSH_CONECTION" ]; }
 
-function tmux_automatically_attach_session()
-{
+function tmux_automatically_attach_session() {
   if is_screen_or_tmux_running; then
     ! has 'tmux' && return 1
     if is_tmux_runnning; then
@@ -70,19 +69,19 @@ tmux_automatically_attach_session
 }
 source ~/.zplug/zplug
 
-# Pager
+# Command
 zplug "junegunn/fzf", as:command, of:bin/fzf-tmux
 zplug "junegunn/fzf-bin", as:command, from:gh-r, file:fzf
+zplug "mrowa44/emojify", as:command
 zplug "peco/peco", as:command, from:gh-r
+zplug "stedolan/jq", from:gh-r, as:command
 
 # Plugin
 zplug "b4b4r07/emoji-cli"
 zplug "b4b4r07/enhancd", of:enhancd.sh
+zplug "zsh-users/zsh-completions"
+zplug "zsh-users/zsh-history-substring-search", do:"__zsh_version 4.3"
 zplug "zsh-users/zsh-syntax-highlighting", nice:10
-
-# Command
-zplug "mrowa44/emojify", as:command
-zplug "stedolan/jq", from:gh-r, as:command
 
 if ! zplug check --verbose; then
   printf "Install? [y/N]: "
@@ -128,7 +127,7 @@ _fzf-select-history() {
     history 1 \
      | sort -k1,1nr \
      | perl -ne 'BEGIN { my @lines = (); } s/^\s*\d+\s*//; $in=$_; if (!(grep {$in eq $_} @lines)) { push(@lines, $in); print $in; }' \
-     | $(available fzf-tmux:fzf) --query "$LBUFFER" )"
+     | $(available "fzf-tmux:fzf") --query "$LBUFFER" )"
 
     CURSOR=$#BUFFER
     zle reset-prompt
