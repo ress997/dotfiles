@@ -1,4 +1,4 @@
-function wiki() {
+wiki() {
   if [ -n "$1" ]; then
     if ! has open; then
       echo "open: not found" 1>&2
@@ -10,7 +10,7 @@ function wiki() {
     echo "usage: $0 word"
   fi
 }
-function google() {
+google() {
   if [ -n "$1" ]; then
     if ! has open; then
       echo "open: not found" 1>&2
@@ -22,7 +22,7 @@ function google() {
     echo "usage: $0 word"
   fi
 }
-function qiita() {
+qiita() {
   if [ -n "$1" ]; then
     if ! has open; then
       echo "open: not found" 1>&2
@@ -36,14 +36,23 @@ function qiita() {
 }
 
 # hub
-if which hub >/dev/null 2>&1; then
-  function git() {
+if type hub >/dev/null 2>&1; then
+  git() {
     hub "$@"
   }
 fi
 
+if type ghq >/dev/null 2>&1; then
+  g() {
+    cd $(ghq root)/$(ghq list | $(available $FILTER))
+  }
+  gh() {
+    hub browse $(ghq list | $(available $FILTER) | cut -d "/" -f 2,3)
+  }
+fi
+
 # http://qiita.com/yasuto777/items/f3bd6cffd418f3830b75
-function memo() {
+memo() {
   if [ $# -eq 0 ]; then
     unset memotxt
     return
@@ -54,7 +63,7 @@ function memo() {
 }
 
 # http://blog.b4b4r07.com/entry/2015/11/08/013526
-function mru() {
+mru() {
   local -a f
   f=(
   $HOME/.vim_mru_files(N)

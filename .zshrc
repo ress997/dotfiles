@@ -7,14 +7,15 @@ has() {
   type "$1" >/dev/null 2>&1
   return $?
 }
-function is_osx() { [[ $OSTYPE == darwin* ]]; }
-function is_screen_running() { [ ! -z "$STY" ]; }
-function is_tmux_runnning() { [ ! -z "$TMUX" ]; }
-function is_screen_or_tmux_running() { is_screen_running || is_tmux_runnning; }
-function shell_has_started_interactively() { [ ! -z "$PS1" ]; }
-function is_ssh_running() { [ ! -z "$SSH_CONECTION" ]; }
 
-function tmux_automatically_attach_session() {
+is_osx() { [[ $OSTYPE == darwin* ]]; }
+is_screen_running() { [ ! -z "$STY" ]; }
+is_tmux_runnning() { [ ! -z "$TMUX" ]; }
+is_screen_or_tmux_running() { is_screen_running || is_tmux_runnning; }
+shell_has_started_interactively() { [ ! -z "$PS1" ]; }
+is_ssh_running() { [ ! -z "$SSH_CONECTION" ]; }
+
+tmux_automatically_attach_session() {
   if is_screen_or_tmux_running; then
     ! has 'tmux' && return 1
     if is_tmux_runnning; then
@@ -51,7 +52,7 @@ function tmux_automatically_attach_session() {
         fi
       fi
       if is_osx && has 'reattach-to-user-namespace'; then
-        tmux_config=$(cat ~/.tmux.conf <(echo 'set-option -g default-command "reattach-to-user-namespace -l $SHELL"'))
+        tmux_config=$(cat $HOME/.tmux.conf <(echo 'set-option -g default-command "reattach-to-user-namespace -l $SHELL"'))
         tmux -f <(echo "$tmux_config") new-session && echo "$(tmux -V) created new session supported OS X"
       else
         tmux new-session && echo "tmux created new session"
@@ -59,21 +60,20 @@ function tmux_automatically_attach_session() {
     fi
   fi
 }
-
 tmux_automatically_attach_session
 
 # zplug
-[[ -d ~/.zplug ]] || {
-  curl -fLo ~/.zplug/zplug --create-dirs git.io/zplug
-  source ~/.zplug/zplug && zplug update --self
+[[ -d $ZPLUG_HOME ]] || {
+  curl -fLo $ZPLUG_HOME/zplug --create-dirs git.io/zplug
+  source $ZPLUG_HOME/zplug && zplug update --self
 }
-source ~/.zplug/zplug
+source $ZPLUG_HOME/zplug
 
 # Command
 zplug "junegunn/fzf", as:command, of:bin/fzf-tmux
 zplug "junegunn/fzf-bin", as:command, from:gh-r, file:fzf
 zplug "mrowa44/emojify", as:command
-zplug "peco/peco", as:command, from:gh-r
+zplug "peco/peco", as:command, from:gh-r, of:"*amd64*"
 zplug "stedolan/jq", from:gh-r, as:command
 
 # Plugin
@@ -90,6 +90,15 @@ if ! zplug check --verbose; then
   fi
 fi
 zplug load --verbose
+
+# anyenv
+[[ -d $ANYENV_HOME ]] || {
+	git clone https://github.com/riywo/anyenv $ANYENV_HOME
+	mkdir -p $ANYENV_HOME/plugins
+	# anyenv-update
+	git clone https://github.com/znz/anyenv-update.git $ANYENV_HOME/plugins/anyenv-update
+}
+eval "$(anyenv init -)"
 
 # function
 available () {
@@ -109,18 +118,10 @@ available () {
   return 1
 }
 
-# anyenv
-if [ -d $HOME/.anyenv ]; then
-  eval "$(anyenv init -)"
-else
-  git clone https://github.com/riywo/anyenv $HOME/.anyenv
-fi
-
 #  keybinds 
-
 bindkey -v
 
-# Ctrl-R
+## Ctrl-R
 _fzf-select-history() {
   if true; then
   BUFFER="$(
@@ -163,12 +164,6 @@ if has brew;then
   alias bup='brew update'
 fi
 
-# ghq
-if has ghq;then
-  alias g='cd $(ghq root)/$(ghq list | $(available $FILTER))'
-  alias gh='hub browse $(ghq list | $(available $FILTER) | cut -d "/" -f 2,3)'
-fi
-
 # NeoVim
 if has nvim;then
   alias n='nvim'
@@ -186,8 +181,7 @@ if is_osx; then
 fi
 
 # PROMPT
-PROMPT='
-[%n@%m]${memotxt}
+PROMPT='[%n@%m]${memotxt}
 [%#]-> '
 PROMPT2='[%#]-> '
 RPROMPT='[%F{cyan}%~%f]'
@@ -200,10 +194,10 @@ setopt pushd_ignore_dups      # 重複したディレクトリを追加しない
 setopt pushd_to_home
 setopt correct                # 補完機能
 setopt correct_all
-setopt brace_ccl           # Deploy {a-c} -> a b c
+setopt brace_ccl              # Deploy {a-c} -> a b c
 setopt print_eight_bit        # 日本語ファイル名を表示可能にする
 setopt no_beep                # beep を無効にする
-setopt equals             # Expand '=command' as path of command. e.g.) '=ls' -> '/bin/ls's
+setopt equals                 # Expand '=command' as path of command. e.g.) '=ls' -> '/bin/ls's
 setopt no_flow_control        # フローコントロールを無効にする
 
 setopt always_last_prompt     # カーソル位置は保持したままファイル名一覧を順次その場で表示

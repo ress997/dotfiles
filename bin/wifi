@@ -1,15 +1,10 @@
 #!/bin/bash
 
-local PLATFORM
+function is_osx() {
+  [[ $OSTYPE == darwin* ]]
+}
 
-case "${OSTYPE}" in
-    *'linux'*)  PLATFORM='linux'    ;;
-    *'darwin'*) PLATFORM='osx'      ;;
-    *'bsd'*)    PLATFORM='bsd'      ;;
-    *)          PLATFORM='unknown'  ;;
-esac
-
-if ! [ $PLATFORM = osx ]; then
+if ! is_osx; then
     echo "OS X only" 1>&2
     exit 1
 fi

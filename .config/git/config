@@ -23,7 +23,7 @@
   algorithm = histogram
   tool = vimdiff
 [ghq]
-  root = ~/.ghq
+  root = ~/.dev/ghq
 [help]
   autocorrect = 1
 [hub]
