@@ -3,6 +3,7 @@ typeset -gx -U fpath
 fpath=( \
   $HOME/.zsh/completion(N-/) \
   /usr/local/share/zsh-completions(N-/) \
+  /usr/local/share/zsh/functions(N-/) \
   $fpath \
   )
 
@@ -23,11 +24,12 @@ export DEV_DATA_HOME="$HOME/.dev"
 
 # Filter
 export FILTER='fzf-tmux:fzf:peco'
-export ZPLUG_FILTER=$FILTER
-export EMOJI_CLI_FILTER=$FILTER
 
 # anyenv
 export ANYENV_HOME="$HOME/.anyenv"
+
+# emoji-cli
+export EMOJI_CLI_FILTER=$FILTER
 
 # enhancd
 export ENHANCD_DIR="$XDG_DATA_HOME/enhancd"
@@ -40,6 +42,8 @@ export FZF_DEFAULT_OPTS="--extended --ansi --multi --exit-0 --select-1"
 export GOPATH="$DEV_DATA_HOME/go"
 
 # zplug
+export ZPLUG_CACHE_FILE="$XDG_CACHE_HOME/zplug"
+export ZPLUG_FILTER=$FILTER
 export ZPLUG_HOME="$DEV_DATA_HOME/zplug"
 
 # Language
@@ -74,7 +78,7 @@ typeset -U path PATH
 path=( \
   $HOME/bin(N-/) \
   $GOPATH/bin(N-/) \
-  $HOME/.anyenv/bin(N-/) \
+  $ANYENV_HOME/bin(N-/) \
   /usr/local/bin(N-/) \
   $path \
   )
