@@ -2,19 +2,17 @@ umask 022
 bindkey -d
 limit coredumpsize 0
 
-# TMUX Auto new-session
+# TMUX Auto new-session {{{
 has() {
   type "$1" >/dev/null 2>&1
   return $?
 }
-
 is_osx() { [[ $OSTYPE == darwin* ]]; }
 is_screen_running() { [ ! -z "$STY" ]; }
 is_tmux_runnning() { [ ! -z "$TMUX" ]; }
 is_screen_or_tmux_running() { is_screen_running || is_tmux_runnning; }
 shell_has_started_interactively() { [ ! -z "$PS1" ]; }
 is_ssh_running() { [ ! -z "$SSH_CONECTION" ]; }
-
 tmux_automatically_attach_session() {
   if is_screen_or_tmux_running; then
     ! has 'tmux' && return 1
@@ -61,8 +59,8 @@ tmux_automatically_attach_session() {
   fi
 }
 tmux_automatically_attach_session
-
-# zplug
+# }}}
+# zplug {{{
 [[ -d $ZPLUG_HOME ]] || {
   curl -fLo $ZPLUG_HOME/zplug --create-dirs git.io/zplug
   source $ZPLUG_HOME/zplug && zplug update --self
@@ -70,6 +68,7 @@ tmux_automatically_attach_session
 source $ZPLUG_HOME/zplug
 
 # Command
+zplug "b4b4r07/zsh-gomi", as:command, of:bin/gomi
 zplug "junegunn/fzf", as:command, of:bin/fzf-tmux
 zplug "junegunn/fzf-bin", as:command, from:gh-r, file:fzf
 zplug "mrowa44/emojify", as:command
@@ -80,8 +79,7 @@ zplug "stedolan/jq", from:gh-r, as:command
 zplug "b4b4r07/emoji-cli"
 zplug "b4b4r07/enhancd", of:enhancd.sh
 zplug "zsh-users/zsh-completions"
-zplug "zsh-users/zsh-history-substring-search", do:"__zsh_version 4.3"
-zplug "zsh-users/zsh-syntax-highlighting", nice:10
+zplug "zsh-users/zsh-syntax-highlighting", nice:19
 
 if ! zplug check --verbose; then
   printf "Install? [y/N]: "
@@ -90,17 +88,17 @@ if ! zplug check --verbose; then
   fi
 fi
 zplug load --verbose
-
+# }}}
 # anyenv
 [[ -d $ANYENV_HOME ]] || {
-	git clone https://github.com/riywo/anyenv $ANYENV_HOME
-	mkdir -p $ANYENV_HOME/plugins
-	# anyenv-update
-	git clone https://github.com/znz/anyenv-update.git $ANYENV_HOME/plugins/anyenv-update
+  git clone https://github.com/riywo/anyenv $ANYENV_HOME
+  mkdir -p $ANYENV_HOME/plugins
+  # anyenv-update
+  git clone https://github.com/znz/anyenv-update.git $ANYENV_HOME/plugins/anyenv-update
 }
 eval "$(anyenv init -)"
 
-# function
+# available
 available () {
   local x candidates
   candidates="$1:"
@@ -118,7 +116,7 @@ available () {
   return 1
 }
 
-#  keybinds 
+# keybinds {{{
 bindkey -v
 
 ## Ctrl-R
@@ -137,7 +135,8 @@ _fzf-select-history() {
 zle -N _fzf-select-history
 bindkey '^r' _fzf-select-history
 
-# aliases
+# }}}
+# aliases {{{
 alias ls='ls -G'
 alias la='ls -AF'
 alias lc='ls -ltcr'        # Sort by and show change time, most recent last
@@ -180,14 +179,21 @@ if is_osx; then
   alias -g CP='| pbcopy'
 fi
 
-# PROMPT
-PROMPT='[%n@%m]${memotxt}
-[%#]-> '
-PROMPT2='[%#]-> '
-RPROMPT='[%F{cyan}%~%f]'
-SPROMPT="%{${fg[red]}%}Did you mean?: %R -> %r [nyae]? %{${reset_color}%}"
+# }}}
+# autoload {{{
 
-# setopt
+autoload -Uz zmv
+
+# TODO : 後で機能を調べる
+autoload -Uz history-search-end
+autoload -Uz modify-current-argument
+autoload -Uz smart-insert-last-word
+autoload -Uz terminfo
+autoload -Uz vcs_info
+autoload -Uz zcalc
+
+# }}}
+# setopt {{{
 setopt auto_cd
 setopt auto_pushd             # cd したら自動的にpushdする
 setopt pushd_ignore_dups      # 重複したディレクトリを追加しない
@@ -219,16 +225,37 @@ setopt mark_dirs              # ファイル名の展開でディレクトリに
 setopt prompt_subst           # プロンプトが表示されるたびにプロンプト文字列を評価、置換する
 setopt share_history          # 同時に起動したzshの間でヒストリを共有する
 
-# zstyle
-## 補完で小文字でも大文字にマッチさせる
+# }}}
+# zstyle {{{
+
+# 補完で小文字でも大文字にマッチさせる
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
-## ../ の後は今いるディレクトリを補完しない
+
+# ../ の後は今いるディレクトリを補完しない
 zstyle ':completion:*' ignore-parents parent pwd ..
-## ps コマンドのプロセス名補完
+
+# これらのファイルは補完候補にしない。でも rm では候補にする。
+zstyle ':completion:*:*:(^rm):*:*files' ignored-patterns '*?.o|*?.d|*?.aux|*?~|*\#'
+
+# ps コマンドのプロセス名補完
 zstyle ':completion:*:processes' command "ps -u $USER -o pid,stat,%cpu,%mem,cputime,command"
 
-# autoload
-autoload -Uz zmv
+# kill 候補を色付け
+zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([%0-9]#)*=0=01;31'
 
-# Login Message
-echo "\nUsername: $USER\nDate: $(date)\nKernel: $(uname -rs)\nShell: zsh $ZSH_VERSION\n"
+# 補完候補をカーソルで選ぶ。
+zstyle ':completion:*:default' menu select=1
+
+# 補完時にこれらのディレクトリは除外する。
+zstyle ':completion:*:cd:*' ignored-patterns '*CVS|*.svn|*.git|*lost+found'
+
+# }}}
+# PROMPT {{{
+
+PROMPT='[%n@%m] '
+# [%#]-> '
+# PROMPT2='[%#]-> '
+RPROMPT='${memotxt} [%F{cyan}%~%f]'
+SPROMPT="%{${fg[red]}%}Did you mean?: %R -> %r [nyae]? %{${reset_color}%}"
+
+# }}}

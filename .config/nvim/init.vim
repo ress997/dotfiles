@@ -1,17 +1,3 @@
-if has('unix')
-  set fileformat=unix
-  set fileformats=unix,dos,mac
-  set fileencoding=utf-8
-  set fileencodings=utf-8,iso-2022-jp,cp932,euc-jp
-  set termencoding=
-elseif has('win32')
-  set fileformat=dos
-  set fileformats=dos,unix,mac
-  set fileencoding=utf-8
-  set fileencodings=iso-2022-jp,utf-8,euc-jp,cp932
-  set termencoding=
-endif
-
 " dein settings {{{
 if &compatible
   set nocompatible
@@ -43,7 +29,6 @@ if dein#check_install()
   call dein#install()
 endif
 " }}}
-
 " Plugin Seting {{{
 
 if dein#tap('deoplete.nvim')
@@ -94,19 +79,20 @@ endif
 
 " }}}
 
+if has('unix')
+  set fileformat=unix
+  set fileformats=unix,dos,mac
+  set fileencoding=utf-8
+  set fileencodings=utf-8,iso-2022-jp,cp932,euc-jp
+  set termencoding=
+endif
+
 if has('nvim')
   let $NVIM_TUI_ENABLE_TRUE_COLOR = 1
-elseif has('vim')
-  
 endif
 
 " Clipboard
 set clipboard+=unnamedplus
-
-" Viminfo
-set viminfo+=n~/.cache/vim/viminfo
-"履歴に保存する各種設定
-set viminfo='100,/50,%,<1000,f50,s100,:100,c,h,!
 
 " 表示設定
 syntax enable
@@ -114,27 +100,24 @@ syntax on
 set background=dark
 colorscheme hybrid
 
-
-set cmdheight=2   " メッセージ表示欄を2行確保
+set cmdheight=2     " メッセージ表示欄を2行確保
 set cursorcolumn    " カーソル位置のカラムの背景色を変える
 set cursorline      " カーソル行の背景色を変える
-set laststatus=2  " ステータス行を常に表示
+set laststatus=2    " ステータス行を常に表示
 set list            " 不可視文字を表示
 set number          " 行番号を表示する
 set showmatch       " 対応する括弧を強調表示
-set matchtime=1   " 対応する括弧の表示する時間
+set matchtime=1     " 対応する括弧の表示する時間
 
 " タブ/インデントの設定
-set softtabstop=4  " Tabキー押下時のカーソル移動幅
-set expandtab     " タブ入力を複数の空白入力に置き換える
-set tabstop=2     " 画面上でタブ文字が占める幅
-set shiftwidth=2  " 自動インデントでずれる幅
-set autoindent    " 改行時に前の行のインデントを継続する
-
-set list listchars=tab:\¦\
-" let g:indentLine_fileTypeExclude = ['help', 'nerdtree']
+set softtabstop=4   " Tabキー押下時のカーソル移動幅
+set expandtab       " タブ入力を複数の空白入力に置き換える
+set tabstop=2       " 画面上でタブ文字が占める幅
+set shiftwidth=2    " 自動インデントでずれる幅
+set autoindent      " 改行時に前の行のインデントを継続する
 
 " 不可視文字の表示記号指定
+set list listchars=tab:\¦\
 set listchars=eol:↲,extends:❯,precedes:❮
 
 " 折りたたみ機能
@@ -145,7 +128,7 @@ set foldmethod=marker
 set backspace=indent,eol,start " Backspaceキーの影響範囲に制限を設けない
 set whichwrap=b,s,h,l,<,>,[,]  " 行頭行末の左右移動で行をまたぐ
 
-" キーマッピング
+" キーマッピング {{{
 
 inoremap <C-h> <Backspace>
 inoremap <C-d> <Delete>
@@ -180,11 +163,6 @@ cnoremap <C-l> <RIGHT>
 cnoremap <C-h> <LEFT>
 cnoremap <C-d> <DELETE>
 
-nnoremap <Up> <Nop>
-nnoremap <Down> <Nop>
-nnoremap <Left> <Nop>
-nnoremap <Right> <Nop>
-
 inoremap <C-a> <Home>
 inoremap <C-e> <End>
 inoremap <C-h> <BS>
@@ -194,3 +172,5 @@ inoremap <C-b> <Left>
 inoremap <C-n> <Up>
 inoremap <C-p> <Down>
 inoremap <C-m> <CR>
+
+" }}}

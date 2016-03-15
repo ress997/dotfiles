@@ -1,43 +1,6 @@
 is_exists() {
-  which "$1" >/dev/null 2>&1
+  type "$1" >/dev/null 2>&1
   return $?
-}
-
-wiki() {
-  if [ -n "$1" ]; then
-    if ! is_exists open; then
-      echo "open: not found" 1>&2
-      exit 1
-    fi
-    local URL="http://ja.wikipedia.org/wiki/$1"
-    open $URL
-  else
-    echo "usage: $0 word"
-  fi
-}
-google() {
-  if [ -n "$1" ]; then
-    if ! is_exists open; then
-      echo "open: not found" 1>&2
-      exit 1
-    fi
-    local URL="https://www.google.co.jp/search?hl=ja&ie=utf-8&oe=utf-8&q=$1"
-    open $URL
-  else
-    echo "usage: $0 word"
-  fi
-}
-qiita() {
-  if [ -n "$1" ]; then
-    if ! is_exists open; then
-      echo "open: not found" 1>&2
-      exit 1
-    fi
-    local URL="http://qiita.com/search?utf8=%E2%9C%93&sort=rel&q=$1"
-    open $URL
-  else
-    echo "usage: $0 word"
-  fi
 }
 
 # hub
@@ -47,6 +10,7 @@ if is_exists hub; then
   }
 fi
 
+# ghq
 if is_exists ghq; then
   g() {
     cd $(ghq root)/$(ghq list | $(available $FILTER))
@@ -59,11 +23,12 @@ if is_exists ghq; then
   }
 fi
 
+# http://qiita.com/ress997/items/1c3fdce27ac60fb66b4e
 update () {
   local command
   for command in $1; do
-    if is_exists $command; then
-      if is_exists $command'-update'; then
+    if has $command; then
+      if has $command'-update'; then
         $command'-update'
       else
         $command update
@@ -83,6 +48,39 @@ memo() {
   for str in $@; do
     memotxt="${memotxt} ${str}"
   done
+}
+
+open_browser() {
+  if has open; then
+    open $1
+  else
+    echo "open: not found" 1>&2
+    exit 1
+  fi
+}
+wiki() {
+  if [ -n "$1" ]; then
+    local URL="http://ja.wikipedia.org/wiki/$1"
+    open_browser $URL
+  else
+    echo "usage: $0 word"
+  fi
+}
+google() {
+  if [ -n "$1" ]; then
+    local URL="https://www.google.co.jp/search?hl=ja&ie=utf-8&oe=utf-8&q=$1"
+    open_browser $URL
+  else
+    echo "usage: $0 word"
+  fi
+}
+qiita() {
+  if [ -n "$1" ]; then
+    local URL="http://qiita.com/search?utf8=%E2%9C%93&sort=rel&q=$1"
+    open_browser $URL
+  else
+    echo "usage: $0 word"
+  fi
 }
 
 # http://blog.b4b4r07.com/entry/2015/11/08/013526
