@@ -1,6 +1,11 @@
+is_exists() {
+  which "$1" >/dev/null 2>&1
+  return $?
+}
+
 wiki() {
   if [ -n "$1" ]; then
-    if ! has open; then
+    if ! is_exists open; then
       echo "open: not found" 1>&2
       exit 1
     fi
@@ -12,7 +17,7 @@ wiki() {
 }
 google() {
   if [ -n "$1" ]; then
-    if ! has open; then
+    if ! is_exists open; then
       echo "open: not found" 1>&2
       exit 1
     fi
@@ -24,7 +29,7 @@ google() {
 }
 qiita() {
   if [ -n "$1" ]; then
-    if ! has open; then
+    if ! is_exists open; then
       echo "open: not found" 1>&2
       exit 1
     fi
@@ -36,20 +41,38 @@ qiita() {
 }
 
 # hub
-if type hub >/dev/null 2>&1; then
+if is_exists hub; then
   git() {
     hub "$@"
   }
 fi
 
-if type ghq >/dev/null 2>&1; then
+if is_exists ghq; then
   g() {
     cd $(ghq root)/$(ghq list | $(available $FILTER))
   }
   gh() {
     hub browse $(ghq list | $(available $FILTER) | cut -d "/" -f 2,3)
   }
+  ghq-update() {
+    ghq list | sed 's|.[^/]*/||' | xargs -n 1 -P 10 ghq get -u
+  }
 fi
+
+update () {
+  local command
+  for command in $1; do
+    if is_exists $command; then
+      if is_exists $command'-update'; then
+        $command'-update'
+      else
+        $command update
+      fi
+    else
+      echo "Error: $command update"
+    fi
+  done
+}
 
 # http://qiita.com/yasuto777/items/f3bd6cffd418f3830b75
 memo() {
@@ -121,7 +144,7 @@ HELP
         if [[ -d ${arr[1]} ]]; then
           ls -l "${(@f)res}" < /dev/tty | less > /dev/tty
         else
-          if has "pygmentize"; then
+          if is_exists "pygmentize"; then
             get_styles="from pygments.styles import get_all_styles
             styles = list(get_all_styles())
             print('\n'.join(styles))"
