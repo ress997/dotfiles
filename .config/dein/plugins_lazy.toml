@@ -1,29 +1,29 @@
 [[plugins]]
+repo    = 'Shougo/neomru.vim'
+on_path = '.*'
+
+[[plugins]]
+repo    = 'Shougo/unite.vim'
+depends = 'neomru.vim'
+
+[[plugins]]
+repo  = 'Shougo/deoplete.nvim'
+if    = 'has("nvim")'
+on_i  = 1
+
+# filer
+[[plugins]]
+repo    = 'Shougo/vimfiler.vim'
+depends = 'unite.vim'
+on_map  = '<Plug>'
+on_path = '.*'
+
+# Haml
+[[plugins]]
+repo  = 'tpope/vim-haml'
+on_ft = ['haml']
+
+# EditorConfig
+[[plugins]]
 repo = 'editorconfig/editorconfig-vim'
 on_i = 1
-
-[[plugins]]
-repo = 'Shougo/neocomplete.vim'
-on_i = 1
-
-[[plugins]]
-repo = 'Shougo/deoplete.nvim'
-if = 'has("nvim")'
-on_i = 1
-
-[[plugins]]
-repo = 'Shougo/unite.vim'
-
-[[plugins]]
-repo = 'Shougo/neomru.vim'
-on_source = ['unite.vim']
-
-[[plugins]]
-repo = 'fatih/vim-go'
-on_ft = ['go']
-
-[[plugins]]
-repo = 'Shougo/vimfiler.vim'
-depends = 'unite.vim'
-on_map = '<Plug>'
-on_path = '.*'

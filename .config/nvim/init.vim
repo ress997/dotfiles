@@ -36,6 +36,7 @@ if dein#tap('deoplete.nvim')
 endif
 
 if dein#tap('emmet-vim')
+  let g:user_emmet_leader_key='<C-Z>'
   let g:user_emmet_settings = {
     \   'variables': {
     \     'lang': "ja"
@@ -45,7 +46,8 @@ if dein#tap('emmet-vim')
 endif
 
 if dein#tap('unite.vim')
-  let g:unite_enable_start_insert = 1
+  "インサートモードで開始しない
+  let g:unite_enable_start_insert = 0
   noremap <C-P> :Unite buffer<CR>
 endif
 
@@ -57,6 +59,9 @@ if dein#tap('vimfiler.vim')
   let g:vimfiler_as_default_explorer = 1
   let g:vimfiler_safe_mode_by_default = 0
   autocmd FileType vimfiler nmap <buffer> <CR> <Plug>(vimfiler_expand_or_edit)
+  " <F!0> で起動
+  nnoremap <F10> :VimFiler<ENTER>
+  " <C-K><C-B> でIDE風に起動
   noremap <C-K><C-B> :VimFiler -split -simple -winwidth=35 -no-quit<ENTER>
 " Like Textmate icons.
   let g:vimfiler_tree_leaf_icon = ' '
@@ -112,8 +117,8 @@ set matchtime=1     " 対応する括弧の表示する時間
 " タブ/インデントの設定
 set softtabstop=4   " Tabキー押下時のカーソル移動幅
 set expandtab       " タブ入力を複数の空白入力に置き換える
-set tabstop=2       " 画面上でタブ文字が占める幅
-set shiftwidth=2    " 自動インデントでずれる幅
+set tabstop=4       " 画面上でタブ文字が占める幅
+set shiftwidth=4    " 自動インデントでずれる幅
 set autoindent      " 改行時に前の行のインデントを継続する
 
 " 不可視文字の表示記号指定

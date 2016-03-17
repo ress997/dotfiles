@@ -2,14 +2,8 @@
 repo = 'Shougo/dein.vim'
 
 [[plugins]]
-repo = 'Shougo/vimproc.vim'
+repo  = 'Shougo/vimproc.vim'
 build = 'make'
-
-[[plugins]]
-repo = 'junegunn/fzf'
-
-[[plugins]]
-repo = 'mattn/emmet-vim'
 
 [[plugins]]
 repo = 'nathanaelkane/vim-indent-guides'
@@ -18,15 +12,22 @@ repo = 'nathanaelkane/vim-indent-guides'
 repo = 'itchyny/lightline.vim'
 
 [[plugins]]
-repo = 'cespare/vim-toml'
+repo = 'mattn/emmet-vim'
+
+[[plugins]]
+repo  = 'cespare/vim-toml'
 on_ft = 'toml'
 
 [[plugins]]
-repo = 'rcmdnk/vim-markdown'
+repo  = 'rcmdnk/vim-markdown'
+on_ft = ['markdown', 'mkd']
 
+# Japanese doc
 [[plugins]]
-repo = 'vim-jp/vimdoc-ja'
+repo  = 'vim-jp/vimdoc-ja'
 on_ft = 'help'
+
+# カラースキーマ
 
 [[plugins]]
 repo = 'altercation/vim-colors-solarized'
