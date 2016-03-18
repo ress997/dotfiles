@@ -4,79 +4,79 @@ DOTPATH=${DOTPATH:-$HOME/.dotfiles}
 DOTFILES_GITHUB="https://github.com/ress997/dotfiles.git"
 
 function is_exists() {
-	type "$1" >/dev/null 2>&1
-	return $?
+    type "$1" >/dev/null 2>&1
+    return $?
 }
 function is_debug() {
-	if [ "$DEBUG" = 1 ]; then
-		return 0
-	else
-		return 1
-	fi
+    if [ "$DEBUG" = 1 ]; then
+        return 0
+    else
+        return 1
+    fi
 }
 function e_newline() {
-	printf "\n"
+    printf "\n"
 }
 function e_header() {
-	printf " \033[37;1m%s\033[m\n" "$*"
+    printf " \033[37;1m%s\033[m\n" "$*"
 }
 function e_done() {
-	printf " \033[37;1m%s\033[m...\033[32mOK\033[m\n" "✔ $*"
+    printf " \033[37;1m%s\033[m...\033[32mOK\033[m\n" "✔ $*"
 }
 function e_warning() {
-	printf " \033[31m%s\033[m\n" "$*"
+    printf " \033[31m%s\033[m\n" "$*"
 }
 function e_error() {
-	printf " \033[31m%s\033[m\n" "✖ $*" 1>&2
+    printf " \033[31m%s\033[m\n" "✖ $*" 1>&2
 }
 function _dotfiles_download() {
-	e_newline && e_header "Downloading dotfiles..."
-	if is_debug; then
-		:
-	else
-		if is_exists "git"; then
-			git clone --recursiv $DOTFILES_GITHUB $DOTPATH
-		elif is_exists "curl" || is_exists "wget"; then
-			local tarball="https://github.com/ress997/dotfiles/archive/master.tar.gz"
-			if is_exists "curl"; then
-				curl -L "$tarball"
-			elif is_exists "wget"; then
-				wget -O - "$tarball"
-			fi | tar xvz
-			if [ ! -d dotfiles-master ]; then
-				e_warning "dotfiles-master: not found"
-				exit 1
-			fi
-			command mv -f dotfiles-master "$DOTPATH"
-		else
-			e_error "curl or wget required"
-			exit 1
-		fi
-	fi && e_newline && e_done "Download"
+    e_newline && e_header "Downloading dotfiles..."
+    if is_debug; then
+        :
+    else
+        if is_exists "git"; then
+            git clone --recursiv $DOTFILES_GITHUB $DOTPATH
+        elif is_exists "curl" || is_exists "wget"; then
+            local tarball="https://github.com/ress997/dotfiles/archive/master.tar.gz"
+            if is_exists "curl"; then
+                curl -L "$tarball"
+            elif is_exists "wget"; then
+                wget -O - "$tarball"
+            fi | tar xvz
+            if [ ! -d dotfiles-master ]; then
+                e_warning "dotfiles-master: not found"
+                exit 1
+            fi
+            command mv -f dotfiles-master "$DOTPATH"
+        else
+            e_error "curl or wget required"
+            exit 1
+        fi
+    fi && e_newline && e_done "Download"
 }
 function _dotfiles_deploy() {
-	e_newline && e_header "Deploying dotfiles..."
-	cd "$DOTPATH"
-	if is_debug; then
-		:
-	else
-		make deploy
-	fi && e_newline && e_done "Deploy"
+    e_newline && e_header "Deploying dotfiles..."
+    cd "$DOTPATH"
+    if is_debug; then
+        :
+    else
+        make deploy
+    fi && e_newline && e_done "Deploy"
 }
 function _dotfiles_initialize() {
-	if [ "$1" = "init" ]; then
-		e_newline && e_header "Initializing dotfiles..."
-		if is_debug; then
-			:
-		else
-			if [ -f Makefile ]; then
-				make init
-			else
-				e_warning "Makefile: not found"
-				exit 1
-			fi
-		fi && e_newline && e_done "Initialize"
-	fi
+    if [ "$1" = "init" ]; then
+        e_newline && e_header "Initializing dotfiles..."
+        if is_debug; then
+            :
+        else
+            if [ -f Makefile ]; then
+                make init
+            else
+                e_warning "Makefile: not found"
+                exit 1
+            fi
+        fi && e_newline && e_done "Initialize"
+    fi
 }
 
 _dotfiles_download && _dotfiles_deploy && _dotfiles_initialize "$1"

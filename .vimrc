@@ -20,7 +20,7 @@ let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
 
 " なければgit clone
 if !isdirectory(s:dein_repo_dir)
-  execute '!git clone https://github.com/Shougo/dein.vim' s:dein_repo_dir
+    execute '!git clone https://github.com/Shougo/dein.vim' s:dein_repo_dir
 endif
 
 execute 'set runtimepath^=' . s:dein_repo_dir
@@ -36,7 +36,7 @@ call dein#end()
 
 " もし、未インストールものものがあったらインストール
 if dein#check_install()
-  call dein#install()
+    call dein#install()
 endif
 " }}}
 
@@ -99,8 +99,8 @@ set listchars=tab:▸\ ,eol:↲,extends:❯,precedes:❮
 set statusline=%<%f\ %m%r%h%w%{'['.(&fenc!=''?&fenc:&enc).']['.&ff.']'}%=%l,%c%V%8P
 
 " 折りたたみ機能
-  set foldcolumn=4
-  set foldmethod=marker
+    set foldcolumn=4
+    set foldmethod=marker
 
 
 " キーマッピング

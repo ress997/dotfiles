@@ -2,9 +2,8 @@
 
 <p align="center">
 	<a href="LICENSE">
-		<img src="https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square" alt="MIT License">
+		<img alt="MIT License" src="https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square">
 	</a>
-
 </p>
 
 Overview

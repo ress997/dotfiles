@@ -18,82 +18,87 @@ let s:toml = '~/.config/dein/plugins.toml'
 let s:lazy_toml = '~/.config/dein/plugins_lazy.toml'
 
 if dein#load_cache([expand('<sfile>', s:toml, s:lazy_toml)])
-  call dein#load_toml(s:toml, {'lazy': 0})
-  call dein#load_toml(s:lazy_toml, {'lazy': 1})
-  call dein#save_cache()
+    call dein#load_toml(s:toml, {'lazy': 0})
+    call dein#load_toml(s:lazy_toml, {'lazy': 1})
+    call dein#save_cache()
 endif
 
 call dein#end()
 
 if dein#check_install()
-  call dein#install()
+    call dein#install()
 endif
 " }}}
 " Plugin Seting {{{
 
 if dein#tap('deoplete.nvim')
-  let g:deoplete#enable_at_startup = 1
+    let g:deoplete#enable_at_startup = 1
 endif
 
 if dein#tap('emmet-vim')
-  let g:user_emmet_leader_key='<C-Z>'
-  let g:user_emmet_settings = {
-    \   'variables': {
-    \     'lang': "ja"
-    \   },
-    \   'indentation': '  '
-    \ }
+    let g:user_emmet_leader_key='<C-Z>'
+    let g:user_emmet_settings = {
+        \   'variables': {
+        \       'lang': "ja"
+        \   },
+        \   'indentation': '  '
+        \ }
 endif
 
 if dein#tap('unite.vim')
-  "インサートモードで開始しない
-  let g:unite_enable_start_insert = 0
-  noremap <C-P> :Unite buffer<CR>
+    "インサートモードで開始しない
+    let g:unite_enable_start_insert = 0
+    noremap <C-P> :Unite buffer<CR>
 endif
 
 if dein#tap('vim-indent-guides')
-  " let g:indent_guides_enable_on_vim_startup=1
+    let g:indent_guides_enable_on_vim_startup=1
+    let g:indent_guides_auto_colors=0
+    autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd   ctermbg=110
+    autocmd VimEnter,Colorscheme * :hi IndentGuidesEven  ctermbg=140
+    let g:indent_guides_enable_on_vim_startup=1
+    let g:indent_guides_guide_size=1
 endif
 
 if dein#tap('vimfiler.vim')
-  let g:vimfiler_as_default_explorer = 1
-  let g:vimfiler_safe_mode_by_default = 0
-  autocmd FileType vimfiler nmap <buffer> <CR> <Plug>(vimfiler_expand_or_edit)
-  " <F!0> で起動
-  nnoremap <F10> :VimFiler<ENTER>
-  " <C-K><C-B> でIDE風に起動
-  noremap <C-K><C-B> :VimFiler -split -simple -winwidth=35 -no-quit<ENTER>
-" Like Textmate icons.
-  let g:vimfiler_tree_leaf_icon = ' '
-  let g:vimfiler_tree_opened_icon = '▾'
-  let g:vimfiler_tree_closed_icon = '▸'
-  let g:vimfiler_file_icon = '-'
-  let g:vimfiler_marked_file_icon = '*'
+    let g:vimfiler_as_default_explorer = 1
+    let g:vimfiler_safe_mode_by_default = 0
+    autocmd FileType vimfiler nmap <buffer> <CR> <Plug>(vimfiler_expand_or_edit)
+    " <F!0> で起動
+    nnoremap <F10> :VimFiler<ENTER>
+    " <C-K><C-B> でIDE風に起動
+    noremap <C-K><C-B> :VimFiler -split -simple -winwidth=35 -no-quit<ENTER>
+    " Like Textmate icons.
+    let g:vimfiler_tree_leaf_icon = ' '
+    let g:vimfiler_tree_opened_icon = '▾'
+    let g:vimfiler_tree_closed_icon = '▸'
+    let g:vimfiler_file_icon = '-'
+    let g:vimfiler_marked_file_icon = '*'
 endif
 
 if dein#tap('lightline.vim')
-  let g:lightline = {
+    let g:lightline = {
     \   'colorscheme': 'wombat',
     \ }
 endif
 
 if dein#tap('vim-markdown')
-  let g:vim_markdown_frontmatter = 1
-  let g:vim_markdown_math = 1
+    let g:vim_markdown_frontmatter = 1
+    let g:vim_markdown_math = 1
 endif
 
 " }}}
 
 if has('unix')
-  set fileformat=unix
-  set fileformats=unix,dos,mac
-  set fileencoding=utf-8
-  set fileencodings=utf-8,iso-2022-jp,cp932,euc-jp
-  set termencoding=
+    set fileformat=unix
+    set fileformats=unix,dos,mac
+    set fileencoding=utf-8
+    set fileencodings=utf-8,iso-2022-jp,cp932,euc-jp
+    set termencoding=
 endif
 
 if has('nvim')
-  let $NVIM_TUI_ENABLE_TRUE_COLOR = 1
+    let $NVIM_TUI_ENABLE_TRUE_COLOR = 1
 endif
 
 " Clipboard

@@ -1,10 +1,10 @@
 # fpath
 typeset -gx -U fpath
 fpath=( \
-  $HOME/.zsh/completion(N-/) \
-  /usr/local/share/zsh-completions(N-/) \
-  /usr/local/share/zsh/functions(N-/) \
-  $fpath \
+    $HOME/.zsh/completion(N-/) \
+    /usr/local/share/zsh-completions(N-/) \
+    /usr/local/share/zsh/functions(N-/) \
+    $fpath \
 )
 
 # autoload
@@ -91,11 +91,11 @@ export WORDCHARS='*?.[]~&;!#$%^(){}<>'
 # PATH
 typeset -U path PATH
 path=( \
-  $HOME/bin(N-/) \
-  $GOPATH/bin(N-/) \
-  $ANYENV_HOME/bin(N-/) \
-  /usr/local/bin(N-/) \
-  $path \
+    $HOME/bin(N-/) \
+    $GOPATH/bin(N-/) \
+    $ANYENV_HOME/bin(N-/) \
+    /usr/local/bin(N-/) \
+    $path \
 )
 
 [ -f $HOME/.secret ] && source $HOME/.secret

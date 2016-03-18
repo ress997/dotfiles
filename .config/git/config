@@ -1,34 +1,34 @@
 [core]
-  pager = less -q -R
-  excludesfile = ~/.config/git/ignore
-  preloadindex = true
+    pager = less -q -R
+    excludesfile = ~/.config/git/ignore
+    preloadindex = true
 [user]
-  email = email@ress997.me
-  name = ress997
+    email = email@ress997.me
+    name = ress997
 [alias]
-  p = push
-  br = branch
-  cm = commit
-  co = checkout
-  st = status
-  last = log -1 HEAD
-  lg = log --graph --pretty=format:'%Cblue%h%Creset [%ar] %C(yellow)%an%Creset %C(auto)%d%Creset %s'
+    p = push
+    br = branch
+    cm = commit
+    co = checkout
+    st = status
+    last = log -1 HEAD
+    lg = log --graph --pretty=format:'%Cblue%h%Creset [%ar] %C(yellow)%an%Creset %C(auto)%d%Creset %s'
 [color]
-  ui = true
+    ui = true
 [commit]
-  template = ~/.config/git/message.txt
+    template = ~/.config/git/message.txt
 [credential]
-  helper = osxkeychain
+    helper = osxkeychain
 [diff]
-  algorithm = histogram
-  tool = vimdiff
+    algorithm = histogram
+    tool = vimdiff
 [ghq]
-  root = ~/.dev/ghq
+    root = ~/.dev/ghq
 [help]
-  autocorrect = 1
+    autocorrect = 1
 [hub]
-  protocol = https
+    protocol = https
 [push]
-  default = current
+    default = current
 [web]
-  browser = open
+    browser = open
