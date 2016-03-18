@@ -6,9 +6,6 @@ repo  = 'Shougo/vimproc.vim'
 build = 'make'
 
 [[plugins]]
-repo = 'nathanaelkane/vim-indent-guides'
-
-[[plugins]]
 repo = 'itchyny/lightline.vim'
 
 [[plugins]]
