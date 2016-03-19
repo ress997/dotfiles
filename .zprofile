@@ -39,15 +39,14 @@ update () {
     done
 }
 
-# http://qiita.com/yasuto777/items/f3bd6cffd418f3830b75
-memo() {
-    if [ $# -eq 0 ]; then
-        unset memotxt
-        return
+# mkdirとcdを同時実行
+mkcd() {
+    if [[ -d $1 ]]; then
+        echo "$1 already exists!"
+        cd $1
+    else
+        mkdir -p $1 && cd $1
     fi
-    for str in $@; do
-        memotxt="${memotxt} ${str}"
-    done
 }
 
 open_browser() {

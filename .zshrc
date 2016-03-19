@@ -190,23 +190,22 @@ autoload -Uz history-search-end
 autoload -Uz modify-current-argument
 autoload -Uz smart-insert-last-word
 autoload -Uz terminfo
-autoload -Uz vcs_info
 autoload -Uz zcalc
 
 # }}}
 # setopt {{{
-setopt auto_cd
-setopt auto_pushd               # cd したら自動的にpushdする
-setopt pushd_ignore_dups        # 重複したディレクトリを追加しない
-setopt pushd_to_home
-setopt correct                  # 補完機能
-setopt correct_all
-setopt brace_ccl                # Deploy {a-c} -> a b c
-setopt print_eight_bit          # 日本語ファイル名を表示可能にする
-setopt no_beep                  # beep を無効にする
-setopt equals                   # Expand '=command' as path of command. e.g.) '=ls' -> '/bin/ls's
-setopt no_flow_control          # フローコントロールを無効にする
 
+# ヒストリ
+setopt hist_ignore_all_dups     # 同じコマンドをヒストリに残さない
+setopt hist_ignore_space        # スペースから始まるコマンド行はヒストリに残さない
+setopt hist_reduce_blanks       # ヒストリに保存するときに余分なスペースを削除する
+setopt share_history            # 同時に起動したzshの間でヒストリを共有する
+
+# 無効
+setopt no_beep              # beep を無効にする
+setopt no_flow_control      # フローコントロールを無効にする
+
+# 未整理
 setopt always_last_prompt       # カーソル位置は保持したままファイル名一覧を順次その場で表示
 setopt auto_menu                # 補完キー連打で順に補完候補を自動で補完
 setopt auto_param_keys          # カッコの対応などを自動的に補完
@@ -215,16 +214,23 @@ setopt auto_list                # 補完候補を一覧で表示する
 setopt complete_in_word         # 語の途中でもカーソル位置で補完
 setopt extended_glob            # 高機能なワイルドカード展開を使用する
 setopt globdots                 # 明確なドットの指定なしで.から始まるファイルをマッチ
-setopt hist_ignore_all_dups     # 同じコマンドをヒストリに残さない
-setopt hist_ignore_space        # スペースから始まるコマンド行はヒストリに残さない
-setopt hist_reduce_blanks       # ヒストリに保存するときに余分なスペースを削除する
 setopt ignore_eof               # Ctrl+Dでzshを終了しない
 setopt interactive_comments     # コマンドラインでも # 以降をコメントと見なす
 setopt list_types               # 補完候補一覧でファイルの種別を識別マーク表示 (訳注:ls -F の記号)
 setopt magic_equal_subst        # コマンドラインの引数で --prefix=/usr などの = 以降でも補完できる
 setopt mark_dirs                # ファイル名の展開でディレクトリにマッチした場合 末尾に / を付加
 setopt prompt_subst             # プロンプトが表示されるたびにプロンプト文字列を評価、置換する
-setopt share_history            # 同時に起動したzshの間でヒストリを共有する
+
+# その他
+setopt auto_cd
+setopt auto_pushd               # cd したら自動的にpushdする
+setopt pushd_ignore_dups        # 重複したディレクトリを追加しない
+setopt pushd_to_home
+setopt correct                  # 補完機能
+setopt correct_all
+setopt brace_ccl                # Deploy {a-c} -> a b c
+setopt print_eight_bit          # 日本語ファイル名を表示可能にする
+setopt equals                   # Expand '=command' as path of command. e.g.) '=ls' -> '/bin/ls's
 
 # }}}
 # zstyle {{{
@@ -248,15 +254,152 @@ zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([%0-9]#)*=0=01;31
 zstyle ':completion:*:default' menu select=1
 
 # 補完時にこれらのディレクトリは除外する。
-zstyle ':completion:*:cd:*' ignored-patterns '*CVS|*.svn|*.git|*lost+found'
+zstyle ':completion:*:cd:*' ignored-patterns '*CVS|*.git|*lost+found'
 
 # }}}
 # PROMPT {{{
 
 PROMPT='[%n@%m] '
-# [%#]-> '
-# PROMPT2='[%#]-> '
-RPROMPT='${memotxt} [%F{cyan}%~%f]'
 SPROMPT="%{${fg[red]}%}Did you mean?: %R -> %r [nyae]? %{${reset_color}%}"
+# RPROMPT="[%F{cyan}%~%f]"
+
+# }}}
+# vcs_info {{{
+
+autoload -Uz vcs_info
+zstyle ':vcs_info:*' enable git
+
+# 以下の3つのメッセージをエクスポートする
+#   $vcs_info_msg_0_ : 通常メッセージ用 (緑)
+#   $vcs_info_msg_1_ : 警告メッセージ用 (黄色)
+#   $vcs_info_msg_2_ : エラーメッセージ用 (赤)
+zstyle ':vcs_info:*' max-exports 3
+
+# フォーマット
+zstyle ':vcs_info:git:*' formats '[%b]' '%c%u %m'
+zstyle ':vcs_info:git:*' actionformats '[%b]' '%c%u %m' '<!%a>'
+zstyle ':vcs_info:git:*' check-for-changes true
+zstyle ':vcs_info:git:*' stagedstr "+"    # %c で表示する文字列
+zstyle ':vcs_info:git:*' unstagedstr "-"  # %u で表示する文字列
+
+
+# formats '[%b]' '%c%u %m' , actionformats '[%b]' '%c%u %m' '<!%a>' のメッセージを設定する直前のフック関数今回の設定の場合はformat の時は2つ, actionformats の時は3つメッセージがあるので各関数が最大3回呼び出される。
+zstyle ':vcs_info:git+set-message:*' hooks git-hook-begin git-untracked git-push-status git-nomerge-branch git-stash-count
+
+# フックの最初の関数
+# git の作業コピーのあるディレクトリのみフック関数を呼び出すようにする (.git ディレクトリ内にいるときは呼び出さない) .git ディレクトリ内では git status --porcelain などがエラーになるため
++vi-git-hook-begin() {
+    if [[ $(command git rev-parse --is-inside-work-tree 2> /dev/null) != 'true' ]]; then
+        # 0以外を返すとそれ以降のフック関数は呼び出されない
+        return 1
+    fi
+
+    return 0
+}
+
+# untracked ファイル表示
+# untracked ファイル(バージョン管理されていないファイル)がある場合は unstaged (%u) に ? を表示
++vi-git-untracked() {
+    # zstyle formats, actionformats の2番目のメッセージのみ対象にする
+    if [[ "$1" != "1" ]]; then
+        return 0
+    fi
+
+    if command git status --porcelain 2> /dev/null \
+        | awk '{print $1}' \
+        | command grep -F '??' > /dev/null 2>&1 ; then
+
+        # unstaged (%u) に追加
+        hook_com[unstaged]+='?'
+    fi
+}
+
+# push していないコミットの件数表示
+# リモートリポジトリに push していないコミットの件数を pN という形式で misc (%m) に表示する
++vi-git-push-status() {
+    # zstyle formats, actionformats の2番目のメッセージのみ対象にする
+    if [[ "$1" != "1" ]]; then
+        return 0
+    fi
+
+    if [[ "${hook_com[branch]}" != "master" ]]; then
+        # master ブランチでない場合は何もしない
+        return 0
+    fi
+
+    # push していないコミット数を取得する
+    local ahead
+    ahead=$(command git rev-list origin/master..master 2>/dev/null \
+        | wc -l \
+        | tr -d ' ')
+
+    if [[ "$ahead" -gt 0 ]]; then
+        # misc (%m) に追加
+        hook_com[misc]+="(p${ahead})"
+    fi
+}
+
+# マージしていない件数表示
+# master 以外のブランチにいる場合に、現在のブランチ上でまだ master にマージしていないコミットの件数を (mN) という形式で misc (%m) に表示
++vi-git-nomerge-branch() {
+    # zstyle formats, actionformats の2番目のメッセージのみ対象にする
+    if [[ "$1" != "1" ]]; then
+        return 0
+    fi
+
+    if [[ "${hook_com[branch]}" == "master" ]]; then
+        # master ブランチの場合は何もしない
+        return 0
+    fi
+
+    local nomerged
+    nomerged=$(command git rev-list master..${hook_com[branch]} 2>/dev/null | wc -l | tr -d ' ')
+
+    if [[ "$nomerged" -gt 0 ]] ; then
+        # misc (%m) に追加
+        hook_com[misc]+="(m${nomerged})"
+    fi
+}
+
+# stash 件数表示
+# stash している場合は :SN という形式で misc (%m) に表示
++vi-git-stash-count() {
+    # zstyle formats, actionformats の2番目のメッセージのみ対象にする
+    if [[ "$1" != "1" ]]; then
+        return 0
+    fi
+
+    local stash
+    stash=$(command git stash list 2>/dev/null | wc -l | tr -d ' ')
+    if [[ "${stash}" -gt 0 ]]; then
+        # misc (%m) に追加
+        hook_com[misc]+=":S${stash}"
+    fi
+}
+
+
+_update_vcs_info_msg() {
+    local -a messages
+    local prompt
+
+    LANG=en_US.UTF-8 vcs_info
+
+    if [[ -z ${vcs_info_msg_0_} ]]; then
+        # vcs_info で何も取得していない場合はプロンプトを表示しない
+        prompt=""
+    else
+        # vcs_info で情報を取得した場合 $vcs_info_msg_0_ , $vcs_info_msg_1_ , $vcs_info_msg_2_ をそれぞれ緑、黄色、赤で表示する
+        [[ -n "$vcs_info_msg_0_" ]] && messages+=( "%F{green}${vcs_info_msg_0_}%f" )
+        [[ -n "$vcs_info_msg_1_" ]] && messages+=( "%F{yellow}${vcs_info_msg_1_}%f" )
+        [[ -n "$vcs_info_msg_2_" ]] && messages+=( "%F{red}${vcs_info_msg_2_}%f" )
+
+        # 間にスペースを入れて連結する
+        prompt="${(j: :)messages}"
+    fi
+
+    RPROMPT="$prompt [%F{cyan}%~%f]"
+}
+
+add-zsh-hook precmd _update_vcs_info_msg
 
 # }}}
