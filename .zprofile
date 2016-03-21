@@ -39,7 +39,7 @@ update () {
     done
 }
 
-# mkdirとcdを同時実行
+# Concurrency the mkdir and cd
 mkcd() {
     if [[ -d $1 ]]; then
         echo "$1 already exists!"

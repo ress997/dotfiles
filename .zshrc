@@ -2,17 +2,32 @@ umask 022
 bindkey -d
 limit coredumpsize 0
 
+# 重複パスを登録しない
+typeset -U path cdpath fpath manpath
+
 # TMUX Auto new-session {{{
 has() {
     type "$1" >/dev/null 2>&1
     return $?
 }
-is_osx() { [[ $OSTYPE == darwin* ]]; }
-is_screen_running() { [ ! -z "$STY" ]; }
-is_tmux_runnning() { [ ! -z "$TMUX" ]; }
-is_screen_or_tmux_running() { is_screen_running || is_tmux_runnning; }
-shell_has_started_interactively() { [ ! -z "$PS1" ]; }
-is_ssh_running() { [ ! -z "$SSH_CONECTION" ]; }
+is_osx() {
+    [[ $OSTYPE == darwin* ]]
+}
+is_screen_running() {
+    [ ! -z "$STY" ]
+}
+is_tmux_runnning() {
+    [ ! -z "$TMUX" ]
+}
+is_screen_or_tmux_running() {
+    is_screen_running || is_tmux_runnning
+}
+shell_has_started_interactively() {
+    [ ! -z "$PS1" ]
+}
+is_ssh_running() {
+    [ ! -z "$SSH_CONECTION" ]
+}
 tmux_automatically_attach_session() {
     if is_screen_or_tmux_running; then
         ! has 'tmux' && return 1
@@ -73,7 +88,15 @@ zplug "junegunn/fzf", as:command, of:bin/fzf-tmux
 zplug "junegunn/fzf-bin", as:command, from:gh-r, file:fzf
 zplug "mrowa44/emojify", as:command
 zplug "peco/peco", as:command, from:gh-r, of:"*amd64*"
-zplug "stedolan/jq", from:gh-r, as:command
+zplug "stedolan/jq", as:command, from:gh-r
+
+# 実験
+zplug "motemen/ghq", as:command, from:gh-r, of:"*${(L)$(uname -s)}*amd64*" # => なぜか失敗する
+# zplug "motemen/ghq", as:command, if:"type go", do:"make build", of:ghq # => ちゃんとビルドすると成功する
+
+# zplug "github/hub", as:command, from:gh-r
+# zplug "mattn/jvgrep", as:command, from:gh-r # => highwayの方をなるべく使いたい
+# zplug "tkengo/highway", as:command, do:"./tools/build.sh", of:hw # => 必要な物さえあれば成功
 
 # Plugin
 zplug "b4b4r07/emoji-cli"
@@ -96,7 +119,7 @@ zplug load --verbose
     # anyenv-update
     git clone https://github.com/znz/anyenv-update.git $ANYENV_HOME/plugins/anyenv-update
 }
-eval "$(anyenv init -)"
+[ -x $ANYENV_HOME/bin/anyenv ] && eval "$($ANYENV_HOME/bin/anyenv init -)"
 
 # available
 available () {
@@ -150,12 +173,15 @@ alias cp="${ZSH_VERSION:+nocorrect} cp -i"
 alias mv="${ZSH_VERSION:+nocorrect} mv -i"
 alias mkdir="${ZSH_VERSION:+nocorrect} mkdir"
 
+# 複数ファイルのmv 例　zmv *.txt *.txt.bk
+alias zmv='noglob zmv -W'
+
 alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
 
 # Homebrew
-if has brew;then
+if has brew; then
     alias b='brew'
     alias bl='brew list'
     alias bd='brew doctor'
@@ -163,8 +189,9 @@ if has brew;then
 fi
 
 # NeoVim
-if has nvim;then
+if has nvim; then
     alias n='nvim'
+    alias vi='nvim'
     alias vim='nvim'
 fi
 
@@ -183,10 +210,10 @@ fi
 # }}}
 # autoload {{{
 
+# zmv - 複数ファイルのmv
 autoload -Uz zmv
 
 # TODO : 後で機能を調べる
-autoload -Uz history-search-end
 autoload -Uz modify-current-argument
 autoload -Uz smart-insert-last-word
 autoload -Uz terminfo
@@ -256,10 +283,18 @@ zstyle ':completion:*:default' menu select=1
 # 補完時にこれらのディレクトリは除外する。
 zstyle ':completion:*:cd:*' ignored-patterns '*CVS|*.git|*lost+found'
 
+# 補完メッセージを読みやすくする
+zstyle ':completion:*' verbose yes
+zstyle ':completion:*' format '%B%d%b'
+zstyle ':completion:*:warnings' format 'No matches for: %d'
+zstyle ':completion:*' group-name ''
+
 # }}}
 # PROMPT {{{
 
-PROMPT='[%n@%m] '
+PROMPT='[%n@%m] [%F{cyan}%~%f]
+[%#]-> '
+PROMPT2='[%#]-> '
 SPROMPT="%{${fg[red]}%}Did you mean?: %R -> %r [nyae]? %{${reset_color}%}"
 # RPROMPT="[%F{cyan}%~%f]"
 
@@ -270,9 +305,9 @@ autoload -Uz vcs_info
 zstyle ':vcs_info:*' enable git
 
 # 以下の3つのメッセージをエクスポートする
-#   $vcs_info_msg_0_ : 通常メッセージ用 (緑)
-#   $vcs_info_msg_1_ : 警告メッセージ用 (黄色)
-#   $vcs_info_msg_2_ : エラーメッセージ用 (赤)
+# - $vcs_info_msg_0_ : 通常メッセージ用 (緑)
+# - $vcs_info_msg_1_ : 警告メッセージ用 (黄色)
+# - $vcs_info_msg_2_ : エラーメッセージ用 (赤)
 zstyle ':vcs_info:*' max-exports 3
 
 # フォーマット
@@ -397,7 +432,7 @@ _update_vcs_info_msg() {
         prompt="${(j: :)messages}"
     fi
 
-    RPROMPT="$prompt [%F{cyan}%~%f]"
+    RPROMPT="$prompt"
 }
 
 add-zsh-hook precmd _update_vcs_info_msg
