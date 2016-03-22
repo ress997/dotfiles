@@ -91,7 +91,7 @@ zplug "peco/peco", as:command, from:gh-r, of:"*amd64*"
 zplug "stedolan/jq", as:command, from:gh-r
 
 # 実験
-zplug "motemen/ghq", as:command, from:gh-r, of:"*${(L)$(uname -s)}*amd64*" # => なぜか失敗する
+# zplug "motemen/ghq", as:command, from:gh-r, of:"*${(L)$(uname -s)}*amd64*" # => なぜか失敗する
 # zplug "motemen/ghq", as:command, if:"type go", do:"make build", of:ghq # => ちゃんとビルドすると成功する
 
 # zplug "github/hub", as:command, from:gh-r

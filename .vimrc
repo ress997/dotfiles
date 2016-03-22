@@ -15,7 +15,7 @@ if &compatible
   set nocompatible
 endif
 " dein.vimのディレクトリ
-let s:dein_dir = expand('~/.vim/dein')
+let s:dein_dir = expand('$HOME/.vim/dein')
 let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
 
 " なければgit clone
