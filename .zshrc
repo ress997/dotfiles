@@ -123,8 +123,8 @@ fi
 
 # fzf
 if zplug check junegunn/fzf-bin; then
-    if (( $+commands[ag] )) ; then
-        export FZF_DEFAULT_COMMAND='ag -g ""'
+    if zplug check monochromegane/the_platinum_searcher; then
+        export FZF_DEFAULT_COMMAND='pt -g ""'
     fi
     export FZF_DEFAULT_OPTS='--extended --ansi --multi'
 fi

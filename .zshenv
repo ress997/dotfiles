@@ -2,7 +2,6 @@
 typeset -gx -U fpath
 fpath=( \
     $HOME/.zsh/completion(N-/) \
-    /usr/local/share/zsh-completions(N-/) \
     /usr/local/share/zsh/functions(N-/) \
     $fpath \
 )
