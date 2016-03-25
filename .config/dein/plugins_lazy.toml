@@ -1,29 +1,65 @@
 [[plugins]]
-repo    = 'Shougo/neomru.vim'
-on_path = '.*'
+repo = 'junegunn/fzf'
+if = 'executable("fzf")'
+on_cmd = ['FZF','fzf#run']
 
 [[plugins]]
-repo    = 'Shougo/unite.vim'
-depends = 'neomru.vim'
+repo = 'junegunn/fzf.vim'
+depends = 'fzf'
+on_cmd = ['FzfColors','FzfFiles','FzfGitFiles','FzfHistory']
+hook_add = '''
+  " 各コマンド先頭につける (e.g. FzfFiles)
+  let g:fzf_command_prefix = 'Fzf'
+  " <C-f>c => FzfColors
+  nnoremap <C-f>c :<C-u>FzfColors<CR>
+  " <C-f>f => FzfFiles
+  nnoremap <C-f>f :<C-u>FzfFiles<CR>
+  " <C-f>g => FzfGitFiles
+  nnoremap <C-f>g :<C-u>FzfGitFiles<CR>
+'''
 
+# 補完
 [[plugins]]
-repo  = 'Shougo/deoplete.nvim'
-if    = 'has("nvim")'
-on_i  = 1
+repo = 'Shougo/deoplete.nvim'
+if = 'has("nvim")'
+on_i = 1
+hook_add = '''
+  let g:deoplete#enable_at_startup = 1
+  " <TAB> で補完を選択
+  inoremap <silent><expr> <Tab> pumvisible() ? "\<C-n>" : deoplete#mappings#manual_complete()
+'''
 
-# filer
+# Codic
 [[plugins]]
-repo    = 'Shougo/vimfiler.vim'
-depends = 'unite.vim'
-on_map  = '<Plug>'
-on_path = '.*'
+repo = 'koron/codic-vim'
+on_cmd = 'Codic'
 
-# Haml
+# Emmet
 [[plugins]]
-repo  = 'tpope/vim-haml'
-on_ft = ['haml']
+repo = 'mattn/emmet-vim'
+on_i = 1
+hook_add = '''
+  let g:user_emmet_mode = 'i'
+  let g:user_emmet_leader_key='<C-E>'
+  let g:use_emmet_complete_tag = 1
+  let g:user_emmet_settings = {
+  \   'variables': {
+  \     'lang': "ja"
+  \   },
+  \   'indentation': '    '
+  \ }
+'''
 
 # EditorConfig
 [[plugins]]
 repo = 'editorconfig/editorconfig-vim'
-on_i = 1
+on_path = '.*'
+
+[[plugins]]
+repo = 'tpope/vim-surround'
+on_path = '.*'
+
+# Git
+[[plugins]]
+repo = 'tpope/vim-fugitive'
+on_cmd = ['Gwrite','Gcommit','Gread','Gstatus','Gdiff','Gblame']

@@ -22,12 +22,6 @@ is_tmux_runnning() {
 is_screen_or_tmux_running() {
     is_screen_running || is_tmux_runnning
 }
-shell_has_started_interactively() {
-    [ ! -z "$PS1" ]
-}
-is_ssh_running() {
-    [ ! -z "$SSH_CONECTION" ]
-}
 tmux_automatically_attach_session() {
     if is_screen_or_tmux_running; then
         ! has 'tmux' && return 1
@@ -41,7 +35,7 @@ tmux_automatically_attach_session() {
             echo "This is on screen."
         fi
     else
-        if shell_has_started_interactively && ! is_ssh_running; then
+        if [ ! -z "$PS1" ] && [ -z "$SSH_CONECTION" ]; then
             if ! has 'tmux'; then
                 echo 'Error: tmux command not found' 2>&1
                 return 1
@@ -76,50 +70,72 @@ tmux_automatically_attach_session() {
 tmux_automatically_attach_session
 # }}}
 # zplug {{{
-[[ -d $ZPLUG_HOME ]] || {
-    curl -fLo $ZPLUG_HOME/zplug --create-dirs git.io/zplug
-    source $ZPLUG_HOME/zplug && zplug update --self
-}
-source $ZPLUG_HOME/zplug
+export ZPLUG_HOME="$DEV_DATA_HOME/zplug"
+export ZPLUG_CACHE_FILE="$XDG_CACHE_HOME/zplug/cache"
+export ZPLUG_FILTER=$FILTER
+export ZPLUG_LOADFILE=$XDG_CONFIG_HOME/zplug/plugin.zsh
 
-# Command
-zplug "b4b4r07/zsh-gomi", as:command, of:bin/gomi
-zplug "junegunn/fzf", as:command, of:bin/fzf-tmux
-zplug "junegunn/fzf-bin", as:command, from:gh-r, file:fzf
-zplug "mrowa44/emojify", as:command
-zplug "peco/peco", as:command, from:gh-r, of:"*amd64*"
-zplug "stedolan/jq", as:command, from:gh-r
+if [ ! -f $ZPLUG_HOME/init.zsh ]; then
+    if (( $+commands[git] )); then
+        git clone https://github.com/b4b4r07/zplug2 $ZPLUG_HOME
+    else
+        echo 'git not found' >&2
+        exit 1
+    fi
+fi
 
-# 実験
-# zplug "motemen/ghq", as:command, from:gh-r, of:"*${(L)$(uname -s)}*amd64*" # => なぜか失敗する
-# zplug "motemen/ghq", as:command, if:"type go", do:"make build", of:ghq # => ちゃんとビルドすると成功する
-
-# zplug "github/hub", as:command, from:gh-r
-# zplug "mattn/jvgrep", as:command, from:gh-r # => highwayの方をなるべく使いたい
-# zplug "tkengo/highway", as:command, do:"./tools/build.sh", of:hw # => 必要な物さえあれば成功
-
-# Plugin
-zplug "b4b4r07/emoji-cli"
-zplug "b4b4r07/enhancd", of:enhancd.sh
-zplug "zsh-users/zsh-completions"
-zplug "zsh-users/zsh-syntax-highlighting", nice:19
+source $ZPLUG_HOME/init.zsh
 
 if ! zplug check --verbose; then
     printf "Install? [y/N]: "
     if read -q; then
         echo; zplug install
+    else
+        echo
     fi
 fi
 zplug load --verbose
 # }}}
+# Plugin Seting {{{
+
 # anyenv
-[[ -d $ANYENV_HOME ]] || {
-    git clone https://github.com/riywo/anyenv $ANYENV_HOME
-    mkdir -p $ANYENV_HOME/plugins
-    # anyenv-update
-    git clone https://github.com/znz/anyenv-update.git $ANYENV_HOME/plugins/anyenv-update
-}
-[ -x $ANYENV_HOME/bin/anyenv ] && eval "$($ANYENV_HOME/bin/anyenv init -)"
+if zplug check riywo/anyenv; then
+    export ANYENV_ROOT="$ZPLUG_HOME/repos/riywo/anyenv"
+    eval "$(anyenv init -)"
+fi
+
+# emoji-cli
+if zplug check b4b4r07/emoji-cli; then
+    export EMOJI_CLI_FILTER=$FILTER
+fi
+
+# emojify
+if zplug check mrowa44/emojify; then
+    alias -g E='| emojify'
+fi
+
+# enhancd
+if zplug check b4b4r07/enhancd; then
+    export ENHANCD_DIR="$XDG_DATA_HOME/enhancd"
+    export ENHANCD_LOG="$ENHANCD_DIR/enhancd.log"
+    export ENHANCD_FILTER=$FILTER
+fi
+
+# fzf
+if zplug check junegunn/fzf-bin; then
+    if (( $+commands[ag] )) ; then
+        export FZF_DEFAULT_COMMAND='ag -g ""'
+    fi
+    export FZF_DEFAULT_OPTS='--extended --ansi --multi'
+fi
+
+# hub
+if zplug check github/hub; then
+    eval "$(hub alias -s)"
+fi
+
+# }}}
+# function {{{
 
 # available
 available () {
@@ -138,6 +154,118 @@ available () {
     return 1
 }
 
+# ghq
+if (( $+commands[ghq] )); then
+    g() {
+        cd $(ghq root)/$(ghq list | $(available $FILTER))
+    }
+    gh() {
+        hub browse $(ghq list | $(available $FILTER) | cut -d "/" -f 2,3)
+    }
+    ghq-update() {
+        ghq list | sed 's|.[^/]*/||' | xargs -n 1 -P 10 ghq get -u
+    }
+fi
+
+# pip
+if (( $+commands[pip] )); then
+    pip-update() {
+        pip freeze --local | grep -v '^\-e' | cut -d = -f 1 | xargs -n 1 -P 10 pip install -U
+    }
+fi
+if (( $+commands[pip3] )); then
+    pip3-update() {
+        pip3 freeze --local | grep -v '^\-e' | cut -d = -f 1 | xargs -n 1 -P 10 pip3 install -U
+    }
+fi
+
+# nvim
+if (( $+commands[nvim] )) && (( $+commands[tmux] )); then
+    nv() {
+        local np=`tmux list-panes | wc | awk '{print $1}'`
+        tmux has-session &> /dev/null
+        if [ $? = 0 ] && [ $COLUMNS -ge 120 ] && [ $np = 1 ]; then
+            tmux split-window -h -p 70 "nvim $1"
+        else
+            nvim $1
+        fi
+    }
+fi
+
+# fshow - git commit browser (enter for show, ctrl-d for diff)
+if (( $+commands[fzf] )); then
+    fshow() {
+      local out shas sha q k
+      while out=$(
+          git log --graph --color=always \
+              --format="%C(auto)%h%d %s %C(black)%C(bold)%cr" "$@" |
+          fzf --ansi --multi --no-sort --reverse --query="$q" \
+              --print-query --expect=ctrl-d); do
+        q=$(head -1 <<< "$out")
+        k=$(head -2 <<< "$out" | tail -1)
+        shas=$(sed '1,2d;s/^[^a-z0-9]*//;/^$/d' <<< "$out" | awk '{print $1}')
+        [ -z "$shas" ] && continue
+        if [ "$k" = ctrl-d ]; then
+          git diff --color=always $shas | less -R
+        else
+          for sha in $shas; do
+            git show --color=always $sha | less -R
+          done
+        fi
+      done
+    }
+fi
+
+# Concurrency the mkdir and cd
+mkcd() {
+    if [[ -d $1 ]]; then
+        echo "$1 already exists!"
+        cd $1
+    else
+        mkdir -p $1 && cd $1
+    fi
+}
+
+open_browser() {
+    if (( $+commands[open] )); then
+        open $1
+    else
+        echo "open: not found" 1>&2
+        exit 1
+    fi
+}
+wiki() {
+    if [ -n "$1" ]; then
+        local URL="http://ja.wikipedia.org/wiki/$1"
+        open_browser $URL
+    else
+        echo "usage: $0 word"
+    fi
+}
+google() {
+    if [ -n "$1" ]; then
+        local URL="https://www.google.co.jp/search?hl=ja&ie=utf-8&oe=utf-8&q=$1"
+        open_browser $URL
+    else
+        echo "usage: $0 word"
+    fi
+}
+qiita() {
+    if [ -n "$1" ]; then
+        local URL="http://qiita.com/search?utf8=%E2%9C%93&sort=rel&q=$1"
+        open_browser $URL
+    else
+        echo "usage: $0 word"
+    fi
+}
+
+# }}}
+# etc {{{
+
+# rbenv
+(( $+commands[rbenv] )) && eval "$(rbenv init -)"
+
+# }}}
 # keybinds {{{
 bindkey -v
 
@@ -176,12 +304,8 @@ alias mkdir="${ZSH_VERSION:+nocorrect} mkdir"
 # 複数ファイルのmv 例　zmv *.txt *.txt.bk
 alias zmv='noglob zmv -W'
 
-alias grep='grep --color=auto'
-alias fgrep='fgrep --color=auto'
-alias egrep='egrep --color=auto'
-
 # Homebrew
-if has brew; then
+if (( $+commands[brew] )); then
     alias b='brew'
     alias bl='brew list'
     alias bd='brew doctor'
@@ -189,8 +313,7 @@ if has brew; then
 fi
 
 # NeoVim
-if has nvim; then
-    alias n='nvim'
+if (( $+commands[nvim] )); then
     alias vi='nvim'
     alias vim='nvim'
 fi
@@ -198,10 +321,6 @@ fi
 # Global Alias
 alias -g L='| less'
 alias -g G='| grep'
-
-if has "emojify"; then
-    alias -g E='| emojify'
-fi
 
 if is_osx; then
     alias -g CP='| pbcopy'
