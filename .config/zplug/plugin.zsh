@@ -8,7 +8,7 @@ zplug 'mrowa44/emojify', as:command
 zplug 'peco/peco', as:command, from:gh-r, use:"*${(L)$(uname -s)}*amd64*"
 zplug 'stedolan/jq', as:command, from:gh-r, use:"*osx*", hook-build:'chmod +x ./jq-osx-amd64', rename_to:jq
 
-# 実験
+# 実験的な機能
 zplug 'motemen/ghq', as:command, from:gh-r, use:"*${(L)$(uname -s)}*amd64*"
 zplug 'github/hub', as:command, from:gh-r
 # zplug 'riywo/anyenv', as:command, use:libexec/anyenv

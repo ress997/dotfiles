@@ -69,7 +69,7 @@ tmux_automatically_attach_session() {
 }
 tmux_automatically_attach_session
 # }}}
-# zplug {{{
+# zplug v2 {{{
 export ZPLUG_HOME="$DEV_DATA_HOME/zplug"
 export ZPLUG_CACHE_FILE="$XDG_CACHE_HOME/zplug/cache"
 export ZPLUG_FILTER=$FILTER
