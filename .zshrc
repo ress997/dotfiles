@@ -561,3 +561,6 @@ _update_vcs_info_msg() {
 add-zsh-hook precmd _update_vcs_info_msg
 
 # }}}
+# Login Message {{{
+echo "\nUsername: $USER\nShell: zsh $ZSH_VERSION\n"
+# }}}
