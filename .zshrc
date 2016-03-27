@@ -5,6 +5,12 @@ limit coredumpsize 0
 # 重複パスを登録しない
 typeset -U path cdpath fpath manpath
 
+# Tmux Plugin Manager {{{
+if [ ! -d $HOME/.cache/tmux/tpm ];then
+    git clone https://github.com/tmux-plugins/tpm $HOME/.cache/tmux/tpm
+    $HOME/.cache/tmux/tpm/bin/install_plugins
+fi
+# }}}
 # TMUX Auto new-session {{{
 has() {
     type "$1" >/dev/null 2>&1
@@ -90,8 +96,6 @@ if ! zplug check --verbose; then
     printf "Install? [y/N]: "
     if read -q; then
         echo; zplug install
-    else
-        echo
     fi
 fi
 zplug load --verbose
