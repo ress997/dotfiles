@@ -3,6 +3,11 @@ if &compatible
     set nocompatible
 endif
 
+" reset augroup
+augroup MyAutoCmd
+  autocmd!
+augroup END
+
 let s:dein_dir = expand('$XDG_CACHE_HOME/dein')
 let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
 
@@ -25,7 +30,7 @@ if dein#load_state(s:dein_dir)
     call dein#save_state()
 endif
 
-if dein#check_install()
+if has('vim_starting') && dein#check_install()
     call dein#install()
 endif
 " }}}
@@ -40,10 +45,6 @@ if has('unix')
     set fileencoding=utf-8
     set fileencodings=utf-8,iso-2022-jp,cp932,euc-jp
     set termencoding=
-endif
-
-if executable('hw')
-    set grepprg=hw\ --no-group\ --no-color
 endif
 
 " Clipboard
