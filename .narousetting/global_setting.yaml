@@ -1,6 +1,0 @@
----
-server-port: 20080
-no-color: false
-over18: true
-dismiss-notice: false
-server-bind: localhost
