@@ -134,7 +134,9 @@ fi
 
 # hub
 if zplug check github/hub; then
-    eval "$(hub alias -s)"
+    git() {
+        hub "$@"
+    }
 fi
 
 # }}}
