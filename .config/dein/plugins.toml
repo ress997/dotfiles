@@ -32,6 +32,11 @@ hook_add = '''
 repo = 'fatih/vim-go'
 on_ft = 'go'
 
+# TMUX
+[[plugins]]
+repo = 'tmux-plugins/vim-tmux'
+on_ft = 'tmux'
+
 # Japanese doc
 [[plugins]]
 repo = 'vim-jp/vimdoc-ja'
