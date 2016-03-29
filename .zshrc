@@ -121,7 +121,6 @@ fi
 # enhancd
 if zplug check b4b4r07/enhancd; then
     export ENHANCD_DIR="$XDG_DATA_HOME/enhancd"
-    export ENHANCD_LOG="$ENHANCD_DIR/enhancd.log"
     export ENHANCD_FILTER=$FILTER
 fi
 
