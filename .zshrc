@@ -105,7 +105,7 @@ zplug load --verbose
 # anyenv
 if zplug check riywo/anyenv; then
     export ANYENV_ROOT="$ZPLUG_HOME/repos/riywo/anyenv"
-    eval "$(anyenv init -)"
+    (( $+commands[anyenv] )) && eval "$(anyenv init -)"
 fi
 
 # emoji-cli
