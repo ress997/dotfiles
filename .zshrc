@@ -79,7 +79,7 @@ tmux_automatically_attach_session
 export ZPLUG_HOME="$DEV_DATA_HOME/zplug"
 export ZPLUG_CACHE_FILE="$XDG_CACHE_HOME/zplug/cache"
 export ZPLUG_FILTER=$FILTER
-export ZPLUG_LOADFILE=$XDG_CONFIG_HOME/zplug/plugin.zsh
+export ZPLUG_LOADFILE=$XDG_CONFIG_HOME/zplug/packages.zsh
 
 if [ ! -f $ZPLUG_HOME/init.zsh ]; then
     if (( $+commands[git] )); then
