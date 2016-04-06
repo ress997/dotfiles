@@ -1,7 +1,7 @@
 [[plugins]]
 repo = 'Shougo/dein.vim'
 
-# ---
+# Lang {{{
 
 # Haml
 [[plugins]]
@@ -42,7 +42,8 @@ on_ft = 'tmux'
 repo = 'vim-jp/vimdoc-ja'
 on_ft = 'help'
 
-# ---
+# }}}
+# Colors {{{
 
 # hybrid
 [[plugins]]
@@ -55,6 +56,7 @@ repo = 'altercation/vim-colors-solarized'
 [[plugins]]
 repo = 'colepeters/vim-hybrid-material'
 
+# }}}
 # ---
 
 # ステータスライン
@@ -73,3 +75,35 @@ hook_add = '''
 [[plugins]]
 repo = 'tell-k/vim-browsereload-mac'
 if = 'has("mac")'
+
+# ---
+
+[[plugins]]
+repo = 'Shougo/neomru.vim'
+on_path = '.*'
+
+[[plugins]]
+repo = 'Shougo/unite.vim'
+depends = 'neomru.vim'
+hook_add = '''
+  if executable('pt')
+    let g:unite_source_grep_command = 'pt'
+    let g:unite_source_grep_default_opts = '--nogroup --nocolor'
+    let g:unite_source_grep_recursive_opt = ''
+  endif
+'''
+
+[[plugins]]
+repo = 'Shougo/vimfiler.vim'
+depends = 'unite.vim'
+hook_add = '''
+  let g:vimfiler_as_default_explorer=1
+  let g:vimfiler_safe_mode_by_default = 0
+  " Like Textmate icons.
+  let g:vimfiler_tree_leaf_icon = ' '
+  let g:vimfiler_tree_opened_icon = '▾'
+  let g:vimfiler_tree_closed_icon = '▸'
+  let g:vimfiler_file_icon = '-'
+  let g:vimfiler_marked_file_icon = '*'
+  nnoremap <C-X>f :<C-u>VimFiler -split -simple -winwidth=35 -no-quit<CR>
+'''
