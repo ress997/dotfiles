@@ -13,6 +13,14 @@ autoload -Uz compinit && compinit -C
 autoload -Uz is-at-least
 autoload -Uz run-help
 
+# Language
+export LANGUAGE="ja_JP.UTF-8"
+export LANG=$LANGUAGE
+
+# Editor
+export EDITOR=nvim
+export GIT_EDITOR=$EDITOR
+
 # XDG Base Directory Specification
 export XDG_CACHE_HOME="$HOME/.cache"
 export XDG_CONFIG_HOME="$HOME/.config"
@@ -21,16 +29,8 @@ export XDG_DATA_HOME="$HOME/.local/share"
 # Dev
 export DEV_DATA_HOME="$HOME/.dev"
 
-# Editor
-export EDITOR=nvim
-export GIT_EDITOR=$EDITOR
-
 # Filter
 export FILTER='fzf-tmux:fzf:peco'
-
-# Language
-export LANGUAGE="ja_JP.UTF-8"
-export LANG=$LANGUAGE
 
 # Pager
 export PAGER='less'
@@ -72,6 +72,7 @@ typeset -U path PATH
 path=( \
     $HOME/bin(N-/) \
     $GOPATH/bin(N-/) \
+    /Applications/Sublime\ Text.app/Contents/SharedSupport/bin(N-/) \
     /usr/local/bin(N-/) \
     $path \
 )

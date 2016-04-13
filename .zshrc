@@ -6,18 +6,14 @@ limit coredumpsize 0
 typeset -U path cdpath fpath manpath
 
 # Tmux Plugin Manager {{{
-if [ ! -d $HOME/.cache/tmux/tpm ];then
-    git clone https://github.com/tmux-plugins/tpm $HOME/.cache/tmux/tpm
-    $HOME/.cache/tmux/tpm/bin/install_plugins
+if [ ! -d $XDG_CACHE_HOME/tmux/tpm ];then
+    git clone https://github.com/tmux-plugins/tpm $XDG_CACHE_HOME/tmux/tpm
+    $XDG_CACHE_HOME/tmux/tpm/bin/install_plugins
 fi
 # }}}
 # TMUX Auto new-session {{{
-has() {
-    type "$1" >/dev/null 2>&1
-    return $?
-}
 is_osx() {
-    [[ $OSTYPE == darwin* ]]
+    [[ "${(L)$( uname -s )}" == darwin ]]
 }
 is_screen_running() {
     [ ! -z "$STY" ]
@@ -30,7 +26,7 @@ is_screen_or_tmux_running() {
 }
 tmux_automatically_attach_session() {
     if is_screen_or_tmux_running; then
-        ! has 'tmux' && return 1
+        ! (( $+commands[tmux] )) && return 1
         if is_tmux_runnning; then
             echo "${fg_bold[red]} _____ __  __ _   ___  __ ${reset_color}"
             echo "${fg_bold[red]}|_   _|  \/  | | | \ \/ / ${reset_color}"
@@ -42,7 +38,7 @@ tmux_automatically_attach_session() {
         fi
     else
         if [ ! -z "$PS1" ] && [ -z "$SSH_CONECTION" ]; then
-            if ! has 'tmux'; then
+            if ! (( $+commands[tmux] )); then
                 echo 'Error: tmux command not found' 2>&1
                 return 1
             fi
@@ -64,7 +60,7 @@ tmux_automatically_attach_session() {
                     fi
                 fi
             fi
-            if is_osx && has 'reattach-to-user-namespace'; then
+            if is_osx && (( $+commands[reattach-to-user-namespace] )); then
                 tmux_config=$(cat $HOME/.tmux.conf <(echo 'set-option -g default-command "reattach-to-user-namespace -l $SHELL"'))
                 tmux -f <(echo "$tmux_config") new-session && echo "$(tmux -V) created new session supported OS X"
             else
@@ -75,19 +71,16 @@ tmux_automatically_attach_session() {
 }
 tmux_automatically_attach_session
 # }}}
-# zplug v2 {{{
+# zplug {{{
 export ZPLUG_HOME="$DEV_DATA_HOME/zplug"
 export ZPLUG_CACHE_FILE="$XDG_CACHE_HOME/zplug/cache"
 export ZPLUG_FILTER=$FILTER
 export ZPLUG_LOADFILE=$XDG_CONFIG_HOME/zplug/packages.zsh
 
 if [ ! -f $ZPLUG_HOME/init.zsh ]; then
-    if (( $+commands[git] )); then
-        git clone https://github.com/b4b4r07/zplug2 $ZPLUG_HOME
-    else
-        echo 'git not found' >&2
-        exit 1
-    fi
+    /usr/local/bin/git clone https://github.com/b4b4r07/zplug.git $ZPLUG_HOME
+    cd $ZPLUG_HOME
+    /usr/local/bin/git checkout -b v2 origin/v2
 fi
 
 source $ZPLUG_HOME/init.zsh
@@ -102,42 +95,28 @@ zplug load --verbose
 # }}}
 # Plugin Seting {{{
 
-# anyenv
-if zplug check riywo/anyenv; then
-    export ANYENV_ROOT="$ZPLUG_HOME/repos/riywo/anyenv"
-    (( $+commands[anyenv] )) && eval "$(anyenv init -)"
-fi
-
-# emoji-cli
-if zplug check b4b4r07/emoji-cli; then
-    export EMOJI_CLI_FILTER=$FILTER
-fi
-
-# emojify
-if zplug check mrowa44/emojify; then
-    alias -g E='| emojify'
-fi
-
 # enhancd
 if zplug check b4b4r07/enhancd; then
     export ENHANCD_DIR="$XDG_DATA_HOME/enhancd"
     export ENHANCD_FILTER=$FILTER
 fi
 
-# fzf
-if zplug check junegunn/fzf-bin; then
-    if zplug check monochromegane/the_platinum_searcher; then
-        export FZF_DEFAULT_COMMAND='pt -g ""'
-    fi
-    export FZF_DEFAULT_OPTS='--extended --ansi --multi'
+# }}}
+# etc {{{
+
+if (( $+commands[fzf] )) && (( $+commands[pt] )); then
+    export FZF_DEFAULT_COMMAND='pt -g ""'
 fi
 
-# hub
-if zplug check github/hub; then
+# Hub
+if (( $+commands[hub] )); then
     git() {
         hub "$@"
     }
 fi
+
+# anyenv
+(( $+commands[anyenv] )) && eval "$(anyenv init -)"
 
 # }}}
 # function {{{
@@ -176,11 +155,6 @@ fi
 if (( $+commands[pip] )); then
     pip-update() {
         pip freeze --local | grep -v '^\-e' | cut -d = -f 1 | xargs -n 1 -P 10 pip install -U
-    }
-fi
-if (( $+commands[pip3] )); then
-    pip3-update() {
-        pip3 freeze --local | grep -v '^\-e' | cut -d = -f 1 | xargs -n 1 -P 10 pip3 install -U
     }
 fi
 
@@ -265,12 +239,6 @@ qiita() {
 }
 
 # }}}
-# etc {{{
-
-# rbenv
-(( $+commands[rbenv] )) && eval "$(rbenv init -)"
-
-# }}}
 # keybinds {{{
 bindkey -v
 
@@ -309,14 +277,6 @@ alias mkdir="${ZSH_VERSION:+nocorrect} mkdir"
 # 複数ファイルのmv 例　zmv *.txt *.txt.bk
 alias zmv='noglob zmv -W'
 
-# Homebrew
-if (( $+commands[brew] )); then
-    alias b='brew'
-    alias bl='brew list'
-    alias bd='brew doctor'
-    alias bup='brew update'
-fi
-
 # NeoVim
 if (( $+commands[nvim] )); then
     alias vi='nvim'
@@ -327,7 +287,7 @@ fi
 alias -g L='| less'
 alias -g G='| grep'
 
-if is_osx; then
+if (( $+commands[pbcopy] )); then
     alias -g CP='| pbcopy'
 fi
 
@@ -563,5 +523,5 @@ add-zsh-hook precmd _update_vcs_info_msg
 
 # }}}
 # Login Message {{{
-echo "\nUsername: $USER\nShell: zsh $ZSH_VERSION\n"
+echo "\nUsername: $USER\nShell: zsh $ZSH_VERSION\nzplug: $_ZPLUG_VERSION\n"
 # }}}
