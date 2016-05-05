@@ -74,15 +74,18 @@ tmux_automatically_attach_session
 # zplug {{{
 export ZPLUG_HOME="$DEV_DATA_HOME/zplug"
 export ZPLUG_CACHE_FILE="$XDG_CACHE_HOME/zplug/cache"
-export ZPLUG_FILTER=$FILTER
+
+[[ -f $ZPLUG_HOME/init.zsh ]] || {
+    if (( $+commands[git] )); then
+        git clone https://github.com/zplug/zplug.git $ZPLUG_HOME
+    else
+        echo 'git not found' >&2
+        exit 1
+    fi
+    source $ZPLUG_HOME/init.zsh && zplug update --self
+}
+
 export ZPLUG_LOADFILE=$XDG_CONFIG_HOME/zplug/packages.zsh
-
-if [ ! -f $ZPLUG_HOME/init.zsh ]; then
-    /usr/local/bin/git clone https://github.com/b4b4r07/zplug.git $ZPLUG_HOME
-    cd $ZPLUG_HOME
-    /usr/local/bin/git checkout -b v2 origin/v2
-fi
-
 source $ZPLUG_HOME/init.zsh
 
 if ! zplug check --verbose; then
@@ -523,5 +526,5 @@ add-zsh-hook precmd _update_vcs_info_msg
 
 # }}}
 # Login Message {{{
-echo "\nUsername: $USER\nShell: zsh $ZSH_VERSION\nzplug: $_ZPLUG_VERSION\n"
+printf "\nUsername: ${USER}\nShell: zsh ${ZSH_VERSION}\nzplug: ${_ZPLUG_VERSION}\n\n"
 # }}}
