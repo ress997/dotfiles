@@ -37,7 +37,3 @@ hook_source = '''
 [[plugins]] # EditorConfig
 repo = 'editorconfig/editorconfig-vim'
 on_path = '.*'
-
-[[plugins]] # Git
-repo = 'tpope/vim-fugitive'
-on_cmd = ['Gwrite','Gcommit','Gread','Gstatus','Gdiff','Gblame']

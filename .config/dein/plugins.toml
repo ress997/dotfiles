@@ -1,6 +1,24 @@
 [[plugins]]
 repo = 'Shougo/dein.vim'
 
+# ---
+
+[[plugins]] # ステータスライン
+repo = 'itchyny/lightline.vim'
+hook_add = '''
+  let g:lightline = { 
+  \   'colorscheme': 'wombat'
+  \ }
+'''
+
+# Colors
+
+[[plugins]] # hybrid
+repo = 'w0ng/vim-hybrid'
+
+[[plugins]] # solarized
+repo = 'altercation/vim-colors-solarized'
+
 # Lang
 
 [[plugins]] # Haml
@@ -35,25 +53,11 @@ on_ft = 'tmux'
 repo = 'vim-jp/vimdoc-ja'
 on_ft = 'help'
 
-# Colors
-
-[[plugins]] # hybrid
-repo = 'w0ng/vim-hybrid'
-
-[[plugins]] # solarized
-repo = 'altercation/vim-colors-solarized'
-
-# ---
-
-[[plugins]] # ステータスライン
-repo = 'itchyny/lightline.vim'
-hook_add = '''
-  let g:lightline = { 
-  \   'colorscheme': 'wombat'
-  \ }
-'''
-
 # Test
+
+[[plugins]] # Git
+repo = 'tpope/vim-fugitive'
+on_cmd = ['Gwrite','Gcommit','Gread','Gstatus','Gdiff','Gblame']
 
 [[plugins]]
 repo = 'tyru/open-browser.vim'

@@ -15,18 +15,18 @@ let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
 if !isdirectory(s:dein_repo_dir)
     call system('git clone https://github.com/Shougo/dein.vim ' . shellescape(s:dein_repo_dir))
 endif
-
 execute 'set runtimepath^=' . s:dein_repo_dir
 
+let g:dein#install_max_processes = 16
+let g:dein#install_progress_type = 'title'
+let g:dein#enable_notification = 1
+let s:toml      = '~/.config/dein/plugins.toml'
+let s:lazy_toml = '~/.config/dein/plugins_lazy.toml'
+
 if dein#load_state(s:dein_dir)
-    call dein#begin(s:dein_dir)
-
-    let s:toml = '~/.config/dein/plugins.toml'
-    let s:lazy_toml = '~/.config/dein/plugins_lazy.toml'
-
+    call dein#begin(s:dein_dir, [s:toml, s:lazy_toml])
     call dein#load_toml(s:toml, {'lazy': 0})
     call dein#load_toml(s:lazy_toml, {'lazy': 1})
-
     call dein#end()
     call dein#save_state()
 endif
