@@ -8,11 +8,12 @@ augroup MyAutoCmd
   autocmd!
 augroup END
 
-let s:dein_dir = expand('$XDG_CACHE_HOME/dein')
+let s:cache_home = empty($XDG_CACHE_HOME) ? expand('$HOME/.cache') : $XDG_CACHE_HOME
+let s:dein_dir = s:cache_home . '/dein'
 let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
 
 if !isdirectory(s:dein_repo_dir)
-    execute '!git clone https://github.com/Shougo/dein.vim.git' s:dein_repo_dir
+    call system('git clone https://github.com/Shougo/dein.vim ' . shellescape(s:dein_repo_dir))
 endif
 
 execute 'set runtimepath^=' . s:dein_repo_dir
@@ -54,7 +55,7 @@ set clipboard+=unnamedplus
 syntax on
 filetype plugin indent on
 set background=dark
-colorscheme hybrid_reverse
+colorscheme hybrid
 
 set cmdheight=2     " メッセージ表示欄を2行確保
 set cursorcolumn    " カーソル位置のカラムの背景色を変える
