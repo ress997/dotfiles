@@ -1,4 +1,4 @@
-zplug 'zplug/zplug',
+zplug 'zplug/zplug', \
     hook-load:"export ZPLUG_FILTER=$FILTER"
 
 # Command
