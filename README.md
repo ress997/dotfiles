@@ -16,14 +16,6 @@ Overview
 - **Zsh** 5.2
 - **NeoVim** 0.1.2
 
-## Installation
-
-`bash -c "$(curl -fsSL dot.ress997.me)"`
-
-or
-
-`bash -c "$(wget -qO - dot.ress997.me)"`
-
 ## License
 
 Copyright (c) 2015 Aoi Tachibana
