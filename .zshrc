@@ -74,6 +74,7 @@ tmux_automatically_attach_session
 # zplug {{{
 export ZPLUG_HOME="$DEV_DATA_HOME/zplug"
 export ZPLUG_CACHE_FILE="$XDG_CACHE_HOME/zplug/cache"
+export ZPLUG_LOADFILE=$XDG_CONFIG_HOME/zplug/packages.zsh
 
 [[ -f $ZPLUG_HOME/init.zsh ]] || {
     if (( $+commands[git] )); then
@@ -85,7 +86,6 @@ export ZPLUG_CACHE_FILE="$XDG_CACHE_HOME/zplug/cache"
     source $ZPLUG_HOME/init.zsh && zplug update --self
 }
 
-export ZPLUG_LOADFILE=$XDG_CONFIG_HOME/zplug/packages.zsh
 source $ZPLUG_HOME/init.zsh
 
 if ! zplug check --verbose; then
@@ -120,6 +120,8 @@ fi
 
 # anyenv
 (( $+commands[anyenv] )) && eval "$(anyenv init -)"
+# rbenv
+(( $+commands[rbenv] )) && eval "$(rbenv init -)"
 
 # }}}
 # function {{{
