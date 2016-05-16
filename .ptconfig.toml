@@ -1,0 +1,8 @@
+# 隠しファイルも検索
+hidden = true
+
+# 無視するファイル
+ignore = [".git"]
+
+# 不明
+smart-case = true
