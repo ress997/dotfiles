@@ -1,70 +1,120 @@
 [[plugins]]
 repo = 'Shougo/dein.vim'
 
-# ---
-
-[[plugins]] # ステータスライン
-repo = 'itchyny/lightline.vim'
-hook_add = '''
-  let g:lightline = { 
-  \   'colorscheme': 'wombat'
-  \ }
-'''
-
 # Colors
 
-[[plugins]] # hybrid
+[[plugins]]
 repo = 'w0ng/vim-hybrid'
-
-[[plugins]] # solarized
-repo = 'altercation/vim-colors-solarized'
+on_event = ['VimEnter']
+hook_add = '''
+    " let g:hybrid_custom_term_colors = 1
+    " let g:hybrid_reduced_contrast = 1
+    set background=dark
+'''
+hook_post_source = '''
+    colorscheme hybrid
+'''
 
 # Lang
 
-[[plugins]] # Haml
-repo  = 'tpope/vim-haml'
-on_ft = 'haml'
-
-[[plugins]] # Html5
-repo  = 'othree/html5.vim'
-on_ft = 'html'
+[[plugins]] # Markdown
+repo = 'rcmdnk/vim-markdown'
+hook_add = '''
+    let g:vim_markdown_frontmatter = 1
+    let g:vim_markdown_math = 1
+'''
 
 [[plugins]] # Toml
 repo  = 'cespare/vim-toml'
-on_ft = 'toml'
-
-[[plugins]] # Markdown
-repo = 'rcmdnk/vim-markdown'
-on_ft = ['markdown','mkd']
-hook_add = '''
-  let g:vim_markdown_frontmatter = 1
-  let g:vim_markdown_math = 1
-'''
 
 [[plugins]] # Golang
 repo = 'fatih/vim-go'
-on_ft = 'go'
 
 [[plugins]] # TMUX
 repo = 'tmux-plugins/vim-tmux'
-on_ft = 'tmux'
+
+[[plugins]] # Html5
+repo  = 'othree/html5.vim'
+
+[[plugins]] # Haml
+repo  = 'tpope/vim-haml'
 
 [[plugins]] # Japanese doc
 repo = 'vim-jp/vimdoc-ja'
-on_ft = 'help'
+hook_add = '''
+    " Help の言語を設定
+    set helplang=ja,en
+'''
 
-# Test
+# Status line
 
-[[plugins]] # Git
-repo = 'tpope/vim-fugitive'
-on_cmd = ['Gwrite','Gcommit','Gread','Gstatus','Gdiff','Gblame']
+[[plugins]]
+repo = 'itchyny/lightline.vim'
+on_event = ['VimEnter']
+hook_add = '''
+    let g:lightline = {'colorscheme': 'wombat'}
+'''
+hook_post_source = '''
+    call lightline#colorscheme()
+'''
+
+# 補完
+[[plugins]]
+repo = 'Shougo/deoplete.nvim'
+if = 'has("nvim")'
+on_i = 1
+hook_source = '''
+    let g:deoplete#enable_at_startup = 1
+    let g:deoplete#enable_smart_case = 1
+'''
+
+# fzf
+[[plugins]]
+repo = 'junegunn/fzf'
+if = 'executable("fzf")'
+on_cmd = ['FZF','fzf#run']
+
+# EditorConfig
+[[plugins]]
+repo = 'editorconfig/editorconfig-vim'
+on_path = '.*'
+
+# Emmet
+[[plugins]]
+repo = 'mattn/emmet-vim'
+on_i = 1
+hook_source = '''
+    let g:user_emmet_mode = 'i'
+    let g:user_emmet_leader_key='<C-E>'
+    let g:use_emmet_complete_tag = 1
+    let g:user_emmet_settings = {
+    \   'variables': {
+    \     'lang': "ja"
+    \   },
+    \   'indentation': '    '
+    \ }
+'''
+
+# Codic
+[[plugins]]
+repo = 'koron/codic-vim'
+on_cmd = 'Codic'
+
+# Test {{{
 
 [[plugins]]
 repo = 'tyru/open-browser.vim'
 hook_add = '''
-  let g:openbrowser_menu_lang = 'ja'
+    let g:openbrowser_menu_lang = 'ja'
 '''
 
 [[plugins]]
 repo = 'tell-k/vim-browsereload-mac'
 if = 'has("mac")'
+
+[[plugins]]
+repo = 'Shougo/context_filetype.vim'
+
+[[plugins]]
+repo = 'osyo-manga/vim-precious'
+depends = ['context_filetype.vim']
