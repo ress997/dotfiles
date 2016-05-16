@@ -17,16 +17,6 @@ zplug 'stedolan/jq', \
     from:gh-r, \
     as:command
 
-# zplug 'riywo/anyenv', \
-#   as:command, \
-#   use:'libexec/anyenv', \
-#   hook-load:"export ANYENV_ROOT='$ZPLUG_HOME/repos/riywo/anyenv'"
-
-# zplug 'znz/anyenv-update', \
-#   as:command, \
-#   use:'bin/anyenv-update', \
-#   on:'riywo/anyenv'
-
 zplug 'motemen/ghq', \
     from:gh-r, \
     as:command
