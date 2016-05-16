@@ -1,18 +1,19 @@
-#!/bin/bash
+#!/usr/bin/env zsh
 
-local PLATFORM
+() {
+    local PLATFORM
+    case "${OSTYPE}" in
+        *'linux'*)  PLATFORM='linux'    ;;
+        *'darwin'*) PLATFORM='osx'      ;;
+        *'bsd'*)    PLATFORM='bsd'      ;;
+        *)          PLATFORM='unknown'  ;;
+    esac
+    if ! [ $PLATFORM = osx ]; then
+        echo "OS X only" 1>&2
+        exit 1
+    fi
+}
 
-case "${OSTYPE}" in
-    *'linux'*)  PLATFORM='linux'    ;;
-    *'darwin'*) PLATFORM='osx'      ;;
-    *'bsd'*)    PLATFORM='bsd'      ;;
-    *)          PLATFORM='unknown'  ;;
-esac
-
-if ! [ $PLATFORM = osx ]; then
-    echo "OS X only" 1>&2
-    exit 1
-fi
 
 # ここで設定した値より低いと赤色にする
 BATTERY_DANGER=20
