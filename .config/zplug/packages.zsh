@@ -39,6 +39,12 @@ zplug 'monochromegane/the_platinum_searcher', \
     as:command, \
     rename-to:pt
 
+zplug '39e/580d3d36914c4d308799058be55fddd0', \
+    from:gist, \
+    as:command, \
+    if:"[[ $OSTYPE == *darwin* ]]", \
+    use:battery
+
 # Plugin
 zplug 'b4b4r07/emoji-cli', \
     on:'stedolan/jq', \
