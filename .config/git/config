@@ -5,6 +5,8 @@
 [user]
     email = email@ress997.com
     name = Aoi Tachibana
+[github]
+    user = 39e
 # ---
 [alias]
     p = push
@@ -36,3 +38,4 @@
     root = ~/.dev/ghq
 [hub]
     protocol = https
+
