@@ -1,6 +1,3 @@
-zplug 'zplug/zplug', \
-    hook-load:"export ZPLUG_FILTER=$FILTER"
-
 # Command
 zplug 'junegunn/fzf-bin', \
     from:gh-r, \
@@ -51,7 +48,7 @@ zplug 'b4b4r07/emoji-cli', \
     hook-load:"export EMOJI_CLI_FILTER=$FILTER"
 
 zplug 'b4b4r07/enhancd', \
-    use:enhancd.sh
+    use:init.sh
 
 zplug 'zsh-users/zsh-completions'
 
