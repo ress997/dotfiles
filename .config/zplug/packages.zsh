@@ -1,6 +1,3 @@
-zplug 'zplug/zplug', \
-    hook-load:"export ZPLUG_FILTER=$FILTER"
-
 # Command
 zplug 'junegunn/fzf-bin', \
     from:gh-r, \
@@ -39,13 +36,19 @@ zplug 'monochromegane/the_platinum_searcher', \
     as:command, \
     rename-to:pt
 
+zplug '39e/580d3d36914c4d308799058be55fddd0', \
+    from:gist, \
+    as:command, \
+    if:"[[ $OSTYPE == *darwin* ]]", \
+    use:battery
+
 # Plugin
 zplug 'b4b4r07/emoji-cli', \
     on:'stedolan/jq', \
     hook-load:"export EMOJI_CLI_FILTER=$FILTER"
 
 zplug 'b4b4r07/enhancd', \
-    use:enhancd.sh
+    use:init.sh
 
 zplug 'zsh-users/zsh-completions'
 
