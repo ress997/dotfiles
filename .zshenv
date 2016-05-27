@@ -38,6 +38,9 @@ export PAGER='less'
 # golamg
 export GOPATH="$DEV_DATA_HOME/go"
 
+# Tig
+export TIGRC_USER="$XDG_CONFIG_HOME/tig/config"
+
 # Less
 export LESS='-R -f -X -i -P ?f%f:(stdin). ?lb%lb?L/%L.. [?eEOF:?pb%pb\%..]'
 export LESSCHARSET='utf-8'
