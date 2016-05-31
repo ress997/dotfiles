@@ -100,17 +100,17 @@ zplug load --verbose
 # Plugin Seting {{{
 
 # enhancd
-if zplug check b4b4r07/enhancd; then
-    export ENHANCD_DIR="$XDG_DATA_HOME/enhancd"
-    export ENHANCD_FILTER=$FILTER
-fi
-
-# }}}
-# etc {{{
+# if zplug check b4b4r07/enhancd; then
+#     export ENHANCD_DIR="$XDG_DATA_HOME/enhancd"
+#     export ENHANCD_FILTER=$FILTER
+# fi
 
 if (( $+commands[fzf] )) && (( $+commands[pt] )); then
     export FZF_DEFAULT_COMMAND='pt -g ""'
 fi
+
+# }}}
+# etc {{{
 
 # Hub
 if (( $+commands[hub] )); then
