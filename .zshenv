@@ -28,6 +28,7 @@ export XDG_DATA_HOME="$HOME/.local/share"
 
 # Dev
 export DEV_DATA_HOME="$HOME/.dev"
+export DOTPATH=$DEV_DATA_HOME/dotfiles
 
 # Filter
 export FILTER='fzf-tmux:fzf:peco'
