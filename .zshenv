@@ -1,5 +1,5 @@
 # fpath
-typeset -gx -U fpath
+typeset -gx -U fpath FPATH
 fpath=( \
     $HOME/.zsh/completion(N-/) \
     /usr/local/share/zsh/functions(N-/) \
@@ -74,15 +74,14 @@ export WORDCHARS='*?.[]~&;!#$%^(){}<>'
 typeset -U path PATH
 path=( \
     $HOME/bin(N-/) \
-    $GOPATH/bin(N-/) \
     /usr/local/bin(N-/) \
     $path \
 )
 
 path=( \
     $HOME/.local/bin(N-/) \
-    /Applications/Sublime\ Text.app/Contents/SharedSupport/bin(N-/) \
-    $path
+    $GOPATH/bin(N-/) \
+    $path \
 )
 
 [ -f $HOME/.secret ] && source $HOME/.secret
