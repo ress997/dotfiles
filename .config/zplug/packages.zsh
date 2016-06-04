@@ -52,7 +52,7 @@ zplug 'b4b4r07/emoji-cli', \
 
 zplug 'b4b4r07/enhancd', \
     use:'init.sh', \
-    hook-load:"export ENHANCD_DIR=$XDG_DATA_HOME/enhancd && export ENHANCD_FILTER=$FILTER"
+    hook-load:"export ENHANCD_FILTER=$FILTER"
 
 zplug 'zsh-users/zsh-completions'
 
