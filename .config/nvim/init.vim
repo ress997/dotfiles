@@ -41,7 +41,8 @@ if has('nvim')
     let $NVIM_TUI_ENABLE_CURSOR_SHAPE = 1
     if $TERM_PROGRAM == "iTerm.app"
         let &t_SI = "\e]50;CursorShape=1\x7"    " インサートモード開始時
-        let &t_EI = "\e]50;CursorShape=0\x7"    " インサートモード終了時
+        let &t_EI = "\e]50;CursorShape=0\x7"    " 挿入または置換モード終了
+        let &t_SR = "\e]50;CursorShape=2\x7"    " 置換モードの開始
     endif
 endif
 

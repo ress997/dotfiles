@@ -3,7 +3,7 @@
     excludesfile = ~/.config/git/ignore
     preloadindex = true
 [user]
-    email = email@ress997.com
+    email = 39e@users.noreply.github.com
     name = Aoi Tachibana
 [github]
     user = 39e

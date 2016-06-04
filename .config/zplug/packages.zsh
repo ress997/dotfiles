@@ -1,8 +1,16 @@
+zplug 'zplug/zplug'
+
 # Command
+zplug 'monochromegane/the_platinum_searcher', \
+    from:gh-r, \
+    as:command, \
+    rename-to:pt
+
 zplug 'junegunn/fzf-bin', \
     from:gh-r, \
     as:command, \
     rename-to:fzf, \
+    on:'monochromegane/the_platinum_searcher', \
     hook-load:"export FZF_DEFAULT_OPTS='--extended --ansi --multi'"
 
 zplug 'junegunn/fzf', \
@@ -31,11 +39,6 @@ zplug 'b4b4r07/zsh-gomi', \
     use:'bin/gomi', \
     on:'junegunn/fzf-bin'
 
-zplug 'monochromegane/the_platinum_searcher', \
-    from:gh-r, \
-    as:command, \
-    rename-to:pt
-
 zplug '39e/580d3d36914c4d308799058be55fddd0', \
     from:gist, \
     as:command, \
@@ -48,7 +51,8 @@ zplug 'b4b4r07/emoji-cli', \
     hook-load:"export EMOJI_CLI_FILTER=$FILTER"
 
 zplug 'b4b4r07/enhancd', \
-    use:init.sh
+    use:'init.sh', \
+    hook-load:"export ENHANCD_FILTER=$FILTER"
 
 zplug 'zsh-users/zsh-completions'
 

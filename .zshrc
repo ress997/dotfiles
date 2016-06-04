@@ -77,6 +77,9 @@ export ZPLUG_CACHE_FILE="$XDG_CACHE_HOME/zplug/cache"
 export ZPLUG_LOADFILE=$XDG_CONFIG_HOME/zplug/packages.zsh
 export ZPLUG_FILTER=$FILTER
 
+# enhancd
+export ENHANCD_DIR="$XDG_DATA_HOME/enhancd"
+
 [[ -f $ZPLUG_HOME/init.zsh ]] || {
     if (( $+commands[git] )); then
         git clone https://github.com/zplug/zplug.git $ZPLUG_HOME
@@ -99,18 +102,12 @@ zplug load --verbose
 # }}}
 # Plugin Seting {{{
 
-# enhancd
-if zplug check b4b4r07/enhancd; then
-    export ENHANCD_DIR="$XDG_DATA_HOME/enhancd"
-    export ENHANCD_FILTER=$FILTER
+if (( $+commands[fzf] )) && (( $+commands[pt] )); then
+    export FZF_DEFAULT_COMMAND='pt -g ""'
 fi
 
 # }}}
 # etc {{{
-
-if (( $+commands[fzf] )) && (( $+commands[pt] )); then
-    export FZF_DEFAULT_COMMAND='pt -g ""'
-fi
 
 # Hub
 if (( $+commands[hub] )); then
@@ -531,3 +528,6 @@ add-zsh-hook precmd _update_vcs_info_msg
 # Login Message {{{
 printf "\nUsername: ${USER}\nShell: zsh ${ZSH_VERSION}\nzplug: ${_ZPLUG_VERSION}\n\n"
 # }}}
+
+# added by travis gem
+[ -f $HOME/.travis/travis.sh ] && source $HOME/.travis/travis.sh

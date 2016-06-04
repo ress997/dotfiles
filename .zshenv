@@ -1,5 +1,5 @@
 # fpath
-typeset -gx -U fpath
+typeset -gx -U fpath FPATH
 fpath=( \
     $HOME/.zsh/completion(N-/) \
     /usr/local/share/zsh/functions(N-/) \
@@ -28,6 +28,7 @@ export XDG_DATA_HOME="$HOME/.local/share"
 
 # Dev
 export DEV_DATA_HOME="$HOME/.dev"
+export DOTPATH=$DEV_DATA_HOME/dotfiles
 
 # Filter
 export FILTER='fzf-tmux:fzf:peco'
@@ -37,6 +38,9 @@ export PAGER='less'
 
 # golamg
 export GOPATH="$DEV_DATA_HOME/go"
+
+# Tig
+export TIGRC_USER="$XDG_CONFIG_HOME/tig/config"
 
 # Less
 export LESS='-R -f -X -i -P ?f%f:(stdin). ?lb%lb?L/%L.. [?eEOF:?pb%pb\%..]'
@@ -71,15 +75,14 @@ export WORDCHARS='*?.[]~&;!#$%^(){}<>'
 typeset -U path PATH
 path=( \
     $HOME/bin(N-/) \
-    $GOPATH/bin(N-/) \
     /usr/local/bin(N-/) \
     $path \
 )
 
 path=( \
     $HOME/.local/bin(N-/) \
-    /Applications/Sublime\ Text.app/Contents/SharedSupport/bin(N-/) \
-    $path
+    $GOPATH/bin(N-/) \
+    $path \
 )
 
 [ -f $HOME/.secret ] && source $HOME/.secret
