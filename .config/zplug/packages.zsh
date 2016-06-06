@@ -39,12 +39,6 @@ zplug 'b4b4r07/zsh-gomi', \
     use:'bin/gomi', \
     on:'junegunn/fzf-bin'
 
-zplug '39e/580d3d36914c4d308799058be55fddd0', \
-    from:gist, \
-    as:command, \
-    if:"[[ $OSTYPE == *darwin* ]]", \
-    use:battery
-
 # Plugin
 zplug 'b4b4r07/emoji-cli', \
     on:'stedolan/jq', \
