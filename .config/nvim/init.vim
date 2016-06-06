@@ -32,6 +32,7 @@ endif
 " }}}
 " 設定 {{{
 
+colorscheme hybrid
 filetype plugin indent on " ファイル形式の検出
 syntax on " 構文ハイライト
 
@@ -115,8 +116,8 @@ nnoremap : ;
 vnoremap : ;
 
 " ウィンドウ移動
-nnoremap sp :<C-u>split<CR>
-nnoremap vs :<C-u>vsplit<CR>
+nnoremap sp :<C-u>split<CR>     " 水平分割
+nnoremap vs :<C-u>vsplit<CR>    " 垂直分割
 
 nnoremap s <Nop>
 nnoremap sh <C-w>h
