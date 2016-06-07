@@ -116,10 +116,12 @@ if (( $+commands[hub] )); then
     }
 fi
 
-# anyenv
-(( $+commands[anyenv] )) && eval "$(anyenv init -)"
-# rbenv
-(( $+commands[rbenv] )) && eval "$(rbenv init -)"
+# **env
+if (( $+commands[anyenv] )); then
+    eval "$(anyenv init -)"
+else
+    (( $+commands[rbenv] )) && eval "$(rbenv init -)"
+fi
 
 # }}}
 # function {{{
