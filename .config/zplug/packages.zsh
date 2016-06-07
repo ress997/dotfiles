@@ -39,6 +39,11 @@ zplug 'b4b4r07/zsh-gomi', \
     use:'bin/gomi', \
     on:'junegunn/fzf-bin'
 
+zplug 'arukasio/cli', \
+    from:gh-r, \
+    as:command, \
+    rename-to:arukas
+
 # Plugin
 zplug 'b4b4r07/emoji-cli', \
     on:'stedolan/jq', \
