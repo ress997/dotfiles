@@ -16,7 +16,6 @@ execute 'set runtimepath^=' . s:dein_repo_dir
 let g:dein#install_max_processes = 16
 let g:dein#install_progress_type = 'title'
 let g:dein#install_message_type = 'none'
-let g:dein#enable_notification = 1
 let s:toml = '~/.config/dein/plugins.toml'
 
 if dein#load_state(s:dein_dir)
@@ -56,6 +55,7 @@ if has('unix')
 endif
 
 " 表示設定
+set background=dark " 背景を黒ベースに
 set cmdheight=1     " メッセージ表示欄を1行確保
 set cursorcolumn    " カーソル位置のカラムの背景色を変える
 set cursorline      " カーソル行の背景色を変える
