@@ -9,8 +9,8 @@ zplug 'monochromegane/the_platinum_searcher', \
 zplug 'junegunn/fzf-bin', \
     from:gh-r, \
     as:command, \
-    rename-to:fzf, \
     on:'monochromegane/the_platinum_searcher', \
+    rename-to:fzf, \
     hook-load:"export FZF_DEFAULT_OPTS='--extended --ansi --multi'"
 
 zplug 'junegunn/fzf', \
@@ -39,6 +39,11 @@ zplug 'b4b4r07/zsh-gomi', \
     use:'bin/gomi', \
     on:'junegunn/fzf-bin'
 
+zplug '39e/git-ignore', \
+    as:command, \
+    use:'bin/gomi', \
+    on:'junegunn/fzf-bin'
+
 zplug 'arukasio/cli', \
     from:gh-r, \
     as:command, \
@@ -46,12 +51,10 @@ zplug 'arukasio/cli', \
 
 # Plugin
 zplug 'b4b4r07/emoji-cli', \
-    on:'stedolan/jq', \
-    hook-load:"export EMOJI_CLI_FILTER=$FILTER"
+    on:'stedolan/jq'
 
 zplug 'b4b4r07/enhancd', \
-    use:'init.sh', \
-    hook-load:"export ENHANCD_FILTER=$FILTER"
+    use:'init.sh'
 
 zplug 'zsh-users/zsh-completions'
 
