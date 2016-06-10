@@ -2,7 +2,6 @@
 typeset -gx -U fpath FPATH
 fpath=( \
     $HOME/.zsh/completion(N-/) \
-    /usr/local/share/zsh/functions(N-/) \
     $fpath \
 )
 
@@ -21,6 +20,9 @@ export LANG=$LANGUAGE
 export EDITOR=nvim
 export GIT_EDITOR=$EDITOR
 
+# Pager
+export PAGER='less'
+
 # XDG Base Directory Specification
 export XDG_CACHE_HOME="$HOME/.cache"
 export XDG_CONFIG_HOME="$HOME/.config"
@@ -29,12 +31,7 @@ export XDG_DATA_HOME="$HOME/.local/share"
 # Dev
 export DEV_DATA_HOME="$HOME/.dev"
 export DOTPATH=$DEV_DATA_HOME/dotfiles
-
-# Filter
 export FILTER='fzf-tmux:fzf:peco'
-
-# Pager
-export PAGER='less'
 
 # golamg
 export GOPATH="$DEV_DATA_HOME/go"
@@ -75,14 +72,14 @@ export WORDCHARS='*?.[]~&;!#$%^(){}<>'
 typeset -U path PATH
 path=( \
     $HOME/bin(N-/) \
+    $GOPATH/bin(N-/) \
     /usr/local/bin(N-/) \
     $path \
 )
 
 path=( \
     $HOME/.local/bin(N-/) \
-    $GOPATH/bin(N-/) \
     $path \
 )
 
-[ -f $HOME/.secret ] && source $HOME/.secret
+[ -f $DEV_DATA_HOME/.secret ] && source $DEV_DATA_HOME/.secret

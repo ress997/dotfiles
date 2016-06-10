@@ -158,6 +158,7 @@ fi
 
 # pip
 if (( $+commands[pip] )); then
+    eval "$(pip completion --zsh)"
     pip-update() {
         pip freeze --local | grep -v '^\-e' | cut -d = -f 1 | xargs -n 1 -P 10 pip install -U
     }
@@ -179,24 +180,24 @@ fi
 # fshow - git commit browser (enter for show, ctrl-d for diff)
 if (( $+commands[fzf] )); then
     fshow() {
-      local out shas sha q k
-      while out=$(
-          git log --graph --color=always \
-              --format="%C(auto)%h%d %s %C(black)%C(bold)%cr" "$@" |
-          fzf --ansi --multi --no-sort --reverse --query="$q" \
-              --print-query --expect=ctrl-d); do
-        q=$(head -1 <<< "$out")
-        k=$(head -2 <<< "$out" | tail -1)
-        shas=$(sed '1,2d;s/^[^a-z0-9]*//;/^$/d' <<< "$out" | awk '{print $1}')
-        [ -z "$shas" ] && continue
-        if [ "$k" = ctrl-d ]; then
-          git diff --color=always $shas | less -R
-        else
-          for sha in $shas; do
-            git show --color=always $sha | less -R
-          done
-        fi
-      done
+        local out shas sha q k
+        while out=$(
+            git log --graph --color=always \
+                --format="%C(auto)%h%d %s %C(black)%C(bold)%cr" "$@" |
+            fzf --ansi --multi --no-sort --reverse --query="$q" \
+                --print-query --expect=ctrl-d); do
+            q=$(head -1 <<< "$out")
+            k=$(head -2 <<< "$out" | tail -1)
+            shas=$(sed '1,2d;s/^[^a-z0-9]*//;/^$/d' <<< "$out" | awk '{print $1}')
+            [ -z "$shas" ] && continue
+            if [ "$k" = ctrl-d ]; then
+                git diff --color=always $shas | less -R
+            else
+                for sha in $shas; do
+                    git show --color=always $sha | less -R
+                done
+            fi
+        done
     }
 fi
 
@@ -248,7 +249,7 @@ qiita() {
 bindkey -v
 
 ## Ctrl-R
-_fzf-select-history() {
+__fzf-select-history() {
     if true; then
         BUFFER="$(
         history 1 \
@@ -260,8 +261,8 @@ _fzf-select-history() {
         zle reset-prompt
     fi
 }
-zle -N _fzf-select-history
-bindkey '^r' _fzf-select-history
+zle -N __fzf-select-history
+bindkey '^r' __fzf-select-history
 
 # }}}
 # aliases {{{
@@ -530,6 +531,3 @@ add-zsh-hook precmd _update_vcs_info_msg
 # Login Message {{{
 printf "\nUsername: ${USER}\nShell: zsh ${ZSH_VERSION}\nzplug: ${_ZPLUG_VERSION}\n\n"
 # }}}
-
-# added by travis gem
-[ -f $HOME/.travis/travis.sh ] && source $HOME/.travis/travis.sh
