@@ -16,7 +16,7 @@ repo = 'vim-jp/vital.vim'
 
 # }}}
 
-[[plugins]]
+[[plugins]] # ファイルタイプ自動切り替え
 repo = 'osyo-manga/vim-precious'
 depends = ['context_filetype.vim']
 
@@ -33,6 +33,14 @@ hook_source = '''
 [[plugins]] # Auto Close (括弧)
 repo = 'Townk/vim-autoclose'
 
+[[plugins]] # Auto save
+repo ='907th/vim-auto-save'
+hook_add = '''
+  let g:auto_save = 1
+  let g:auto_save_in_insert_mode = 0
+  " let g:auto_save_silent = 1
+'''
+
 [[plugins]] # Status line
 repo = 'itchyny/lightline.vim'
 on_event = ['VimEnter']
@@ -42,6 +50,11 @@ hook_add = '''
 hook_post_source = '''
   call lightline#colorscheme()
 '''
+
+[[plugins]] # dein.vim command
+repo = 'haya14busa/dein-command.vim'
+depends = ['dein.vim']
+on_cmd = ['Dein']
 
 [[plugins]] # Git
 repo = 'cohama/agit.vim'
@@ -104,12 +117,19 @@ hook_add = '''
   " let g:hybrid_reduced_contrast = 1
 '''
 
+[[plugins]] # material
+repo = 'jdkanani/vim-material-theme'
+
 [[plugins]] # molokai
 repo = 'tomasr/molokai'
 hook_add = '''
   " let g:molokai_original = 1
   " let g:rehash256 = 1
 '''
+
+[[plugins]] # WWDC16
+repo = 'lifepillar/vim-wwdc16-theme'
+
 
 # }}}
 # Lang {{{ 
@@ -152,8 +172,7 @@ hook_add = '''
 repo = 'tpope/vim-surround'
 
 [[plugins]]
-repo = 'haya14busa/dein-command.vim'
-depends = ['dein.vim','vital.vim']
-on_cmd = ['Dein']
+repo = 'lambdalisue/vim-gista'
+on_cmd = ['Gista']
 
 # }}}
