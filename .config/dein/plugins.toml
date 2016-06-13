@@ -51,15 +51,6 @@ hook_post_source = '''
   call lightline#colorscheme()
 '''
 
-[[plugins]] # dein.vim command
-repo = 'haya14busa/dein-command.vim'
-depends = ['dein.vim']
-on_cmd = ['Dein']
-
-[[plugins]] # Git
-repo = 'cohama/agit.vim'
-on_cmd = ['Agit','AgitFile']
-
 [[plugins]] # EditorConfig
 repo = 'editorconfig/editorconfig-vim'
 on_path = '.*'
@@ -104,10 +95,26 @@ repo = 'junegunn/fzf'
 if = 'executable("fzf")'
 on_cmd = ['FZF','fzf#run']
 
+# Command {{{
+
+[[plugins]] # dein.vim command
+repo = 'haya14busa/dein-command.vim'
+depends = ['dein.vim']
+on_cmd = ['Dein']
+
+[[plugins]] # Git
+repo = 'cohama/agit.vim'
+on_cmd = ['Agit','AgitFile']
+
+[[plugins]] # Gist
+repo = 'lambdalisue/vim-gista'
+on_cmd = ['Gista']
+
 [[plugins]] # Codic
 repo = 'koron/codic-vim'
 on_cmd = 'Codic'
 
+# }}}
 # Colors {{{
 
 [[plugins]] # hybrid
@@ -168,11 +175,7 @@ hook_add = '''
 # }}}
 # Test {{{
 
-[[plugins]]
+[[plugins]] # 選択範囲を記号やタグで囲んだり外したりできる
 repo = 'tpope/vim-surround'
-
-[[plugins]]
-repo = 'lambdalisue/vim-gista'
-on_cmd = ['Gista']
 
 # }}}
