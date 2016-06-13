@@ -11,7 +11,7 @@ my dotfile
 ## Features
 
 - **OS X** El Capitan (MacBook Pro, Retina 13-inch, Mid 2014)
-- **iTerm.app** 2.9 (Full-screen)
+- **iTerm.app** 2 (Build 3.0.1, Full-screen)
 - **Tmux** 2.2
 - **Zsh** 5.2
 - **NeoVim** 0.1.4
@@ -26,5 +26,4 @@ Unless attributed otherwise, everything is under the MIT licence.
 Some stuff is not from me, and without attribution, and I no longer remember where I got it from. 
 I apologize for that.
 
-<!-- vim:foldmethod=expr
--->
+<!-- :vim:foldmethod=expr: -->
