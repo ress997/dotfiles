@@ -33,11 +33,19 @@ export DEV_DATA_HOME="$HOME/.dev"
 export DOTPATH=$DEV_DATA_HOME/dotfiles
 export FILTER='fzf-tmux:fzf:peco'
 
+# ---
+
+# AWS CLI
+export AWS_CONFIG_FILE="$XDG_CONFIG_HOME/aws/config"
+export AWS_CREDENTIAL_FILE="$XDG_CONFIG_HOME/aws/credentials"
+
 # golamg
 export GOPATH="$DEV_DATA_HOME/go"
 
 # Tig
 export TIGRC_USER="$XDG_CONFIG_HOME/tig/config"
+
+# ---
 
 # Less
 export LESS='-R -f -X -i -P ?f%f:(stdin). ?lb%lb?L/%L.. [?eEOF:?pb%pb\%..]'
