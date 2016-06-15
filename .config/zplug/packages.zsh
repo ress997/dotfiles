@@ -39,11 +39,6 @@ zplug 'b4b4r07/zsh-gomi', \
     use:'bin/gomi', \
     on:'junegunn/fzf-bin'
 
-zplug '39e/git-ignore', \
-    as:command, \
-    use:'bin/gomi', \
-    on:'junegunn/fzf-bin'
-
 zplug 'arukasio/cli', \
     from:gh-r, \
     as:command, \
