@@ -38,6 +38,9 @@ export AWS_CREDENTIAL_FILE="$XDG_CONFIG_HOME/aws/credentials"
 # golamg
 export GOPATH="$DEV_DATA_HOME/go"
 
+# Hub
+export HUB_CONFIG="$XDG_CONFIG_HOME/hub/config"
+
 # Tig
 export TIGRC_USER="$XDG_CONFIG_HOME/tig/config"
 

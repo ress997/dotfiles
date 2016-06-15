@@ -36,6 +36,3 @@
 # ---
 [ghq]
     root = ~/.dev/ghq
-[hub]
-    protocol = https
-
