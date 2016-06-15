@@ -16,13 +16,6 @@ autoload -Uz run-help
 export LANGUAGE="ja_JP.UTF-8"
 export LANG=$LANGUAGE
 
-# Editor
-export EDITOR=nvim
-export GIT_EDITOR=$EDITOR
-
-# Pager
-export PAGER='less'
-
 # XDG Base Directory Specification
 export XDG_CACHE_HOME="$HOME/.cache"
 export XDG_CONFIG_HOME="$HOME/.config"
@@ -35,6 +28,9 @@ export FILTER='fzf-tmux:fzf:peco'
 
 # ---
 
+# Atom
+export ATOM_HOME="$XDG_DATA_HOME/atom"
+
 # AWS CLI
 export AWS_CONFIG_FILE="$XDG_CONFIG_HOME/aws/config"
 export AWS_CREDENTIAL_FILE="$XDG_CONFIG_HOME/aws/credentials"
@@ -46,6 +42,13 @@ export GOPATH="$DEV_DATA_HOME/go"
 export TIGRC_USER="$XDG_CONFIG_HOME/tig/config"
 
 # ---
+
+# Editor
+export EDITOR=nvim
+export GIT_EDITOR=$EDITOR
+
+# Pager
+export PAGER='less'
 
 # Less
 export LESS='-R -f -X -i -P ?f%f:(stdin). ?lb%lb?L/%L.. [?eEOF:?pb%pb\%..]'
@@ -67,7 +70,7 @@ export LSCOLORS=exfxcxdxbxegedabagacad
 # History
 export HISTFILE="$XDG_DATA_HOME/zsh/history"
 export HISTSIZE=1000
-export SAVEHIST=1000000
+export SAVEHIST=10000000
 
 # dotfile を コマンドの候補として出さない？
 export CORRECT_IGNORE='_*'
@@ -90,4 +93,4 @@ path=( \
     $path \
 )
 
-[ -f $DEV_DATA_HOME/.secret ] && source $DEV_DATA_HOME/.secret
+[ -f $DEV_DATA_HOME/secret/env ] && source $DEV_DATA_HOME/secret/env
