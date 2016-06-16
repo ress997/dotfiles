@@ -35,6 +35,9 @@ export ATOM_HOME="$XDG_DATA_HOME/atom"
 export AWS_CONFIG_FILE="$XDG_CONFIG_HOME/aws/config"
 export AWS_CREDENTIAL_FILE="$XDG_CONFIG_HOME/aws/credentials"
 
+# GitHub
+export GITHUB_USER=$(git config --get github.user)
+
 # golamg
 export GOPATH="$DEV_DATA_HOME/go"
 

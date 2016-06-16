@@ -529,5 +529,5 @@ add-zsh-hook precmd _update_vcs_info_msg
 
 # }}}
 # Login Message {{{
-printf "\nUsername: ${USER}\nShell: zsh ${ZSH_VERSION}\nzplug: ${_ZPLUG_VERSION}\n\n"
+printf "\nUser: ${USER}\nGitHub User: ${GITHUB_USER}\nShell: zsh v${ZSH_VERSION}\nzplug: v${_ZPLUG_VERSION}\n\n"
 # }}}
