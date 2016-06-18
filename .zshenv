@@ -39,6 +39,7 @@ export AWS_CREDENTIAL_FILE="$XDG_CONFIG_HOME/aws/credentials"
 export GITHUB_USER=$(git config --get github.user)
 
 # golamg
+export GOROOT=$(go env GOROOT)
 export GOPATH="$DEV_DATA_HOME/go"
 
 # Hub
