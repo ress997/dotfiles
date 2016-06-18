@@ -9,14 +9,12 @@
     user = 39e
 # ---
 [alias]
-    p = push
     br = branch
     cm = commit
     co = checkout
     st = status
     # ---
     last = log -1 HEAD
-    lg = log --graph --pretty=format:'%Cblue%h%Creset [%ar] %C(yellow)%an%Creset %C(auto)%d%Creset %s'
 [color]
     ui = true
 [credential]

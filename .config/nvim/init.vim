@@ -1,6 +1,6 @@
 " reset augroup
 augroup MyAutoCmd
-  autocmd!
+    autocmd!
 augroup END
 
 " dein settings {{{
@@ -105,6 +105,8 @@ set history=10000
 " Clipboard
 set clipboard+=unnamedplus
 
+" Help の言語を設定
+set helplang=ja,en
 " }}}
 " キーマッピング {{{
 

@@ -145,11 +145,16 @@ available () {
 
 # ghq
 if (( $+commands[ghq] )); then
+    local DIRECTORY
     g() {
-        cd $(ghq root)/$(ghq list | $(available $FILTER))
+        if zplug check 'b4b4r07/enhancd'; then
+            __enhancd::custom::ghq ${1:+\"$@\"}
+        else
+            DIRECTORY=$(ghq list | $(available $FILTER)) && cd $(ghq root)/$DIRECTORY
+        fi
     }
     gh() {
-        hub browse $(ghq list | $(available $FILTER) | cut -d "/" -f 2,3)
+        DIRECTORY=$(ghq list | $(available $FILTER) | cut -d "/" -f 2,3) && hub browse $DIRECTORY
     }
     ghq-update() {
         ghq list | sed 's|.[^/]*/||' | xargs -n 1 -P 10 ghq get -u
@@ -245,6 +250,7 @@ qiita() {
 }
 
 # }}}
+
 # keybinds {{{
 bindkey -v
 
@@ -276,9 +282,6 @@ alias lt='ls -ltr'      # Sort by date, most recent last
 alias lu='ls -ltur'     # Sort by and show access time, most recent last
 
 alias rm='rm -i'
-alias cp="${ZSH_VERSION:+nocorrect} cp -i"
-alias mv="${ZSH_VERSION:+nocorrect} mv -i"
-alias mkdir="${ZSH_VERSION:+nocorrect} mkdir"
 
 # 複数ファイルのmv 例　zmv *.txt *.txt.bk
 alias zmv='noglob zmv -W'
@@ -529,5 +532,5 @@ add-zsh-hook precmd _update_vcs_info_msg
 
 # }}}
 # Login Message {{{
-printf "\nUser: ${USER}\nGitHub User: ${GITHUB_USER}\nShell: zsh v${ZSH_VERSION}\nzplug: v${_ZPLUG_VERSION}\n\n"
+printf "\nUser: ${USER}\nGitHub : ${GITHUB_USER}\n\n"
 # }}}
