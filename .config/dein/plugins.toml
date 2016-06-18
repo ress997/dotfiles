@@ -2,7 +2,7 @@
 repo = 'Shougo/dein.vim'
 hook_add = '''
 if has('mac') && executable('osascript')
-  let g:dein#enable_notification = 1
+    let g:dein#enable_notification = 1
 endif
 '''
 
@@ -20,15 +20,43 @@ repo = 'vim-jp/vital.vim'
 repo = 'osyo-manga/vim-precious'
 depends = ['context_filetype.vim']
 
-[[plugins]] # 補完
+# deoplete {{{
+
+[[plugins]] # 本体
 repo = 'Shougo/deoplete.nvim'
 if = 'has("nvim")'
 depends = ['context_filetype.vim']
 on_i = 1
 hook_source = '''
-  let g:deoplete#enable_at_startup = 1
-  let g:deoplete#enable_smart_case = 1
+    let g:deoplete#enable_at_startup = 1
+    let g:deoplete#enable_smart_case = 1
 '''
+
+[[plugins]] # Golang
+repo = 'zchee/deoplete-go'
+depends = ['deoplete.nvim']
+on_ft = ['go']
+build = 'make'
+hook_source = '''
+    let g:deoplete#sources#go#gocode_binary = $GOPATH . '/bin/gocode'
+    let g:deoplete#sources#go#sort_class = ['package', 'func', 'type', 'var', 'const']
+'''
+
+[[plugins]] # Syntax
+repo = 'Shougo/neco-syntax'
+depends = ['deoplete.nvim']
+
+[[plugins]] # Vim
+repo = 'Shougo/neco-vim'
+depends = ['deoplete.nvim']
+on_ft = ['vim']
+
+[[plugins]] # Zsh
+repo = 'zchee/deoplete-zsh'
+depends = ['deoplete.nvim']
+on_ft = ['zsh']
+
+# }}}
 
 [[plugins]] # Auto Close (括弧)
 repo = 'Townk/vim-autoclose'
@@ -36,19 +64,19 @@ repo = 'Townk/vim-autoclose'
 [[plugins]] # Auto save
 repo ='907th/vim-auto-save'
 hook_add = '''
-  let g:auto_save = 1
-  let g:auto_save_in_insert_mode = 0
-  " let g:auto_save_silent = 1
+    let g:auto_save = 1 " Auto save 有効化
+    let g:auto_save_in_insert_mode = 0 " インサートモードで自動保存 OFF
+    let g:auto_save_silent = 1 " メッセージを表示しない
 '''
 
 [[plugins]] # Status line
 repo = 'itchyny/lightline.vim'
 on_event = ['VimEnter']
-hook_add = '''
-  let g:lightline = {'colorscheme': 'wombat'}
+hook_source = '''
+    let g:lightline = {'colorscheme': 'wombat'}
 '''
 hook_post_source = '''
-  call lightline#colorscheme()
+    call lightline#colorscheme()
 '''
 
 [[plugins]] # EditorConfig
@@ -59,21 +87,21 @@ on_path = '.*'
 repo = 'mattn/emmet-vim'
 on_i = 1
 hook_source = '''
-  let g:user_emmet_mode = 'i'
-  let g:user_emmet_leader_key='<C-E>'
-  let g:use_emmet_complete_tag = 1
-  let g:user_emmet_settings = {
-  \   'variables': {
-  \     'lang': "ja"
-  \   },
-  \   'indentation': '    '
-  \ }
+    let g:user_emmet_mode = 'i'
+    let g:user_emmet_leader_key='<C-E>'
+    let g:use_emmet_complete_tag = 1
+    let g:user_emmet_settings = {
+    \   'variables': {
+    \       'lang': "ja"
+    \   },
+    \       'indentation': '    '
+    \   }
 '''
 
 [[plugins]]
 repo = 'tyru/open-browser.vim'
 hook_add = '''
-  let g:openbrowser_menu_lang = 'ja'
+    let g:openbrowser_menu_lang = 'ja'
 '''
 
 [[plugins]]
@@ -81,8 +109,8 @@ repo = 'tyru/open-browser-github.vim'
 depends = ['open-browser.vim']
 on_cmd = ['OpenGithubFile','OpenGithubIssue','OpenGithubPullReq']
 hook_add = '''
-  nnoremap go :<C-u>OpenGithubFile<CR>
-  xnoremap go :OpenGithubFile<CR>
+    nnoremap go :<C-u>OpenGithubFile<CR>
+    xnoremap go :OpenGithubFile<CR>
 '''
 
 [[plugins]] # Markdown Preview
@@ -112,7 +140,7 @@ on_cmd = ['Gista']
 
 [[plugins]] # Codic
 repo = 'koron/codic-vim'
-on_cmd = 'Codic'
+on_cmd = ['Codic']
 
 # }}}
 # Colors {{{
@@ -120,8 +148,8 @@ on_cmd = 'Codic'
 [[plugins]] # hybrid
 repo = 'w0ng/vim-hybrid'
 hook_add = '''
-  " let g:hybrid_custom_term_colors = 1
-  " let g:hybrid_reduced_contrast = 1
+    " let g:hybrid_custom_term_colors = 1
+    " let g:hybrid_reduced_contrast = 1
 '''
 
 [[plugins]] # material
@@ -130,8 +158,8 @@ repo = 'jdkanani/vim-material-theme'
 [[plugins]] # molokai
 repo = 'tomasr/molokai'
 hook_add = '''
-  " let g:molokai_original = 1
-  " let g:rehash256 = 1
+    " let g:molokai_original = 1
+    " let g:rehash256 = 1
 '''
 
 [[plugins]] # WWDC16
@@ -139,10 +167,21 @@ repo = 'lifepillar/vim-wwdc16-theme'
 
 
 # }}}
-# Lang {{{ 
+# Lang {{{
 
 [[plugins]] # Golang
 repo = 'fatih/vim-go'
+on_ft = ['go']
+hook_source = '''
+    let g:go_fmt_command = 'goimports'
+'''
+hook_post_update = '''
+    if isdirectory(expand('$GOPATH'))
+        execute 'GoInstallBinaries'
+    else
+        echo 'you must set $GOPATH of environment Variables.'
+    endif
+'''
 
 [[plugins]] # Haml
 repo  = 'tpope/vim-haml'
@@ -153,8 +192,8 @@ repo  = 'othree/html5.vim'
 [[plugins]] # Markdown
 repo = 'rcmdnk/vim-markdown'
 hook_add = '''
-  let g:vim_markdown_frontmatter = 1
-  let g:vim_markdown_math = 1
+    let g:vim_markdown_frontmatter = 1
+    let g:vim_markdown_math = 1
 '''
 
 [[plugins]] # TMUX
@@ -162,20 +201,23 @@ repo = 'tmux-plugins/vim-tmux'
 
 [[plugins]] # Toml
 repo  = 'cespare/vim-toml'
+on_ft = ['toml']
 
 [[plugins]] # TypeScript
 repo = 'leafgarland/typescript-vim'
 
 [[plugins]] # Japanese doc
 repo = 'vim-jp/vimdoc-ja'
-hook_add = '''
-  " Help の言語を設定
-  set helplang=ja,en
-'''
+on_ft = ['help']
+
 # }}}
 # Test {{{
 
 [[plugins]] # 選択範囲を記号やタグで囲んだり外したりできる
 repo = 'tpope/vim-surround'
+
+[[plugins]]
+repo = 'Shougo/denite.nvim'
+if = 'has("nvim")'
 
 # }}}
