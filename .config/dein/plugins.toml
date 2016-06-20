@@ -30,6 +30,18 @@ on_i = 1
 hook_source = '''
     let g:deoplete#enable_at_startup = 1
     let g:deoplete#enable_smart_case = 1
+
+    " ---
+
+    " <TAB>: completion.
+    imap <silent><expr> <TAB> pumvisible() ? "\<C-n>" : <SID>check_back_space() ? "\<TAB>" : deoplete#mappings#manual_complete()
+    function! s:check_back_space() abort
+        let col = col('.') - 1
+        return !col || getline('.')[col - 1]  =~ '\s'
+    endfunction
+
+    " <S-TAB>: completion back.
+    inoremap <expr><S-TAB>  pumvisible() ? "\<C-p>" : "\<C-h>"
 '''
 
 [[plugins]] # Golang
@@ -41,10 +53,6 @@ hook_source = '''
     let g:deoplete#sources#go#gocode_binary = $GOPATH . '/bin/gocode'
     let g:deoplete#sources#go#sort_class = ['package', 'func', 'type', 'var', 'const']
 '''
-
-[[plugins]] # Syntax
-repo = 'Shougo/neco-syntax'
-depends = ['deoplete.nvim']
 
 [[plugins]] # Vim
 repo = 'Shougo/neco-vim'
@@ -82,6 +90,9 @@ hook_post_source = '''
 [[plugins]] # EditorConfig
 repo = 'editorconfig/editorconfig-vim'
 on_path = '.*'
+
+[[plugins]] # 選択範囲を記号やタグで囲んだり外したりできる
+repo = 'tpope/vim-surround'
 
 [[plugins]] # Emmet
 repo = 'mattn/emmet-vim'
@@ -216,9 +227,6 @@ on_ft = ['help']
 
 # }}}
 # Test {{{
-
-[[plugins]] # 選択範囲を記号やタグで囲んだり外したりできる
-repo = 'tpope/vim-surround'
 
 [[plugins]]
 repo = 'Shougo/denite.nvim'
