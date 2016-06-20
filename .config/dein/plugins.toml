@@ -139,8 +139,12 @@ repo = 'lambdalisue/vim-gista'
 on_cmd = ['Gista']
 
 [[plugins]] # Codic
-repo = 'koron/codic-vim'
-on_cmd = ['Codic']
+repo = 'yasuharu519/vim-codic'
+if = 'exists("$CODIC_ACCESS_TOKEN")'
+on_cmd = ['VimCodic']
+hook_source = '''
+    let g:vim_codic_access_token = $CODIC_ACCESS_TOKEN
+'''
 
 # }}}
 # Colors {{{
