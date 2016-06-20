@@ -161,14 +161,6 @@ if (( $+commands[ghq] )); then
     }
 fi
 
-# pip
-if (( $+commands[pip] )); then
-    eval "$(pip completion --zsh)"
-    pip-update() {
-        pip freeze --local | grep -v '^\-e' | cut -d = -f 1 | xargs -n 1 -P 10 pip install -U
-    }
-fi
-
 # nvim
 if (( $+commands[nvim] )) && (( $+commands[tmux] )); then
     nv() {
@@ -250,7 +242,6 @@ qiita() {
 }
 
 # }}}
-
 # keybinds {{{
 bindkey -v
 
