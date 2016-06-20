@@ -18,7 +18,7 @@ my dotfile
 
 ## License
 
-Copyright (c) 2015 Aoi Tachibana
+Copyright (c) 2015 [Aoi Tachibana](https://ress.mit-license.org)
 
 Licensed under the [MIT license](LICENSE).
 
