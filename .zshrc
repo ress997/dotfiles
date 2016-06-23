@@ -120,7 +120,10 @@ fi
 if (( $+commands[anyenv] )); then
     eval "$(anyenv init -)"
 else
-    (( $+commands[rbenv] )) && eval "$(rbenv init -)"
+    if (( $+commands[rbenv] )); then
+        export RBENV_ROOT="$XDG_CACHE_HOME/rbenv"
+        eval "$(rbenv init -)"
+    fi
 fi
 
 # }}}
