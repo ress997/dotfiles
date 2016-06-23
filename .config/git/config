@@ -19,12 +19,19 @@
     ui = true
 [credential]
     helper = osxkeychain
+[interactive]
+    diffFilter = diff-highlight
+[pager]
+    log  = diff-highlight | less
+    show = diff-highlight | less
+    diff = diff-highlight | less
 # ---
 [commit]
     template = ~/.config/git/message.txt
 [diff]
     algorithm = histogram
     tool = vimdiff
+    compactionHeuristic = true
 [merge]
     ff = false
 [push]
