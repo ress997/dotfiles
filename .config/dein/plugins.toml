@@ -223,7 +223,6 @@ repo = 'leafgarland/typescript-vim'
 
 [[plugins]] # Japanese doc
 repo = 'vim-jp/vimdoc-ja'
-on_ft = ['help']
 
 # }}}
 # Test {{{
