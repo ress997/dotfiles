@@ -51,8 +51,6 @@ zplug 'b4b4r07/emoji-cli', \
 zplug 'b4b4r07/enhancd', \
     use:'init.sh'
 
-zplug 'glidenote/hub-zsh-completion'
-
 zplug 'zsh-users/zsh-completions'
 
 zplug 'zsh-users/zsh-syntax-highlighting', \
