@@ -226,8 +226,4 @@ repo = 'vim-jp/vimdoc-ja'
 # }}}
 # Test {{{
 
-[[plugins]]
-repo = 'Shougo/denite.nvim'
-if = 'has("nvim")'
-
 # }}}
