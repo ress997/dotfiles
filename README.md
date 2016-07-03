@@ -11,7 +11,7 @@ my dotfile
 ## Features
 
 - **OS X** El Capitan (MacBook Pro, Retina 13-inch, Mid 2014)
-- **iTerm.app** 2 (Build 3.0.3, Full-screen)
+- **iTerm.app** 2 (Build 3.0.4, Full-screen)
 - **Tmux** 2.2
 - **Zsh** 5.2
 - **NeoVim** 0.1.4
