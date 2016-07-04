@@ -41,6 +41,7 @@ hook_source = '''
     " <S-TAB>: completion back.
     inoremap <expr><S-TAB>  pumvisible() ? "\<C-p>" : "\<C-h>"
 '''
+hook_post_update = 'UpdateRemotePlugins'
 
 [[plugins]] # Golang
 repo = 'zchee/deoplete-go'
@@ -100,12 +101,7 @@ hook_source = '''
     let g:user_emmet_mode = 'i'
     let g:user_emmet_leader_key='<C-E>'
     let g:use_emmet_complete_tag = 1
-    let g:user_emmet_settings = {
-    \   'variables': {
-    \       'lang': "ja"
-    \   },
-    \       'indentation': '    '
-    \   }
+    let g:user_emmet_settings = {'variables': {'lang': "ja"}}
 '''
 
 [[plugins]]
@@ -175,10 +171,6 @@ hook_add = '''
     " let g:molokai_original = 1
     " let g:rehash256 = 1
 '''
-
-[[plugins]] # WWDC16
-repo = 'lifepillar/vim-wwdc16-theme'
-
 
 # }}}
 # Lang {{{
