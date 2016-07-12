@@ -76,9 +76,9 @@ hook_post_source = '''
 [[plugins]] # Auto save
 repo ='907th/vim-auto-save'
 hook_add = '''
-    let g:auto_save = 1 " Auto save 有効化
-    let g:auto_save_in_insert_mode = 0 " インサートモードで自動保存 OFF
-    let g:auto_save_silent = 1 " メッセージを表示しない
+    let g:auto_save = 1                 " Auto save 有効化
+    let g:auto_save_in_insert_mode = 0  " インサートモードで自動保存 OFF
+    let g:auto_save_silent = 1          " メッセージを表示しない
 '''
 
 [[plugins]] # Status line
@@ -200,10 +200,11 @@ repo  = 'tpope/vim-haml'
 repo  = 'othree/html5.vim'
 
 [[plugins]] # Markdown
-repo = 'rcmdnk/vim-markdown'
-hook_add = '''
-    let g:vim_markdown_frontmatter = 1
-    let g:vim_markdown_math = 1
+repo = 'plasticboy/vim-markdown'
+on_ft = ['markdown']
+hook_source = '''
+    " 自動で折りたたまないようにする
+    let g:vim_markdown_folding_disabled = 1
 '''
 
 [[plugins]] # TMUX
