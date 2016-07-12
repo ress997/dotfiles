@@ -1,22 +1,32 @@
-# コードのフォーマットや構造にテコ入れ
-# - :diamond_shape_with_a_dot_inside: when improving the format/structure of the code
-# パフォーマンスを改善
-# - :rocket: when improving performance
-# ドキュメントを書いた時
-# - :pencil2: when writing docs
-# 新しいアイディア
-# - :bulb: new idea
-# 進行中の作業(作業中?)
-# - :construction: work in progress
-# 機能を追加
-# - :heavy_plus_sign: when adding feature
-# 機能を削除
-# - :heavy_minus_sign: when removing feature
-# バグを修正
-# - :bug: when fixing a bug
-# テスト関係
-# - :white_check_mark: when adding tests
-# セキュリティ関係
-# - :lock: when dealing with security
-# 依存関係をアップグレード
-# - :arrow_up: when upgrading dependencies
+
+# ==== Emojis ====
+# 🐛  :bug: バグ修正
+# 👍  :+1: 機能改善
+# ✨  :sparkles: 部分的な機能追加
+# 🎉  :tada: 盛大に祝うべき大きな機能追加
+# ♻️  :recycle: リファクタリング
+# 🚿  :shower: 不要な機能・使われなくなった機能の削除
+# 💚  :green_heart: テストやCIの修正・改善
+# 👕  :shirt: Lintエラーの修正やコードスタイルの修正
+# 🚀  :rocket: パフォーマンス改善
+# 🆙  :up: 依存パッケージなどのアップデート
+# 🔒  :lock: 新機能の公開範囲の制限
+# 👮  :cop: セキュリティ関連の改善
+
+# ==== Format ====
+# :emoji: Subject
+#
+# Commit body...
+
+# ==== The Seven Rules ====
+# 1. Separate subject from body with a blank line
+# 2. Limit the subject line to 50 characters
+# 3. Capitalize the subject line
+# 4. Do not end the subject line with a period
+# 5. Use the imperative mood in the subject line
+# 6. Wrap the body at 72 characters
+# 7. Use the body to explain what and why vs. how
+#
+# How to Write a Git Commit Message http://chris.beams.io/posts/git-commit/
+
+# for http://memo.goodpatch.co/2016/07/beautiful-commits-with-emojis/
