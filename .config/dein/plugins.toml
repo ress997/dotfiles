@@ -67,7 +67,11 @@ on_ft = ['zsh']
 # }}}
 
 [[plugins]] # Auto Close (括弧)
-repo = 'Townk/vim-autoclose'
+repo = 'jiangmiao/auto-pairs'
+on_i = 1
+hook_post_source = '''
+    call AutoPairsTryInit()
+'''
 
 [[plugins]] # Auto save
 repo ='907th/vim-auto-save'
