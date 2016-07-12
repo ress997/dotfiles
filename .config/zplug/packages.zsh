@@ -37,12 +37,18 @@ zplug 'mrowa44/emojify', \
 zplug 'b4b4r07/zsh-gomi', \
     as:command, \
     use:'bin/gomi', \
-    on:'junegunn/fzf-bin'
+    on:'junegunn/fzf-bin', \
+    hook-load:"export GOMI_DIR=$XDG_CACHE_HOME/gomi"
 
 zplug 'arukasio/cli', \
     from:gh-r, \
     as:command, \
     rename-to:arukas
+
+zplug '39e/gibo', \
+    as:command, \
+    use:'bin/gibo', \
+    hook-load:'export GIBO_BOILERPLATES=$XDG_CACHE_HOME/gibo'
 
 # Plugin
 zplug 'b4b4r07/emoji-cli', \
