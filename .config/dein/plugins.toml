@@ -222,4 +222,8 @@ repo = 'vim-jp/vimdoc-ja'
 # }}}
 # Test {{{
 
+[[plugins]]
+repo = 'junegunn/vim-easy-align'
+on_cmd = ['EasyAlign']
+
 # }}}
