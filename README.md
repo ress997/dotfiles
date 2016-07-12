@@ -1,12 +1,8 @@
 # Dotfile
 
-<p align="center">
-	<a href="LICENSE">
-		<img alt="MIT License" src="https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square">
-	</a>
-</p>
+[![MIT License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](LICENSE)
 
-my dotfile
+My Dotfile
 
 ## Features
 
