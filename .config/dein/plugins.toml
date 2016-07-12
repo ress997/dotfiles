@@ -1,9 +1,9 @@
 [[plugins]]
 repo = 'Shougo/dein.vim'
 hook_add = '''
-if has('mac') && executable('osascript')
-    let g:dein#enable_notification = 1
-endif
+    if has('mac') && executable('osascript')
+        let g:dein#enable_notification = 1
+    endif
 '''
 
 # Library {{{
@@ -20,9 +20,7 @@ repo = 'vim-jp/vital.vim'
 repo = 'osyo-manga/vim-precious'
 depends = ['context_filetype.vim']
 
-# deoplete {{{
-
-[[plugins]] # 本体
+[[plugins]] # 補完
 repo = 'Shougo/deoplete.nvim'
 if = 'has("nvim")'
 depends = ['context_filetype.vim']
@@ -43,29 +41,6 @@ hook_source = '''
 '''
 hook_post_update = 'UpdateRemotePlugins'
 
-[[plugins]] # Golang
-repo = 'zchee/deoplete-go'
-depends = ['deoplete.nvim']
-on_ft = ['go']
-build = 'make'
-hook_source = '''
-    let g:deoplete#sources#go#use_cache = 1
-    let g:deoplete#sources#go#gocode_binary = $GOPATH . '/bin/gocode'
-    let g:deoplete#sources#go#sort_class = ['package', 'func', 'type', 'var', 'const']
-'''
-
-[[plugins]] # Vim
-repo = 'Shougo/neco-vim'
-depends = ['deoplete.nvim']
-on_ft = ['vim']
-
-[[plugins]] # Zsh
-repo = 'zchee/deoplete-zsh'
-depends = ['deoplete.nvim']
-on_ft = ['zsh']
-
-# }}}
-
 [[plugins]] # Auto Close (括弧)
 repo = 'jiangmiao/auto-pairs'
 on_i = 1
@@ -75,10 +50,14 @@ hook_post_source = '''
 
 [[plugins]] # Auto save
 repo ='907th/vim-auto-save'
-hook_add = '''
+on_path = '.*'
+hook_source = '''
     let g:auto_save = 1                 " Auto save 有効化
     let g:auto_save_in_insert_mode = 0  " インサートモードで自動保存 OFF
     let g:auto_save_silent = 1          " メッセージを表示しない
+'''
+hook_post_source = '''
+    call AutoSave()
 '''
 
 [[plugins]] # Status line
@@ -123,16 +102,91 @@ hook_add = '''
     xnoremap go :OpenGithubFile<CR>
 '''
 
-[[plugins]] # Markdown Preview
+# Lang {{{
+## Golang {{{
+
+[[plugins]]
+repo = 'fatih/vim-go'
+on_ft = ['go']
+hook_source = '''
+    let g:go_fmt_command = 'goimports'
+'''
+hook_post_update = '''
+    if isdirectory(expand('$GOPATH'))
+        execute 'GoInstallBinaries'
+    else
+        echo 'you must set $GOPATH of environment Variables.'
+    endif
+'''
+
+[[plugins]]
+repo = 'zchee/deoplete-go'
+depends = ['deoplete.nvim']
+on_ft = ['go']
+build = 'make'
+hook_source = '''
+    let g:deoplete#sources#go#use_cache = 1
+    let g:deoplete#sources#go#gocode_binary = $GOPATH . '/bin/gocode'
+    let g:deoplete#sources#go#sort_class = ['package', 'func', 'type', 'var', 'const']
+'''
+
+## }}}
+## html {{{
+
+[[plugins]] # Haml
+repo  = 'tpope/vim-haml'
+
+[[plugins]] # Html5
+repo  = 'othree/html5.vim'
+
+## }}}
+## JavaScript {{{
+
+[[plugins]] # TypeScript
+repo = 'leafgarland/typescript-vim'
+
+## }}}
+## Markdown {{{
+
+[[plugins]]
+repo = 'plasticboy/vim-markdown'
+on_ft = ['markdown']
+hook_source = '''
+    " 自動で折りたたまないようにする
+    let g:vim_markdown_folding_disabled = 1
+'''
+
+[[plugins]] # Preview
 repo = 'kannokanno/previm'
 depends = ['open-browser.vim']
 on_cmd = ['PrevimOpen']
 
-[[plugins]] # 選択インターフェース
-repo = 'junegunn/fzf'
-if = 'executable("fzf")'
-on_cmd = ['FZF','fzf#run']
+## }}}
+## Vim {{{
 
+[[plugins]]
+repo = 'Shougo/neco-vim'
+depends = ['deoplete.nvim']
+on_ft = ['vim']
+
+[[plugins]] # Japanese doc
+repo = 'vim-jp/vimdoc-ja'
+
+## }}}
+
+[[plugins]] # TMUX
+repo = 'tmux-plugins/vim-tmux'
+
+[[plugins]] # Toml
+repo  = 'cespare/vim-toml'
+on_ft = ['toml']
+
+[[plugins]] # Zsh
+repo = 'zchee/deoplete-zsh'
+depends = ['deoplete.nvim']
+on_ft = ['zsh']
+
+# }}}
 # Command {{{
 
 [[plugins]] # dein.vim command
@@ -156,6 +210,10 @@ hook_source = '''
     let g:vim_codic_access_token = $CODIC_ACCESS_TOKEN
 '''
 
+[[plugins]] # 整形
+repo = 'junegunn/vim-easy-align'
+on_cmd = ['EasyAlign']
+
 # }}}
 # Colors {{{
 
@@ -177,54 +235,11 @@ hook_add = '''
 '''
 
 # }}}
-# Lang {{{
-
-[[plugins]] # Golang
-repo = 'fatih/vim-go'
-on_ft = ['go']
-hook_source = '''
-    let g:go_fmt_command = 'goimports'
-'''
-hook_post_update = '''
-    if isdirectory(expand('$GOPATH'))
-        execute 'GoInstallBinaries'
-    else
-        echo 'you must set $GOPATH of environment Variables.'
-    endif
-'''
-
-[[plugins]] # Haml
-repo  = 'tpope/vim-haml'
-
-[[plugins]] # Html5
-repo  = 'othree/html5.vim'
-
-[[plugins]] # Markdown
-repo = 'plasticboy/vim-markdown'
-on_ft = ['markdown']
-hook_source = '''
-    " 自動で折りたたまないようにする
-    let g:vim_markdown_folding_disabled = 1
-'''
-
-[[plugins]] # TMUX
-repo = 'tmux-plugins/vim-tmux'
-
-[[plugins]] # Toml
-repo  = 'cespare/vim-toml'
-on_ft = ['toml']
-
-[[plugins]] # TypeScript
-repo = 'leafgarland/typescript-vim'
-
-[[plugins]] # Japanese doc
-repo = 'vim-jp/vimdoc-ja'
-
-# }}}
 # Test {{{
 
-[[plugins]]
-repo = 'junegunn/vim-easy-align'
-on_cmd = ['EasyAlign']
+[[plugins]] # 選択インターフェース
+repo = 'junegunn/fzf'
+if = 'executable("fzf")'
+on_cmd = ['FZF','fzf#run']
 
 # }}}
