@@ -5,13 +5,14 @@ limit coredumpsize 0
 # 重複パスを登録しない
 typeset -U path cdpath fpath manpath
 
-# Tmux Plugin Manager {{{
+# Tmux {{{
+## Pluzogin Manager {{{
 if [ ! -d $XDG_CACHE_HOME/tmux/tpm ];then
     git clone https://github.com/tmux-plugins/tpm $XDG_CACHE_HOME/tmux/tpm
     $XDG_CACHE_HOME/tmux/tpm/bin/install_plugins
 fi
-# }}}
-# TMUX Auto new-session {{{
+## }}}
+## Auto new-session {{{
 is_osx() {
     [[ "${(L)$( uname -s )}" == darwin ]]
 }
@@ -70,6 +71,7 @@ tmux_automatically_attach_session() {
     fi
 }
 tmux_automatically_attach_session
+## }}}
 # }}}
 # zplug {{{
 export ZPLUG_HOME="$DEV_DATA_HOME/zplug"
@@ -148,6 +150,10 @@ available () {
 
 # ghq
 if (( $+commands[ghq] )); then
+    ghq-update() {
+        ghq list | sed 's|.[^/]*/||' | xargs -n 1 -P 10 ghq get -u
+    }
+
     local DIRECTORY
     g() {
         if zplug check 'b4b4r07/enhancd'; then
@@ -159,9 +165,10 @@ if (( $+commands[ghq] )); then
     gh() {
         DIRECTORY=$(ghq list | $(available $FILTER) | cut -d "/" -f 2,3) && hub browse $DIRECTORY
     }
-    ghq-update() {
-        ghq list | sed 's|.[^/]*/||' | xargs -n 1 -P 10 ghq get -u
+    gd() {
+        DIRECTORY=$(ghq list | $(available $FILTER)) && rm -r $(ghq root)/$DIRECTORY
     }
+
 fi
 
 # nvim
@@ -241,6 +248,18 @@ qiita() {
         open_browser $URL
     else
         echo "usage: $0 word"
+    fi
+}
+
+notify() {
+    if is_osx; then
+        osascript -e "display notification \"$1\""
+
+        if [ -n "$TMUX" ] && (( $+commands[reattach-to-user-namespace] )); then
+            reattach-to-user-namespace say $1
+        else
+            say $1
+        fi
     fi
 }
 
