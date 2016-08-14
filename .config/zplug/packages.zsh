@@ -50,6 +50,15 @@ zplug '39e/gibo', \
     use:'bin/gibo', \
     hook-load:'export GIBO_BOILERPLATES=$XDG_CACHE_HOME/gibo'
 
+zplug 'Code-Hex/pget', \
+    from:gh-r, \
+    as:command
+
+zplug 'shinofara/stand', \
+    from:gh-r, \
+    as:command
+
+
 # Plugin
 zplug 'b4b4r07/emoji-cli', \
     on:'stedolan/jq'
@@ -61,3 +70,4 @@ zplug 'zsh-users/zsh-completions'
 
 zplug 'zsh-users/zsh-syntax-highlighting', \
     nice:15
+zplug "zplug/zplug"

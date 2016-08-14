@@ -79,35 +79,37 @@ export ZPLUG_CACHE_FILE="$XDG_CACHE_HOME/zplug/cache"
 export ZPLUG_LOADFILE=$XDG_CONFIG_HOME/zplug/packages.zsh
 export ZPLUG_FILTER=$FILTER
 
-# enhancd
+## 臨時修正 {{{
+
+### PATH が追加されない
+path=($ZPLUG_HOME/bin $path)
+
+### enhancd
 export ENHANCD_DIR="$XDG_DATA_HOME/enhancd"
 
+## }}}
+
 [[ -f $ZPLUG_HOME/init.zsh ]] || {
-    if (( $+commands[git] )); then
-        git clone https://github.com/zplug/zplug.git $ZPLUG_HOME
-    else
-        echo 'git not found' >&2
-        exit 1
-    fi
+    curl -sL zplug.sh/installer | zsh
+
     source $ZPLUG_HOME/init.zsh && zplug update --self
 }
 
 source $ZPLUG_HOME/init.zsh
 
-if ! zplug check --verbose; then
-    printf "Install? [y/N]: "
-    if read -q; then
-        echo; zplug install
-    fi
+if ! zplug check; then
+    zplug install
 fi
-zplug load --verbose
-# }}}
-# Plugin Seting {{{
+
+zplug load
+
+## Plugin Seting {{{
 
 if (( $+commands[fzf] )) && (( $+commands[pt] )); then
     export FZF_DEFAULT_COMMAND='pt -g ""'
 fi
 
+## }}}
 # }}}
 # etc {{{
 
