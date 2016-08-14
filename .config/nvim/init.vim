@@ -131,6 +131,7 @@ nnoremap sJ <C-w>J
 nnoremap sK <C-w>K
 nnoremap sL <C-w>L
 
+" TAB 関係
 nnoremap t <Nop>
 nnoremap <silent> tt :<C-u>tabnew<CR>
 nnoremap <silent> tT :<C-u>tabnew<CR>:<C-u>tabprev<CR>

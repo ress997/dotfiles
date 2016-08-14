@@ -48,6 +48,37 @@ hook_source = '''
 hook_post_update = 'UpdateRemotePlugins'
 
 # }}}
+# NERDTree {{{
+
+[[plugins]]
+repo = 'scrooloose/nerdtree'
+hook_add = '''
+    " 不可視ファイルを表示する
+    let g:NERDTreeShowHidden = 1
+    " 除外対象指定
+    let g:NERDTreeIgnore = ['.(tgz|gz|zip)$']
+    " ブックマークを初期表示
+    let g:NERDTreeShowBookmarks = 1
+'''
+
+[[plugins]]
+repo = 'Xuyuanp/nerdtree-git-plugin'
+deoplete = ['nerdtree']
+
+[[plugins]]
+repo = 'jistr/vim-nerdtree-tabs'
+deoplete = ['nerdtree']
+hook_add = '''
+    " nnoremap <Leader>tf <plug>NERDTreeTabsToggle<CR>
+'''
+hook_source = '''
+    " ファイルが指定されていなければNERD treeを有効にする
+    if argc() == 0
+      let g:nerdtree_tabs_open_on_console_startup = 1
+    end
+'''
+
+# }}}
 
 [[plugins]] # Auto Close (括弧)
 repo = 'jiangmiao/auto-pairs'
@@ -63,6 +94,10 @@ hook_source = '''
     let g:auto_save_silent = 1          " メッセージを表示しない
 '''
 hook_post_source = 'call AutoSave()'
+
+[[plugins]]
+repo = 'airblade/vim-gitgutter'
+on_path = '.*'
 
 [[plugins]] # Status line
 repo = 'itchyny/lightline.vim'
