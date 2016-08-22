@@ -81,9 +81,6 @@ export ZPLUG_FILTER=$FILTER
 
 ## 臨時修正 {{{
 
-### PATH が追加されない
-path=($ZPLUG_HOME/bin $path)
-
 ### enhancd
 export ENHANCD_DIR="$XDG_DATA_HOME/enhancd"
 
@@ -101,7 +98,7 @@ if ! zplug check; then
     zplug install
 fi
 
-zplug load
+zplug load --verbose
 
 ## Plugin Seting {{{
 
