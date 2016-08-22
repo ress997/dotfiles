@@ -45,11 +45,6 @@ zplug "arukasio/cli", \
 	as:command, \
 	rename-to:arukas
 
-zplug "39e/gibo", \
-	as:command, \
-	use:"bin/gibo", \
-	hook-load:"export GIBO_BOILERPLATES=$XDG_CACHE_HOME/gibo"
-
 zplug "Code-Hex/pget", \
 	from:gh-r, \
 	as:command

@@ -88,14 +88,10 @@ export WORDCHARS='*?.[]~&;!#$%^(){}<>'
 # PATH
 typeset -U path PATH
 path=( \
+	$HOME/.local/bin(N-/)
     $HOME/bin(N-/) \
     $GOPATH/bin(N-/) \
     /usr/local/bin(N-/) \
-    $path \
-)
-
-path=( \
-    $HOME/.local/bin(N-/) \
     $path \
 )
 

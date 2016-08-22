@@ -1,9 +1,9 @@
 [[plugins]]
 repo = 'Shougo/dein.vim'
 hook_add = '''
-    if has('mac') && executable('osascript')
-        let g:dein#enable_notification = 1
-    endif
+	if has('mac') && executable('osascript')
+		let g:dein#enable_notification = 1
+	endif
 '''
 
 # Library {{{
@@ -32,20 +32,19 @@ if = 'has("nvim")'
 depends = ['context_filetype.vim']
 on_i = 1
 hook_source = '''
-    let g:deoplete#enable_at_startup = 1
-    let g:deoplete#enable_smart_case = 1
+	let g:deoplete#enable_at_startup = 1
+	let g:deoplete#enable_smart_case = 1
 
-    " <TAB>: completion.
-    imap <silent><expr> <TAB> pumvisible() ? "\<C-n>" : <SID>check_back_space() ? "\<TAB>" : deoplete#mappings#manual_complete()
-    function! s:check_back_space() abort
-        let col = col('.') - 1
-        return !col || getline('.')[col - 1]  =~ '\s'
-    endfunction
+	" <TAB>: completion.
+	imap <silent><expr> <TAB> pumvisible() ? "\<C-n>" : <SID>check_back_space() ? "\<TAB>" : deoplete#mappings#manual_complete()
+	function! s:check_back_space() abort
+		let col = col('.') - 1
+		return !col || getline('.')[col - 1]  =~ '\s'
+	endfunction
 
-    " <S-TAB>: completion back.
-    inoremap <expr><S-TAB>  pumvisible() ? "\<C-p>" : "\<C-h>"
+	" <S-TAB>: completion back.
+	inoremap <expr><S-TAB>  pumvisible() ? "\<C-p>" : "\<C-h>"
 '''
-hook_post_update = 'UpdateRemotePlugins'
 
 # }}}
 # NERDTree {{{
@@ -53,12 +52,12 @@ hook_post_update = 'UpdateRemotePlugins'
 [[plugins]]
 repo = 'scrooloose/nerdtree'
 hook_add = '''
-    " 不可視ファイルを表示する
-    let g:NERDTreeShowHidden = 1
-    " 除外対象指定
-    let g:NERDTreeIgnore = ['.(tgz|gz|zip)$']
-    " ブックマークを初期表示
-    let g:NERDTreeShowBookmarks = 1
+	" 不可視ファイルを表示する
+	let g:NERDTreeShowHidden = 1
+	" 除外対象指定
+	let g:NERDTreeIgnore = ['.(tgz|gz|zip)$']
+	" ブックマークを初期表示
+	let g:NERDTreeShowBookmarks = 1
 '''
 
 [[plugins]]
@@ -69,13 +68,13 @@ deoplete = ['nerdtree']
 repo = 'jistr/vim-nerdtree-tabs'
 deoplete = ['nerdtree']
 hook_add = '''
-    " nnoremap <Leader>tf <plug>NERDTreeTabsToggle<CR>
+	" nnoremap <Leader>tf <plug>NERDTreeTabsToggle<CR>
 '''
 hook_source = '''
-    " ファイルが指定されていなければNERD treeを有効にする
-    if argc() == 0
-      let g:nerdtree_tabs_open_on_console_startup = 1
-    end
+	" ファイルが指定されていなければNERD treeを有効にする
+	if argc() == 0
+	  let g:nerdtree_tabs_open_on_console_startup = 1
+	end
 '''
 
 # }}}
@@ -89,9 +88,9 @@ hook_post_source = 'call AutoPairsTryInit()'
 repo ='907th/vim-auto-save'
 on_path = '.*'
 hook_source = '''
-    let g:auto_save = 1                 " Auto save 有効化
-    let g:auto_save_in_insert_mode = 0  " インサートモードで自動保存 OFF
-    let g:auto_save_silent = 1          " メッセージを表示しない
+	let g:auto_save = 1                 " Auto save 有効化
+	let g:auto_save_in_insert_mode = 0  " インサートモードで自動保存 OFF
+	let g:auto_save_silent = 1          " メッセージを表示しない
 '''
 hook_post_source = 'call AutoSave()'
 
@@ -99,16 +98,16 @@ hook_post_source = 'call AutoSave()'
 repo = 'airblade/vim-gitgutter'
 on_path = '.*'
 hook_source = '''
-    let g:gitgutter_sign_added = '✚'
-    let g:gitgutter_sign_modified = '➜'
-    let g:gitgutter_sign_removed = '✘'
+	let g:gitgutter_sign_added = '✚'
+	let g:gitgutter_sign_modified = '➜'
+	let g:gitgutter_sign_removed = '✘'
 '''
 
 [[plugins]] # Status line
 repo = 'itchyny/lightline.vim'
 on_event = ['VimEnter']
 hook_source = '''
-    let g:lightline = {'colorscheme': 'wombat'}
+	let g:lightline = {'colorscheme': 'wombat'}
 '''
 hook_post_source = 'call lightline#colorscheme()'
 
@@ -123,16 +122,16 @@ repo = 'tpope/vim-surround'
 repo = 'mattn/emmet-vim'
 on_i = 1
 hook_source = '''
-    let g:user_emmet_mode = 'i'
-    let g:user_emmet_leader_key='<C-E>'
-    let g:use_emmet_complete_tag = 1
-    let g:user_emmet_settings = {'variables': {'lang': "ja"}}
+	let g:user_emmet_mode = 'i'
+	let g:user_emmet_leader_key='<C-E>'
+	let g:use_emmet_complete_tag = 1
+	let g:user_emmet_settings = {'variables': {'lang': "ja"}}
 '''
 
 [[plugins]]
 repo = 'tyru/open-browser.vim'
 hook_add = '''
-    let g:openbrowser_menu_lang = 'ja'
+	let g:openbrowser_menu_lang = 'ja'
 '''
 
 [[plugins]]
@@ -140,8 +139,8 @@ repo = 'tyru/open-browser-github.vim'
 depends = ['open-browser.vim']
 on_cmd = ['OpenGithubFile','OpenGithubIssue','OpenGithubPullReq']
 hook_add = '''
-    nnoremap go :<C-u>OpenGithubFile<CR>
-    xnoremap go :OpenGithubFile<CR>
+	nnoremap go :<C-u>OpenGithubFile<CR>
+	xnoremap go :OpenGithubFile<CR>
 '''
 
 # Lang {{{
@@ -151,14 +150,14 @@ hook_add = '''
 repo = 'fatih/vim-go'
 on_ft = ['go']
 hook_source = '''
-    let g:go_fmt_command = 'goimports'
+	let g:go_fmt_command = 'goimports'
 '''
 hook_post_update = '''
-    if isdirectory(expand('$GOPATH'))
-        execute 'GoInstallBinaries'
-    else
-        echo 'you must set $GOPATH of environment Variables.'
-    endif
+	if isdirectory(expand('$GOPATH'))
+		execute 'GoInstallBinaries'
+	else
+		echo 'you must set $GOPATH of environment Variables.'
+	endif
 '''
 
 [[plugins]]
@@ -167,9 +166,9 @@ depends = ['deoplete.nvim']
 on_ft = ['go']
 build = 'make'
 hook_source = '''
-    let g:deoplete#sources#go#use_cache = 1
-    let g:deoplete#sources#go#gocode_binary = $GOPATH . '/bin/gocode'
-    let g:deoplete#sources#go#sort_class = ['package', 'func', 'type', 'var', 'const']
+	let g:deoplete#sources#go#use_cache = 1
+	let g:deoplete#sources#go#gocode_binary = $GOPATH . '/bin/gocode'
+	let g:deoplete#sources#go#sort_class = ['package', 'func', 'type', 'var', 'const']
 '''
 
 ## }}}
@@ -205,8 +204,8 @@ on_ft = ['typescript']
 repo = 'plasticboy/vim-markdown'
 on_ft = ['markdown']
 hook_source = '''
-    " 自動で折りたたまないようにする
-    let g:vim_markdown_folding_disabled = 1
+	" 自動で折りたたまないようにする
+	let g:vim_markdown_folding_disabled = 1
 '''
 
 [[plugins]] # Preview
@@ -264,7 +263,7 @@ repo = 'yasuharu519/vim-codic'
 if = 'exists("$CODIC_ACCESS_TOKEN")'
 on_cmd = ['VimCodic']
 hook_source = '''
-    let g:vim_codic_access_token = $CODIC_ACCESS_TOKEN
+	let g:vim_codic_access_token = $CODIC_ACCESS_TOKEN
 '''
 
 [[plugins]] # 整形
@@ -277,8 +276,8 @@ on_cmd = ['EasyAlign']
 [[plugins]] # hybrid
 repo = 'w0ng/vim-hybrid'
 hook_add = '''
-    " let g:hybrid_custom_term_colors = 1
-    " let g:hybrid_reduced_contrast = 1
+	" let g:hybrid_custom_term_colors = 1
+	" let g:hybrid_reduced_contrast = 1
 '''
 
 [[plugins]] # material
@@ -287,8 +286,8 @@ repo = 'jdkanani/vim-material-theme'
 [[plugins]] # molokai
 repo = 'tomasr/molokai'
 hook_add = '''
-    " let g:molokai_original = 1
-    " let g:rehash256 = 1
+	" let g:molokai_original = 1
+	" let g:rehash256 = 1
 '''
 
 # }}}
