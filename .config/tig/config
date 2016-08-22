@@ -5,7 +5,8 @@ set split-view-width = 80%
 set wrap-lines = yes
 
 # メインビューの表示設定
-set main-view = id:yes date:local author:full commit-title:graph=yes,refs=yes
+set main-view = id:yes date:custom author:full commit-title:graph=yes,refs=yes
+set main-view-date-format = "%Y-%m/%d %H:%M"
 
 # Color Settings
 color default white black
