@@ -117,16 +117,6 @@ if (( $+commands[hub] )); then
     }
 fi
 
-# **env
-if (( $+commands[anyenv] )); then
-    eval "$(anyenv init -)"
-else
-    if (( $+commands[rbenv] )); then
-        export RBENV_ROOT="$XDG_CACHE_HOME/rbenv"
-        eval "$(rbenv init -)"
-    fi
-fi
-
 # }}}
 # function {{{
 
