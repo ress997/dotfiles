@@ -1,6 +1,6 @@
 " reset augroup
 augroup MyAutoCmd
-    autocmd!
+	autocmd!
 augroup END
 
 " dein settings {{{
@@ -9,7 +9,7 @@ let s:dein_dir = s:cache_home . '/dein'
 let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
 
 if !isdirectory(s:dein_repo_dir)
-    call system('git clone https://github.com/Shougo/dein.vim ' . shellescape(s:dein_repo_dir))
+	call system('git clone https://github.com/Shougo/dein.vim ' . shellescape(s:dein_repo_dir))
 endif
 execute 'set runtimepath^=' . s:dein_repo_dir
 
@@ -19,14 +19,14 @@ let g:dein#install_message_type = 'none'
 let s:toml = '~/.config/dein/plugins.toml'
 
 if dein#load_state(s:dein_dir)
-    call dein#begin(s:dein_dir, [$MYVIMRC, s:toml])
-    call dein#load_toml(s:toml)
-    call dein#end()
-    call dein#save_state()
+	call dein#begin(s:dein_dir, [$MYVIMRC, s:toml])
+	call dein#load_toml(s:toml)
+	call dein#end()
+	call dein#save_state()
 endif
 
 if has('vim_starting') && dein#check_install()
-    call dein#install()
+	call dein#install()
 endif
 " }}}
 " 設定 {{{
@@ -36,22 +36,22 @@ filetype plugin indent on " ファイル形式の検出
 syntax on " 構文ハイライト
 
 if has('nvim')
-    let $NVIM_TUI_ENABLE_TRUE_COLOR = 1
-    " 制御シーケンスの設定
-    let $NVIM_TUI_ENABLE_CURSOR_SHAPE = 1
-    if $TERM_PROGRAM == "iTerm.app"
-        let &t_SI = "\e]50;CursorShape=1\x7"    " インサートモード開始時
-        let &t_EI = "\e]50;CursorShape=0\x7"    " 挿入または置換モード終了
-        let &t_SR = "\e]50;CursorShape=2\x7"    " 置換モードの開始
-    endif
+	let $NVIM_TUI_ENABLE_TRUE_COLOR = 1
+	" 制御シーケンスの設定
+	let $NVIM_TUI_ENABLE_CURSOR_SHAPE = 1
+	if $TERM_PROGRAM == "iTerm.app"
+		let &t_SI = "\e]50;CursorShape=1\x7"    " インサートモード開始時
+		let &t_EI = "\e]50;CursorShape=0\x7"    " 挿入または置換モード終了
+		let &t_SR = "\e]50;CursorShape=2\x7"    " 置換モードの開始
+	endif
 endif
 
 if has('unix')
-    set fileformat=unix
-    set fileformats=unix,dos,mac
-    set fileencoding=utf-8
-    set fileencodings=utf-8,iso-2022-jp,cp932,euc-jp
-    set termencoding=
+	set fileformat=unix
+	set fileformats=unix,dos,mac
+	set fileencoding=utf-8
+	set fileencodings=utf-8,iso-2022-jp,cp932,euc-jp
+	set termencoding=
 endif
 
 " 表示設定
@@ -61,9 +61,10 @@ set cursorcolumn    " カーソル位置のカラムの背景色を変える
 set cursorline      " カーソル行の背景色を変える
 set laststatus=2    " ステータス行を常に表示
 set list            " 不可視文字を表示
+set matchtime=1     " 対応する括弧の表示する時間
 set number          " 行番号を表示する
 set showmatch       " 対応する括弧を強調表示
-set matchtime=1     " 対応する括弧の表示する時間
+set termguicolors   " GUI Colors
 
 "" 不可視文字の表示記号指定
 set lcs=tab:»-,eol:↲,trail:·,extends:>,precedes:<,nbsp:%
