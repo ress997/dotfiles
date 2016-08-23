@@ -10,7 +10,7 @@ My Dotfile
 - **iTerm.app** 2 (Build 3.0.8, Full-screen)
 - **Tmux** 2.2
 - **Zsh** 5.2
-- **NeoVim** 0.1.4
+- **NeoVim** 0.1.5
 
 ## License
 
