@@ -9,11 +9,6 @@
     user = 39e
 # ---
 [alias]
-    br = branch
-    cm = commit
-    co = checkout
-    st = status
-    # ---
     last = log -1 HEAD
 [color]
     ui = true
@@ -30,7 +25,6 @@
     template = ~/.config/git/message.txt
 [diff]
     algorithm = histogram
-    tool = vimdiff
     compactionHeuristic = true
 [merge]
     ff = false

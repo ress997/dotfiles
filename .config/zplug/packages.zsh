@@ -31,8 +31,7 @@ zplug "github/hub", \
 	as:command
 
 zplug "mrowa44/emojify", \
-	as:command, \
-	hook-load:"alias -g E="| emojify""
+	as:command
 
 zplug "b4b4r07/zsh-gomi", \
 	as:command, \
