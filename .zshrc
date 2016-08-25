@@ -8,67 +8,67 @@ typeset -U path cdpath fpath manpath
 # Tmux {{{
 ## Pluzogin Manager {{{
 if [ ! -d $XDG_CACHE_HOME/tmux/tpm ];then
-    git clone https://github.com/tmux-plugins/tpm $XDG_CACHE_HOME/tmux/tpm
-    $XDG_CACHE_HOME/tmux/tpm/bin/install_plugins
+	git clone https://github.com/tmux-plugins/tpm $XDG_CACHE_HOME/tmux/tpm
+	$XDG_CACHE_HOME/tmux/tpm/bin/install_plugins
 fi
 ## }}}
 ## Auto new-session {{{
 is_osx() {
-    [[ "${(L)$( uname -s )}" == darwin ]]
+	[[ "${(L)$( uname -s )}" == darwin ]]
 }
 is_screen_running() {
-    [ ! -z "$STY" ]
+	[ ! -z "$STY" ]
 }
 is_tmux_runnning() {
-    [ ! -z "$TMUX" ]
+	[ ! -z "$TMUX" ]
 }
 is_screen_or_tmux_running() {
-    is_screen_running || is_tmux_runnning
+	is_screen_running || is_tmux_runnning
 }
 tmux_automatically_attach_session() {
-    if is_screen_or_tmux_running; then
-        ! (( $+commands[tmux] )) && return 1
-        if is_tmux_runnning; then
-            echo "${fg_bold[red]} _____ __  __ _   ___  __ ${reset_color}"
-            echo "${fg_bold[red]}|_   _|  \/  | | | \ \/ / ${reset_color}"
-            echo "${fg_bold[red]}  | | | |\/| | | | |\  /  ${reset_color}"
-            echo "${fg_bold[red]}  | | | |  | | |_| |/  \  ${reset_color}"
-            echo "${fg_bold[red]}  |_| |_|  |_|\___//_/\_\ ${reset_color}"
-        elif is_screen_running; then
-            echo "This is on screen."
-        fi
-    else
-        if [ ! -z "$PS1" ] && [ -z "$SSH_CONECTION" ]; then
-            if ! (( $+commands[tmux] )); then
-                echo 'Error: tmux command not found' 2>&1
-                return 1
-            fi
-            if tmux has-session >/dev/null 2>&1 && tmux list-sessions | grep -qE '.*]$'; then
-                tmux list-sessions
-                echo -n "Tmux: attach? (y/N/num) "
-                read
-                if [[ "$REPLY" =~ ^[Yy]$ ]] || [[ "$REPLY" == '' ]]; then
-                    tmux attach-session
-                    if [ $? -eq 0 ]; then
-                        echo "$(tmux -V) attached session"
-                        return 0
-                    fi
-                elif [[ "$REPLY" =~ ^[0-9]+$ ]]; then
-                    tmux attach -t "$REPLY"
-                    if [ $? -eq 0 ]; then
-                        echo "$(tmux -V) attached session"
-                        return 0
-                    fi
-                fi
-            fi
-            if is_osx && (( $+commands[reattach-to-user-namespace] )); then
-                tmux_config=$(cat $HOME/.tmux.conf <(echo 'set-option -g default-command "reattach-to-user-namespace -l $SHELL"'))
-                tmux -f <(echo "$tmux_config") new-session && echo "$(tmux -V) created new session supported OS X"
-            else
-                tmux new-session && echo "tmux created new session"
-            fi
-        fi
-    fi
+	if is_screen_or_tmux_running; then
+		! (( $+commands[tmux] )) && return 1
+		if is_tmux_runnning; then
+			echo "${fg_bold[red]} _____ __  __ _   ___  __ ${reset_color}"
+			echo "${fg_bold[red]}|_   _|  \/  | | | \ \/ / ${reset_color}"
+			echo "${fg_bold[red]}  | | | |\/| | | | |\  /  ${reset_color}"
+			echo "${fg_bold[red]}  | | | |  | | |_| |/  \  ${reset_color}"
+			echo "${fg_bold[red]}  |_| |_|  |_|\___//_/\_\ ${reset_color}"
+		elif is_screen_running; then
+			echo "This is on screen."
+		fi
+	else
+		if [ ! -z "$PS1" ] && [ -z "$SSH_CONECTION" ]; then
+			if ! (( $+commands[tmux] )); then
+				echo 'Error: tmux command not found' 2>&1
+				return 1
+			fi
+			if tmux has-session >/dev/null 2>&1 && tmux list-sessions | grep -qE '.*]$'; then
+				tmux list-sessions
+				echo -n "Tmux: attach? (y/N/num) "
+				read
+				if [[ "$REPLY" =~ ^[Yy]$ ]] || [[ "$REPLY" == '' ]]; then
+					tmux attach-session
+					if [ $? -eq 0 ]; then
+						echo "$(tmux -V) attached session"
+						return 0
+					fi
+				elif [[ "$REPLY" =~ ^[0-9]+$ ]]; then
+					tmux attach -t "$REPLY"
+					if [ $? -eq 0 ]; then
+						echo "$(tmux -V) attached session"
+						return 0
+					fi
+				fi
+			fi
+			if is_osx && (( $+commands[reattach-to-user-namespace] )); then
+				tmux_config=$(cat $HOME/.tmux.conf <(echo 'set-option -g default-command "reattach-to-user-namespace -l $SHELL"'))
+				tmux -f <(echo "$tmux_config") new-session && echo "$(tmux -V) created new session supported OS X"
+			else
+				tmux new-session && echo "tmux created new session"
+			fi
+		fi
+	fi
 }
 tmux_automatically_attach_session
 ## }}}
@@ -87,15 +87,15 @@ export ENHANCD_DIR="$XDG_DATA_HOME/enhancd"
 ## }}}
 
 [[ -f $ZPLUG_HOME/init.zsh ]] || {
-    curl -sL zplug.sh/installer | zsh
+	curl -sL zplug.sh/installer | zsh
 
-    source $ZPLUG_HOME/init.zsh && zplug update --self
+	source $ZPLUG_HOME/init.zsh && zplug update --self
 }
 
 source $ZPLUG_HOME/init.zsh
 
 if ! zplug check; then
-    zplug install
+	zplug install
 fi
 
 zplug load --verbose
@@ -103,7 +103,7 @@ zplug load --verbose
 ## Plugin Seting {{{
 
 if (( $+commands[fzf] )) && (( $+commands[pt] )); then
-    export FZF_DEFAULT_COMMAND='pt -g ""'
+	export FZF_DEFAULT_COMMAND='pt -g ""'
 fi
 
 ## }}}
@@ -112,9 +112,9 @@ fi
 
 # Hub
 if (( $+commands[hub] )); then
-    git() {
-        hub "$@"
-    }
+	git() {
+		hub "$@"
+	}
 fi
 
 # }}}
@@ -122,185 +122,86 @@ fi
 
 # available
 available () {
-    local x candidates
-    candidates="$1:"
-    while [ -n "$candidates" ]; do
-        x=${candidates%%:*}
-        candidates=${candidates#*:}
-        if type "$x" >/dev/null 2>&1; then
-            echo "$x"
-            return 0
-        else
-            continue
-        fi
-    done
-    return 1
+	local x candidates
+	candidates="$1:"
+	while [ -n "$candidates" ]; do
+		x=${candidates%%:*}
+		candidates=${candidates#*:}
+		if type "$x" >/dev/null 2>&1; then
+			echo "$x"
+			return 0
+		else
+			continue
+		fi
+	done
+	return 1
 }
 
 # ghq
 if (( $+commands[ghq] )); then
-    ghq-update() {
-        ghq list | sed 's|.[^/]*/||' | xargs -n 1 -P 10 ghq get -u
-    }
+	ghq-update() {
+		ghq list | sed 's|.[^/]*/||' | xargs -n 1 -P 10 ghq get -u
+	}
 
-    local DIRECTORY
-    g() {
-        if zplug check 'b4b4r07/enhancd'; then
-            __enhancd::custom::ghq ${1:+\"$@\"}
-        else
-            DIRECTORY=$(ghq list | $(available $FILTER)) && cd $(ghq root)/$DIRECTORY
-        fi
-    }
-    gh() {
-        DIRECTORY=$(ghq list | $(available $FILTER) | cut -d "/" -f 2,3) && hub browse $DIRECTORY
-    }
-    gd() {
-        DIRECTORY=$(ghq list | $(available $FILTER)) && rm -r $(ghq root)/$DIRECTORY
-    }
-
+	local DIRECTORY
+	g() {
+		if zplug check 'b4b4r07/enhancd'; then
+			__enhancd::custom::ghq ${1:+\"$@\"}
+		else
+			DIRECTORY=$(ghq list | $(available $FILTER)) && cd $(ghq root)/$DIRECTORY
+		fi
+	}
+	gh() {
+		DIRECTORY=$(ghq list | $(available $FILTER) | cut -d "/" -f 2,3) && hub browse $DIRECTORY
+	}
 fi
 
 # nvim
 if (( $+commands[nvim] )) && (( $+commands[tmux] )); then
-    nv() {
-        local np=`tmux list-panes | wc | awk '{print $1}'`
-        tmux has-session &> /dev/null
-        if [ $? = 0 ] && [ $COLUMNS -ge 120 ] && [ $np = 1 ]; then
-            tmux split-window -h -p 70 "nvim $1"
-        else
-            nvim $1
-        fi
-    }
+	nv() {
+		local np=`tmux list-panes | wc | awk '{print $1}'`
+		tmux has-session &> /dev/null
+		if [ $? = 0 ] && [ $COLUMNS -ge 120 ] && [ $np = 1 ]; then
+			tmux split-window -h -p 70 "nvim $1"
+		else
+			nvim $1
+		fi
+	}
 fi
 
 # fshow - git commit browser (enter for show, ctrl-d for diff)
 if (( $+commands[fzf] )); then
-    fshow() {
-        local out shas sha q k
-        while out=$(
-            git log --graph --color=always \
-                --format="%C(auto)%h%d %s %C(black)%C(bold)%cr" "$@" |
-            fzf --ansi --multi --no-sort --reverse --query="$q" \
-                --print-query --expect=ctrl-d); do
-            q=$(head -1 <<< "$out")
-            k=$(head -2 <<< "$out" | tail -1)
-            shas=$(sed '1,2d;s/^[^a-z0-9]*//;/^$/d' <<< "$out" | awk '{print $1}')
-            [ -z "$shas" ] && continue
-            if [ "$k" = ctrl-d ]; then
-                git diff --color=always $shas | less -R
-            else
-                for sha in $shas; do
-                    git show --color=always $sha | less -R
-                done
-            fi
-        done
-    }
+	fshow() {
+		local out shas sha q k
+		while out=$(
+			git log --graph --color=always \
+				--format="%C(auto)%h%d %s %C(black)%C(bold)%cr" "$@" |
+			fzf --ansi --multi --no-sort --reverse --query="$q" \
+				--print-query --expect=ctrl-d); do
+			q=$(head -1 <<< "$out")
+			k=$(head -2 <<< "$out" | tail -1)
+			shas=$(sed '1,2d;s/^[^a-z0-9]*//;/^$/d' <<< "$out" | awk '{print $1}')
+			[ -z "$shas" ] && continue
+			if [ "$k" = ctrl-d ]; then
+				git diff --color=always $shas | less -R
+			else
+				for sha in $shas; do
+					git show --color=always $sha | less -R
+				done
+			fi
+		done
+	}
 fi
 
 # Concurrency the mkdir and cd
 mkcd() {
-    if [[ -d $1 ]]; then
-        echo "$1 already exists!"
-        cd $1
-    else
-        mkdir -p $1 && cd $1
-    fi
+	if [[ -d $1 ]]; then
+		echo "$1 already exists!"
+		cd $1
+	else
+		mkdir -p $1 && cd $1
+	fi
 }
-
-open_browser() {
-    if (( $+commands[open] )); then
-        open $1
-    else
-        echo "open: not found" 1>&2
-        exit 1
-    fi
-}
-wiki() {
-    if [ -n "$1" ]; then
-        local URL="http://ja.wikipedia.org/wiki/$1"
-        open_browser $URL
-    else
-        echo "usage: $0 word"
-    fi
-}
-google() {
-    if [ -n "$1" ]; then
-        local URL="https://www.google.co.jp/search?hl=ja&ie=utf-8&oe=utf-8&q=$1"
-        open_browser $URL
-    else
-        echo "usage: $0 word"
-    fi
-}
-qiita() {
-    if [ -n "$1" ]; then
-        local URL="http://qiita.com/search?utf8=%E2%9C%93&sort=rel&q=$1"
-        open_browser $URL
-    else
-        echo "usage: $0 word"
-    fi
-}
-
-notify() {
-    if is_osx; then
-        osascript -e "display notification \"$1\""
-
-        if [ -n "$TMUX" ] && (( $+commands[reattach-to-user-namespace] )); then
-            reattach-to-user-namespace say $1
-        else
-            say $1
-        fi
-    fi
-}
-
-# }}}
-# keybinds {{{
-bindkey -v
-
-## Ctrl-R
-__fzf-select-history() {
-    if true; then
-        BUFFER="$(
-        history 1 \
-         | sort -k1,1nr \
-         | perl -ne 'BEGIN { my @lines = (); } s/^\s*\d+\s*//; $in=$_; if (!(grep {$in eq $_} @lines)) { push(@lines, $in); print $in; }' \
-         | $(available "fzf-tmux:fzf") --query "$LBUFFER" )"
-
-        CURSOR=$#BUFFER
-        zle reset-prompt
-    fi
-}
-zle -N __fzf-select-history
-bindkey '^r' __fzf-select-history
-
-# }}}
-# aliases {{{
-alias ls='ls -G'
-alias la='ls -AF'
-alias lc='ls -ltcr'     # Sort by and show change time, most recent last
-alias lk='ls -lSr'      # Sort by size, biggest last
-alias ll='ls -lF'
-alias lla='ls -lAF'
-alias lt='ls -ltr'      # Sort by date, most recent last
-alias lu='ls -ltur'     # Sort by and show access time, most recent last
-
-alias rm='rm -i'
-
-# 複数ファイルのmv 例　zmv *.txt *.txt.bk
-alias zmv='noglob zmv -W'
-
-# NeoVim
-if (( $+commands[nvim] )); then
-    alias vi='nvim'
-    alias vim='nvim'
-fi
-
-# Global Alias
-alias -g L='| less'
-alias -g G='| grep'
-
-if (( $+commands[pbcopy] )); then
-    alias -g CP='| pbcopy'
-fi
 
 # }}}
 # autoload {{{
@@ -385,10 +286,119 @@ zstyle ':completion:*:warnings' format 'No matches for: %d'
 zstyle ':completion:*' group-name ''
 
 # }}}
+# aliases {{{
+
+alias rm='rm -i'
+
+# 複数ファイルのmv 例　zmv *.txt *.txt.bk
+alias zmv='noglob zmv -W'
+
+# }}}
+# 略語展開(iab) {{{
+typeset -A abbreviations
+abbreviations=(
+	# Global Alias
+	"C" "| cat"
+	"CP" "| pbcopy"
+	"E" "| emojify"
+	# Docker
+	"d" "docker"
+	"da" "docker attach"
+	"di" "docker images"
+	"dl" "docker ps -l -q"
+	"dp" "docker ps"
+	"dpa" "docker ps -a"
+	"dr" "docker run"
+	"drm" "docker rm"
+	"drmi" "docker rmi"
+	"ds" "docker start"
+	# Git系
+	"g" "git"
+	"ga"  "git add"
+	"gb" "git branch"
+	"gcm" "git commit"
+	"gcmm" "git commit -m"
+	"gco" "git checkout"
+	"gcob" "git checkout -b"
+	"gd" "git diff"
+	"gg" "ghq get"
+	"gl" "ghq list"
+	"gp" "git push"
+	"gpo" "git push origin"
+	"gpom" "git push origin master"
+	"gs" "git status"
+	"gst" "git status --short --branch"
+	"ts" "tig status"
+	# Homebrew
+	"b" "brew"
+	"bc" "brew cleanup"
+	"bd" "brew doctor"
+	"bi" "brew install"
+	"bl" "brew list"
+	"bs" "brew search"
+	"bu" "brew update"
+	"bug" "brew upgrade"
+	# エディタ
+	"s" "subl"
+	"v" "nvim"
+	"vi" "vim"
+	# miss
+	"e" "exit"
+	"sk" "ssh-keygen -t rsa -b 4096 -C 'email@example.com'"
+	"t" "type"
+)
+
+magic-abbrev-expand() {
+	local MATCH
+	LBUFFER=${LBUFFER%%(#m)[-_a-zA-Z0-9]#}
+	LBUFFER+=${abbreviations[$MATCH]:-$MATCH}
+	zle self-insert
+
+}
+
+no-magic-abbrev-expand() {
+	LBUFFER+=' '
+
+}
+
+zle -N magic-abbrev-expand
+zle -N no-magic-abbrev-expand
+bindkey " " magic-abbrev-expand
+bindkey "^x " no-magic-abbrev-expand
+## TODO: 追加予定 {{{
+alias ls='ls -G'
+alias la='ls -AF'
+alias lc='ls -ltcr'     # Sort by and show change time, most recent last
+alias lk='ls -lSr'      # Sort by size, biggest last
+alias ll='ls -lF'
+alias lla='ls -lAF'
+alias lt='ls -ltr'      # Sort by date, most recent last
+alias lu='ls -ltur'     # Sort by and show access time, most recent last
+## }}}
+# }}}
+# keybinds {{{
+bindkey -v
+
+## Ctrl-R
+__fzf-select-history() {
+	if true; then
+		BUFFER="$(
+		history 1 \
+		 | sort -k1,1nr \
+		 | perl -ne 'BEGIN { my @lines = (); } s/^\s*\d+\s*//; $in=$_; if (!(grep {$in eq $_} @lines)) { push(@lines, $in); print $in; }' \
+		 | $(available "fzf-tmux:fzf") --query "$LBUFFER" )"
+
+		CURSOR=$#BUFFER
+		zle reset-prompt
+	fi
+}
+zle -N __fzf-select-history
+bindkey '^r' __fzf-select-history
+# }}}
 # PROMPT {{{
 
-PROMPT='[%n@%m] [%F{cyan}%~%f]
-[%#]-> '
+PROMPT="[%n@%m] [%F{cyan}%~%f]
+[%#]-> "
 PROMPT2='[%#]-> '
 SPROMPT="%{${fg[red]}%}Did you mean?: %R -> %r [nyae]? %{${reset_color}%}"
 # RPROMPT="[%F{cyan}%~%f]"
@@ -419,115 +429,115 @@ zstyle ':vcs_info:git+set-message:*' hooks git-hook-begin git-untracked git-push
 # フックの最初の関数
 # git の作業コピーのあるディレクトリのみフック関数を呼び出すようにする (.git ディレクトリ内にいるときは呼び出さない) .git ディレクトリ内では git status --porcelain などがエラーになるため
 +vi-git-hook-begin() {
-    if [[ $(command git rev-parse --is-inside-work-tree 2> /dev/null) != 'true' ]]; then
-        # 0以外を返すとそれ以降のフック関数は呼び出されない
-        return 1
-    fi
+	if [[ $(command git rev-parse --is-inside-work-tree 2> /dev/null) != 'true' ]]; then
+		# 0以外を返すとそれ以降のフック関数は呼び出されない
+		return 1
+	fi
 
-    return 0
+	return 0
 }
 
 # untracked ファイル表示
 # untracked ファイル(バージョン管理されていないファイル)がある場合は unstaged (%u) に ? を表示
 +vi-git-untracked() {
-    # zstyle formats, actionformats の2番目のメッセージのみ対象にする
-    if [[ "$1" != "1" ]]; then
-        return 0
-    fi
+	# zstyle formats, actionformats の2番目のメッセージのみ対象にする
+	if [[ "$1" != "1" ]]; then
+		return 0
+	fi
 
-    if command git status --porcelain 2> /dev/null \
-        | awk '{print $1}' \
-        | command grep -F '??' > /dev/null 2>&1 ; then
+	if command git status --porcelain 2> /dev/null \
+		| awk '{print $1}' \
+		| command grep -F '??' > /dev/null 2>&1 ; then
 
-        # unstaged (%u) に追加
-        hook_com[unstaged]+='?'
-    fi
+		# unstaged (%u) に追加
+		hook_com[unstaged]+='?'
+	fi
 }
 
 # push していないコミットの件数表示
 # リモートリポジトリに push していないコミットの件数を pN という形式で misc (%m) に表示する
 +vi-git-push-status() {
-    # zstyle formats, actionformats の2番目のメッセージのみ対象にする
-    if [[ "$1" != "1" ]]; then
-        return 0
-    fi
+	# zstyle formats, actionformats の2番目のメッセージのみ対象にする
+	if [[ "$1" != "1" ]]; then
+		return 0
+	fi
 
-    if [[ "${hook_com[branch]}" != "master" ]]; then
-        # master ブランチでない場合は何もしない
-        return 0
-    fi
+	if [[ "${hook_com[branch]}" != "master" ]]; then
+		# master ブランチでない場合は何もしない
+		return 0
+	fi
 
-    # push していないコミット数を取得する
-    local ahead
-    ahead=$(command git rev-list origin/master..master 2>/dev/null \
-        | wc -l \
-        | tr -d ' ')
+	# push していないコミット数を取得する
+	local ahead
+	ahead=$(command git rev-list origin/master..master 2>/dev/null \
+		| wc -l \
+		| tr -d ' ')
 
-    if [[ "$ahead" -gt 0 ]]; then
-        # misc (%m) に追加
-        hook_com[misc]+="(p${ahead})"
-    fi
+	if [[ "$ahead" -gt 0 ]]; then
+		# misc (%m) に追加
+		hook_com[misc]+="(p${ahead})"
+	fi
 }
 
 # マージしていない件数表示
 # master 以外のブランチにいる場合に、現在のブランチ上でまだ master にマージしていないコミットの件数を (mN) という形式で misc (%m) に表示
 +vi-git-nomerge-branch() {
-    # zstyle formats, actionformats の2番目のメッセージのみ対象にする
-    if [[ "$1" != "1" ]]; then
-        return 0
-    fi
+	# zstyle formats, actionformats の2番目のメッセージのみ対象にする
+	if [[ "$1" != "1" ]]; then
+		return 0
+	fi
 
-    if [[ "${hook_com[branch]}" == "master" ]]; then
-        # master ブランチの場合は何もしない
-        return 0
-    fi
+	if [[ "${hook_com[branch]}" == "master" ]]; then
+		# master ブランチの場合は何もしない
+		return 0
+	fi
 
-    local nomerged
-    nomerged=$(command git rev-list master..${hook_com[branch]} 2>/dev/null | wc -l | tr -d ' ')
+	local nomerged
+	nomerged=$(command git rev-list master..${hook_com[branch]} 2>/dev/null | wc -l | tr -d ' ')
 
-    if [[ "$nomerged" -gt 0 ]] ; then
-        # misc (%m) に追加
-        hook_com[misc]+="(m${nomerged})"
-    fi
+	if [[ "$nomerged" -gt 0 ]] ; then
+		# misc (%m) に追加
+		hook_com[misc]+="(m${nomerged})"
+	fi
 }
 
 # stash 件数表示
 # stash している場合は :SN という形式で misc (%m) に表示
 +vi-git-stash-count() {
-    # zstyle formats, actionformats の2番目のメッセージのみ対象にする
-    if [[ "$1" != "1" ]]; then
-        return 0
-    fi
+	# zstyle formats, actionformats の2番目のメッセージのみ対象にする
+	if [[ "$1" != "1" ]]; then
+		return 0
+	fi
 
-    local stash
-    stash=$(command git stash list 2>/dev/null | wc -l | tr -d ' ')
-    if [[ "${stash}" -gt 0 ]]; then
-        # misc (%m) に追加
-        hook_com[misc]+=":S${stash}"
-    fi
+	local stash
+	stash=$(command git stash list 2>/dev/null | wc -l | tr -d ' ')
+	if [[ "${stash}" -gt 0 ]]; then
+		# misc (%m) に追加
+		hook_com[misc]+=":S${stash}"
+	fi
 }
 
 
 _update_vcs_info_msg() {
-    local -a messages
-    local prompt
+	local -a messages
+	local prompt
 
-    LANG=en_US.UTF-8 vcs_info
+	LANG=en_US.UTF-8 vcs_info
 
-    if [[ -z ${vcs_info_msg_0_} ]]; then
-        # vcs_info で何も取得していない場合はプロンプトを表示しない
-        prompt=""
-    else
-        # vcs_info で情報を取得した場合 $vcs_info_msg_0_ , $vcs_info_msg_1_ , $vcs_info_msg_2_ をそれぞれ緑、黄色、赤で表示する
-        [[ -n "$vcs_info_msg_0_" ]] && messages+=( "%F{green}${vcs_info_msg_0_}%f" )
-        [[ -n "$vcs_info_msg_1_" ]] && messages+=( "%F{yellow}${vcs_info_msg_1_}%f" )
-        [[ -n "$vcs_info_msg_2_" ]] && messages+=( "%F{red}${vcs_info_msg_2_}%f" )
+	if [[ -z ${vcs_info_msg_0_} ]]; then
+		# vcs_info で何も取得していない場合はプロンプトを表示しない
+		prompt=""
+	else
+		# vcs_info で情報を取得した場合 $vcs_info_msg_0_ , $vcs_info_msg_1_ , $vcs_info_msg_2_ をそれぞれ緑、黄色、赤で表示する
+		[[ -n "$vcs_info_msg_0_" ]] && messages+=( "%F{green}${vcs_info_msg_0_}%f" )
+		[[ -n "$vcs_info_msg_1_" ]] && messages+=( "%F{yellow}${vcs_info_msg_1_}%f" )
+		[[ -n "$vcs_info_msg_2_" ]] && messages+=( "%F{red}${vcs_info_msg_2_}%f" )
 
-        # 間にスペースを入れて連結する
-        prompt="${(j: :)messages}"
-    fi
+		# 間にスペースを入れて連結する
+		prompt="${(j: :)messages}"
+	fi
 
-    RPROMPT="$prompt"
+	RPROMPT="$prompt"
 }
 
 add-zsh-hook precmd _update_vcs_info_msg
