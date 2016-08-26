@@ -13,9 +13,6 @@ if [ ! -d $XDG_CACHE_HOME/tmux/tpm ];then
 fi
 ## }}}
 ## Auto new-session {{{
-is_osx() {
-	[[ "${(L)$( uname -s )}" == darwin ]]
-}
 is_screen_running() {
 	[ ! -z "$STY" ]
 }
@@ -61,7 +58,7 @@ tmux_automatically_attach_session() {
 					fi
 				fi
 			fi
-			if is_osx && (( $+commands[reattach-to-user-namespace] )); then
+			if [[ "${(L)$( uname -s )}" == darwin ]] && (( $+commands[reattach-to-user-namespace] )); then
 				tmux_config=$(cat $HOME/.tmux.conf <(echo 'set-option -g default-command "reattach-to-user-namespace -l $SHELL"'))
 				tmux -f <(echo "$tmux_config") new-session && echo "$(tmux -V) created new session supported OS X"
 			else
@@ -88,7 +85,6 @@ export ENHANCD_DIR="$XDG_DATA_HOME/enhancd"
 
 [[ -f $ZPLUG_HOME/init.zsh ]] || {
 	curl -sL zplug.sh/installer | zsh
-
 	source $ZPLUG_HOME/init.zsh && zplug update --self
 }
 
@@ -102,21 +98,19 @@ zplug load --verbose
 
 ## Plugin Seting {{{
 
+### FZF
 if (( $+commands[fzf] )) && (( $+commands[pt] )); then
 	export FZF_DEFAULT_COMMAND='pt -g ""'
 fi
 
-## }}}
-# }}}
-# etc {{{
-
-# Hub
+### Hub
 if (( $+commands[hub] )); then
 	git() {
 		hub "$@"
 	}
 fi
 
+## }}}
 # }}}
 # function {{{
 
@@ -139,10 +133,6 @@ available () {
 
 # ghq
 if (( $+commands[ghq] )); then
-	ghq-update() {
-		ghq list | sed 's|.[^/]*/||' | xargs -n 1 -P 10 ghq get -u
-	}
-
 	local DIRECTORY
 	g() {
 		if zplug check 'b4b4r07/enhancd'; then
@@ -154,42 +144,8 @@ if (( $+commands[ghq] )); then
 	gh() {
 		DIRECTORY=$(ghq list | $(available $FILTER) | cut -d "/" -f 2,3) && hub browse $DIRECTORY
 	}
-fi
-
-# nvim
-if (( $+commands[nvim] )) && (( $+commands[tmux] )); then
-	nv() {
-		local np=`tmux list-panes | wc | awk '{print $1}'`
-		tmux has-session &> /dev/null
-		if [ $? = 0 ] && [ $COLUMNS -ge 120 ] && [ $np = 1 ]; then
-			tmux split-window -h -p 70 "nvim $1"
-		else
-			nvim $1
-		fi
-	}
-fi
-
-# fshow - git commit browser (enter for show, ctrl-d for diff)
-if (( $+commands[fzf] )); then
-	fshow() {
-		local out shas sha q k
-		while out=$(
-			git log --graph --color=always \
-				--format="%C(auto)%h%d %s %C(black)%C(bold)%cr" "$@" |
-			fzf --ansi --multi --no-sort --reverse --query="$q" \
-				--print-query --expect=ctrl-d); do
-			q=$(head -1 <<< "$out")
-			k=$(head -2 <<< "$out" | tail -1)
-			shas=$(sed '1,2d;s/^[^a-z0-9]*//;/^$/d' <<< "$out" | awk '{print $1}')
-			[ -z "$shas" ] && continue
-			if [ "$k" = ctrl-d ]; then
-				git diff --color=always $shas | less -R
-			else
-				for sha in $shas; do
-					git show --color=always $sha | less -R
-				done
-			fi
-		done
+	ghq-update() {
+		ghq list | sed 's|.[^/]*/||' | xargs -n 1 -P 10 ghq get -u
 	}
 fi
 
