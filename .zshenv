@@ -32,11 +32,20 @@ export FILTER='fzf-tmux:fzf:peco'
 export AWS_CONFIG_FILE="$XDG_CONFIG_HOME/aws/config"
 export AWS_CREDENTIAL_FILE="$DEV_DATA_HOME/secret/aws"
 
+# enhancd
+export ENHANCD_DIR="$XDG_DATA_HOME/enhancd"
+
+# FZF
+export FZF_DEFAULT_OPTS="--extended --ansi --multi"
+
 # GitHub
 export GITHUB_USER=$(git config --get github.user)
 
 # golamg
 export GOPATH="$DEV_DATA_HOME/go"
+
+# Gomi
+export GOMI_DIR="$XDG_CACHE_HOME/gomi"
 
 # Hub
 export HUB_CONFIG="$XDG_CONFIG_HOME/hub/config"

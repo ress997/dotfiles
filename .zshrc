@@ -71,13 +71,6 @@ export ZPLUG_CACHE_FILE="$ZPLUG_CACHE_DIR/cache"
 export ZPLUG_LOADFILE=$XDG_CONFIG_HOME/zplug/packages.zsh
 export ZPLUG_FILTER=$FILTER
 
-## 臨時修正 {{{
-
-### enhancd
-export ENHANCD_DIR="$XDG_DATA_HOME/enhancd"
-
-## }}}
-
 [[ -d $ZPLUG_HOME ]] || curl -sL zplug.sh/installer | zsh
 
 source $ZPLUG_HOME/init.zsh

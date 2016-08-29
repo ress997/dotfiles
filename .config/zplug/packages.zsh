@@ -10,8 +10,7 @@ zplug "junegunn/fzf-bin", \
 	from:gh-r, \
 	as:command, \
 	on:"monochromegane/the_platinum_searcher", \
-	rename-to:fzf, \
-	hook-load:"export FZF_DEFAULT_OPTS='--extended --ansi --multi'"
+	rename-to:fzf
 
 zplug "junegunn/fzf", \
 	as:command, \
@@ -36,8 +35,7 @@ zplug "mrowa44/emojify", \
 zplug "b4b4r07/zsh-gomi", \
 	as:command, \
 	use:"bin/gomi", \
-	on:"junegunn/fzf-bin", \
-	hook-load:"export GOMI_DIR=$XDG_CACHE_HOME/gomi"
+	on:"junegunn/fzf-bin"
 
 zplug "arukasio/cli", \
 	from:gh-r, \
@@ -51,7 +49,6 @@ zplug "Code-Hex/pget", \
 zplug "shinofara/stand", \
 	from:gh-r, \
 	as:command
-
 
 # Plugin
 zplug "b4b4r07/emoji-cli", \
