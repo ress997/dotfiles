@@ -2,12 +2,10 @@ umask 022
 bindkey -d
 limit coredumpsize 0
 
-# 重複パスを登録しない
-typeset -U path cdpath fpath manpath
-
 # Tmux {{{
+if (( $+commands[tmux] )); then
 ## Pluzogin Manager {{{
-if [ ! -d $XDG_CACHE_HOME/tmux/tpm ];then
+if [ ! -d $XDG_CACHE_HOME/tmux/tpm ]; then
 	git clone https://github.com/tmux-plugins/tpm $XDG_CACHE_HOME/tmux/tpm
 	$XDG_CACHE_HOME/tmux/tpm/bin/install_plugins
 fi
@@ -24,7 +22,6 @@ is_screen_or_tmux_running() {
 }
 tmux_automatically_attach_session() {
 	if is_screen_or_tmux_running; then
-		! (( $+commands[tmux] )) && return 1
 		if is_tmux_runnning; then
 			echo "${fg_bold[red]} _____ __  __ _   ___  __ ${reset_color}"
 			echo "${fg_bold[red]}|_   _|  \/  | | | \ \/ / ${reset_color}"
@@ -36,10 +33,6 @@ tmux_automatically_attach_session() {
 		fi
 	else
 		if [ ! -z "$PS1" ] && [ -z "$SSH_CONECTION" ]; then
-			if ! (( $+commands[tmux] )); then
-				echo 'Error: tmux command not found' 2>&1
-				return 1
-			fi
 			if tmux has-session >/dev/null 2>&1 && tmux list-sessions | grep -qE '.*]$'; then
 				tmux list-sessions
 				echo -n "Tmux: attach? (y/N/num) "
@@ -69,10 +62,12 @@ tmux_automatically_attach_session() {
 }
 tmux_automatically_attach_session
 ## }}}
+fi
 # }}}
 # zplug {{{
 export ZPLUG_HOME="$DEV_DATA_HOME/zplug"
-export ZPLUG_CACHE_FILE="$XDG_CACHE_HOME/zplug/cache"
+export ZPLUG_CACHE_DIR="$XDG_CACHE_HOME/zplug"
+export ZPLUG_CACHE_FILE="$ZPLUG_CACHE_DIR/cache"
 export ZPLUG_LOADFILE=$XDG_CONFIG_HOME/zplug/packages.zsh
 export ZPLUG_FILTER=$FILTER
 
@@ -83,10 +78,7 @@ export ENHANCD_DIR="$XDG_DATA_HOME/enhancd"
 
 ## }}}
 
-[[ -f $ZPLUG_HOME/init.zsh ]] || {
-	curl -sL zplug.sh/installer | zsh
-	source $ZPLUG_HOME/init.zsh && zplug update --self
-}
+[[ -d $ZPLUG_HOME ]] || curl -sL zplug.sh/installer | zsh
 
 source $ZPLUG_HOME/init.zsh
 
@@ -161,9 +153,6 @@ mkcd() {
 
 # }}}
 # autoload {{{
-
-# zmv - 複数ファイルのmv
-autoload -Uz zmv
 
 # TODO : 後で機能を調べる
 autoload -Uz modify-current-argument
@@ -247,6 +236,7 @@ zstyle ':completion:*' group-name ''
 alias rm='rm -i'
 
 # 複数ファイルのmv 例　zmv *.txt *.txt.bk
+autoload -Uz zmv
 alias zmv='noglob zmv -W'
 
 # }}}
@@ -257,6 +247,7 @@ abbreviations=(
 	"C" "| cat"
 	"CP" "| pbcopy"
 	"E" "| emojify"
+	"J" "| jq ."
 	# Docker
 	"d" "docker"
 	"da" "docker attach"

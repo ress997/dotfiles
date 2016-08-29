@@ -1,8 +1,8 @@
 # fpath
 typeset -gx -U fpath FPATH
 fpath=( \
-    $HOME/.zsh/completion(N-/) \
-    $fpath \
+	$HOME/.zsh/completion(N-/) \
+	$fpath \
 )
 
 # autoload
@@ -27,9 +27,6 @@ export DOTPATH=$DEV_DATA_HOME/dotfiles
 export FILTER='fzf-tmux:fzf:peco'
 
 # ---
-
-# Atom
-export ATOM_HOME="$XDG_DATA_HOME/atom"
 
 # AWS CLI
 export AWS_CONFIG_FILE="$XDG_CONFIG_HOME/aws/config"
@@ -89,10 +86,10 @@ export WORDCHARS='*?.[]~&;!#$%^(){}<>'
 typeset -U path PATH
 path=( \
 	$HOME/.local/bin(N-/)
-    $HOME/bin(N-/) \
-    $GOPATH/bin(N-/) \
-    /usr/local/bin(N-/) \
-    $path \
+	$HOME/bin(N-/) \
+	$GOPATH/bin(N-/) \
+	/usr/local/bin(N-/) \
+	$path \
 )
 
 [ -f $DEV_DATA_HOME/secret/env ] && source $DEV_DATA_HOME/secret/env
