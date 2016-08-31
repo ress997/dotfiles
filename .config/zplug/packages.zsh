@@ -1,15 +1,13 @@
 zplug "zplug/zplug"
 
 # Command
-zplug "monochromegane/the_platinum_searcher", \
-	from:gh-r, \
+zplug "peco/peco", \
 	as:command, \
-	rename-to:pt
+	from:gh-r
 
 zplug "junegunn/fzf-bin", \
-	from:gh-r, \
 	as:command, \
-	on:"monochromegane/the_platinum_searcher", \
+	from:gh-r, \
 	rename-to:fzf
 
 zplug "junegunn/fzf", \
@@ -17,17 +15,23 @@ zplug "junegunn/fzf", \
 	use:"bin/fzf-tmux", \
 	on:"junegunn/fzf-bin"
 
-zplug "stedolan/jq", \
+zplug "monochromegane/the_platinum_searcher", \
+	as:command, \
 	from:gh-r, \
-	as:command
+	rename-to:pt, \
+	on:"junegunn/fzf-bin"
+
+zplug "stedolan/jq", \
+	as:command, \
+	from:gh-r
 
 zplug "motemen/ghq", \
-	from:gh-r, \
-	as:command
+	as:command, \
+	from:gh-r
 
 zplug "github/hub", \
-	from:gh-r, \
-	as:command
+	as:command, \
+	from:gh-r
 
 zplug "mrowa44/emojify", \
 	as:command
@@ -38,17 +42,13 @@ zplug "b4b4r07/zsh-gomi", \
 	on:"junegunn/fzf-bin"
 
 zplug "arukasio/cli", \
-	from:gh-r, \
 	as:command, \
+	from:gh-r, \
 	rename-to:arukas
 
 zplug "Code-Hex/pget", \
-	from:gh-r, \
-	as:command
-
-zplug "shinofara/stand", \
-	from:gh-r, \
-	as:command
+	as:command, \
+	from:gh-r
 
 # Plugin
 zplug "b4b4r07/emoji-cli", \
@@ -57,7 +57,7 @@ zplug "b4b4r07/emoji-cli", \
 zplug "b4b4r07/enhancd", \
 	use:"init.sh"
 
-zplug "zsh-users/zsh-completions"
+zplug "39e/zsh-completions"
 
 zplug "zsh-users/zsh-syntax-highlighting", \
 	nice:15
