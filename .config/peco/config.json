@@ -1,0 +1,19 @@
+{
+	"Prompt": "[peco]",
+	"Keymap": {
+		"Esc": "peco.Cancel",
+		"Enter": "peco.Finish",
+		"BS": "peco.DeleteBackwardChar",
+		"ArrowUp": "peco.SelectUp",
+		"ArrowDown": "peco.SelectDown",
+		"ArrowLeft": "peco.ScrollPageUp",
+		"ArrowRight": "peco.ScrollPageDown"
+	},
+	"Style": {
+		"Basic": ["on_default", "default"],
+		"SavedSelection": ["bold", "on_yellow", "white"],
+		"Selected": ["underline", "on_cyan", "black"],
+		"Query": ["yellow", "bold"],
+		"Matched": ["red", "on_blue"]
+	}
+}
