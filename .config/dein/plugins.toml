@@ -20,12 +20,6 @@ repo = 'vim-jp/vital.vim'
 repo = 'osyo-manga/vim-precious'
 depends = ['context_filetype.vim']
 
-# 補完 {{{
-
-[[plugins]]
-repo = 'Shougo/neocomplete.vim'
-if = 'has("lua")'
-
 [[plugins]]
 repo = 'Shougo/deoplete.nvim'
 if = 'has("nvim")'
@@ -46,7 +40,6 @@ hook_source = '''
 	inoremap <expr><S-TAB>  pumvisible() ? "\<C-p>" : "\<C-h>"
 '''
 
-# }}}
 # NERDTree {{{
 
 [[plugins]]
@@ -227,17 +220,18 @@ repo = 'vim-jp/vimdoc-ja'
 
 ## }}}
 
+[[plugins]] # amber
+repo = 'burner/amber.vim'
+
 [[plugins]] # TMUX
 repo = 'tmux-plugins/vim-tmux'
 
 [[plugins]] # Toml
 repo  = 'cespare/vim-toml'
-on_ft = ['toml']
 
-[[plugins]] # Zsh
+[[plugins]] # Zsh - 補完
 repo = 'zchee/deoplete-zsh'
 depends = ['deoplete.nvim']
-on_ft = ['zsh']
 
 # }}}
 # Command {{{
@@ -290,9 +284,8 @@ hook_add = '''
 # }}}
 # Test {{{
 
-[[plugins]] # 選択インターフェース
-repo = 'junegunn/fzf'
-if = 'executable("fzf")'
-on_cmd = ['FZF','fzf#run']
+[[plugins]]
+repo = 'Shougo/denite.nvim'
+if = 'has("nvim")'
 
 # }}}
