@@ -61,3 +61,5 @@ zplug "39e/zsh-completions"
 
 zplug "zsh-users/zsh-syntax-highlighting", \
 	nice:15
+
+# vim:ft=zplug:
