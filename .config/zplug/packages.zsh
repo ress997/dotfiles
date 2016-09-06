@@ -5,6 +5,12 @@ zplug "peco/peco", \
 	as:command, \
 	from:gh-r
 
+zplug "b4b4r07/peco-tmux.sh", \
+	as:command, \
+	on:"peco/peco", \
+	use:"peco-tmux.sh", \
+	rename-to:"peco-tmux"
+
 zplug "junegunn/fzf-bin", \
 	as:command, \
 	from:gh-r, \
@@ -12,14 +18,14 @@ zplug "junegunn/fzf-bin", \
 
 zplug "junegunn/fzf", \
 	as:command, \
-	use:"bin/fzf-tmux", \
-	on:"junegunn/fzf-bin"
+	on:"junegunn/fzf-bin", \
+	use:"bin/fzf-tmux"
 
 zplug "monochromegane/the_platinum_searcher", \
 	as:command, \
 	from:gh-r, \
-	rename-to:pt, \
-	on:"junegunn/fzf-bin"
+	on:"junegunn/fzf-bin", \
+	rename-to:pt
 
 zplug "stedolan/jq", \
 	as:command, \
@@ -38,8 +44,8 @@ zplug "mrowa44/emojify", \
 
 zplug "b4b4r07/zsh-gomi", \
 	as:command, \
-	use:"bin/gomi", \
-	on:"junegunn/fzf-bin"
+	on:"junegunn/fzf-bin", \
+	use:"bin/gomi"
 
 zplug "arukasio/cli", \
 	as:command, \

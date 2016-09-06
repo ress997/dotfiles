@@ -36,9 +36,8 @@ filetype plugin indent on " ファイル形式の検出
 syntax on " 構文ハイライト
 
 if has('nvim')
-	let $NVIM_TUI_ENABLE_TRUE_COLOR = 1
-	" 制御シーケンスの設定
-	let $NVIM_TUI_ENABLE_CURSOR_SHAPE = 1
+	let $NVIM_TUI_ENABLE_TRUE_COLOR = 1		" 制御シーケンスの設定
+	let $NVIM_TUI_ENABLE_CURSOR_SHAPE = 1	" カラースチームの有効化
 	if $TERM_PROGRAM == "iTerm.app"
 		let &t_SI = "\e]50;CursorShape=1\x7"    " インサートモード開始時
 		let &t_EI = "\e]50;CursorShape=0\x7"    " 挿入または置換モード終了

@@ -117,7 +117,7 @@ hook_source = '''
 	let g:user_emmet_mode = 'i'
 	let g:user_emmet_leader_key='<C-E>'
 	let g:use_emmet_complete_tag = 1
-	let g:user_emmet_settings = {'variables': {'lang': "ja"}}
+	let g:user_emmet_settings = {'variables':{'lang':"ja"}}
 '''
 
 [[plugins]]
@@ -256,10 +256,6 @@ hook_source = '''
 	let g:vim_codic_access_token = $CODIC_ACCESS_TOKEN
 '''
 
-[[plugins]] # 整形
-repo = 'junegunn/vim-easy-align'
-on_cmd = ['EasyAlign']
-
 # }}}
 # Colors {{{
 
@@ -268,16 +264,6 @@ repo = 'w0ng/vim-hybrid'
 hook_add = '''
 	" let g:hybrid_custom_term_colors = 1
 	" let g:hybrid_reduced_contrast = 1
-'''
-
-[[plugins]] # material
-repo = 'jdkanani/vim-material-theme'
-
-[[plugins]] # molokai
-repo = 'tomasr/molokai'
-hook_add = '''
-	" let g:molokai_original = 1
-	" let g:rehash256 = 1
 '''
 
 # }}}

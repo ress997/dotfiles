@@ -281,7 +281,7 @@ abbreviations=(
 	# エディタ
 	"s" "subl"
 	"v" "nvim"
-	"vi" "vim"
+	"vi" "nvim"
 	# miss
 	"e" "exit"
 	"sk" "ssh-keygen -t rsa -b 4096 -C 'email@example.com'"
