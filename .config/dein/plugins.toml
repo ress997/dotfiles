@@ -25,8 +25,10 @@ repo = 'Shougo/deoplete.nvim'
 if = 'has("nvim")'
 depends = ['context_filetype.vim']
 on_i = 1
-hook_source = '''
+hook_add = '''
 	let g:deoplete#enable_at_startup = 1
+'''
+hook_source = '''
 	let g:deoplete#enable_smart_case = 1
 
 	" <TAB>: completion.
@@ -48,7 +50,7 @@ hook_add = '''
 	" 不可視ファイルを表示する
 	let g:NERDTreeShowHidden = 1
 	" 除外対象指定
-	let g:NERDTreeIgnore = ['.(tgz|gz|zip)$']
+	let g:NERDTreeIgnore = ['.git$','.(tgz|gz|zip)$']
 	" ブックマークを初期表示
 	let g:NERDTreeShowBookmarks = 1
 '''
@@ -138,16 +140,10 @@ hook_add = '''
 
 [[plugins]]
 repo = 'fatih/vim-go'
+if = 'executable("go")'
 on_ft = ['go']
 hook_source = '''
 	let g:go_fmt_command = 'goimports'
-'''
-hook_post_update = '''
-	if isdirectory(expand('$GOPATH'))
-		execute 'GoInstallBinaries'
-	else
-		echo 'you must set $GOPATH of environment Variables.'
-	endif
 '''
 
 [[plugins]]
