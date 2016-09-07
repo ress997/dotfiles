@@ -20,6 +20,8 @@ repo = 'vim-jp/vital.vim'
 repo = 'osyo-manga/vim-precious'
 depends = ['context_filetype.vim']
 
+# 補完 {{{
+
 [[plugins]]
 repo = 'Shougo/deoplete.nvim'
 if = 'has("nvim")'
@@ -27,7 +29,10 @@ depends = ['context_filetype.vim']
 on_i = 1
 hook_add = '''
 	let g:deoplete#enable_at_startup = 1
+'''
+hook_source = '''
 	let g:deoplete#enable_smart_case = 1
+	set completeopt-=noselect
 
 	" <TAB>: completion.
 	imap <silent><expr> <TAB> pumvisible() ? "\<C-n>" : <SID>check_back_space() ? "\<TAB>" : deoplete#mappings#manual_complete()
@@ -40,6 +45,7 @@ hook_add = '''
 	inoremap <expr><S-TAB>  pumvisible() ? "\<C-p>" : "\<C-h>"
 '''
 
+# }}}
 # NERDTree {{{
 
 [[plugins]]
@@ -208,7 +214,7 @@ on_ft = ['vim']
 repo = 'vim-jp/vimdoc-ja'
 
 ## }}}
-## {{{ zsh
+## ZSH {{{
 
 [[plugins]] # Zsh - 補完
 repo = 'zchee/deoplete-zsh'
