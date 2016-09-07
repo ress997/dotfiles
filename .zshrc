@@ -228,6 +228,8 @@ zstyle ':completion:*' group-name ''
 
 alias rm='rm -i'
 
+alias vim='nvim'
+
 # 複数ファイルのmv 例　zmv *.txt *.txt.bk
 autoload -Uz zmv
 alias zmv='noglob zmv -W'
@@ -281,7 +283,6 @@ abbreviations=(
 	# エディタ
 	"s" "subl"
 	"v" "nvim"
-	"vi" "nvim"
 	# miss
 	"e" "exit"
 	"sk" "ssh-keygen -t rsa -b 4096 -C 'email@example.com'"
