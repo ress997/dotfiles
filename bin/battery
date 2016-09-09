@@ -1,12 +1,11 @@
-#!/usr/bin/env bash
-
-# tmux 上で動くことを想定
-# MAc(OS X)用
+#!/usr/bin/env zsh
+ 
+# macOS + tmux 用
 # Help
 #	-m : メーター表示
 #	-r : remain を表示
 
-if ! [[ $OSTYPE == *darwin* ]]; then
+if ! [[ "${(L)$( uname -s )}" == darwin ]]; then
 	echo "OS X only"
 fi
 
@@ -43,8 +42,7 @@ get_meter() {
 }
 
 get_remain() {
-	local time_remain
-	time_remain="$(pmset -g ps | grep -o '[0-9]\+:[0-9]\+')"
+	local time_remain="$(pmset -g ps | grep -o '[0-9]\+:[0-9]\+')"
 	if [ -z "$time_remain" ]; then
 		time_remain="no estimate"
 	fi
@@ -52,8 +50,8 @@ get_remain() {
 }
 
 display() {
-	percentage=$1
-	display=$2
+	local percentage=$1
+	local display=$2
 	if is_charging; then
 		echo -e "#[fg=colour2]${display}#[default]"
 	else
@@ -68,8 +66,7 @@ display() {
 PERCENTAGE="$(pmset -g ps | egrep -o '[0-9]+%' | tr -d %)"
 DISPLAY="${PERCENTAGE}%"
 
-for i in "$@"
-do
+for i in "$@"; do
 	case "$i" in
 		"-m")
 			DISPLAY="${DISPLAY} $(get_meter $PERCENTAGE)"
