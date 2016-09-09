@@ -11,27 +11,8 @@ if [ ! -d $XDG_CACHE_HOME/tmux/tpm ]; then
 fi
 ## }}}
 ## Auto new-session {{{
-is_screen_running() {
-	[ ! -z "$STY" ]
-}
-is_tmux_runnning() {
-	[ ! -z "$TMUX" ]
-}
-is_screen_or_tmux_running() {
-	is_screen_running || is_tmux_runnning
-}
 tmux_automatically_attach_session() {
-	if is_screen_or_tmux_running; then
-		if is_tmux_runnning; then
-			echo "${fg_bold[red]} _____ __  __ _   ___  __ ${reset_color}"
-			echo "${fg_bold[red]}|_   _|  \/  | | | \ \/ / ${reset_color}"
-			echo "${fg_bold[red]}  | | | |\/| | | | |\  /  ${reset_color}"
-			echo "${fg_bold[red]}  | | | |  | | |_| |/  \  ${reset_color}"
-			echo "${fg_bold[red]}  |_| |_|  |_|\___//_/\_\ ${reset_color}"
-		elif is_screen_running; then
-			echo "This is on screen."
-		fi
-	else
+	if [ -z "$TMUX" ]; then
 		if [ ! -z "$PS1" ] && [ -z "$SSH_CONECTION" ]; then
 			if tmux has-session >/dev/null 2>&1 && tmux list-sessions | grep -qE '.*]$'; then
 				tmux list-sessions
@@ -58,6 +39,12 @@ tmux_automatically_attach_session() {
 				tmux new-session && echo "tmux created new session"
 			fi
 		fi
+	else
+		echo "${fg_bold[red]} _____ __  __ _   ___  __ ${reset_color}"
+		echo "${fg_bold[red]}|_   _|  \/  | | | \ \/ / ${reset_color}"
+		echo "${fg_bold[red]}  | | | |\/| | | | |\  /  ${reset_color}"
+		echo "${fg_bold[red]}  | | | |  | | |_| |/  \  ${reset_color}"
+		echo "${fg_bold[red]}  |_| |_|  |_|\___//_/\_\ ${reset_color}"
 	fi
 }
 tmux_automatically_attach_session
@@ -68,8 +55,9 @@ fi
 export ZPLUG_HOME="$DEV_DATA_HOME/zplug"
 export ZPLUG_CACHE_DIR="$XDG_CACHE_HOME/zplug"
 export ZPLUG_CACHE_FILE="$ZPLUG_CACHE_DIR/cache"
-export ZPLUG_LOADFILE=$XDG_CONFIG_HOME/zplug/packages.zsh
 export ZPLUG_FILTER=$FILTER
+export ZPLUG_THREADS='32'
+export ZPLUG_LOADFILE=$XDG_CONFIG_HOME/zplug/packages.zsh
 
 [[ -d $ZPLUG_HOME ]] || curl -sL zplug.sh/installer | zsh
 
@@ -147,7 +135,7 @@ mkcd() {
 # }}}
 # autoload {{{
 
-# TODO : 後で機能を調べる
+# TODO: 後で機能を調べる
 autoload -Uz modify-current-argument
 autoload -Uz smart-insert-last-word
 autoload -Uz terminfo
@@ -346,6 +334,7 @@ SPROMPT="%{${fg[red]}%}Did you mean?: %R -> %r [nyae]? %{${reset_color}%}"
 
 # }}}
 # vcs_info {{{
+## TODO: 最適化
 
 autoload -Uz vcs_info
 zstyle ':vcs_info:*' enable git
@@ -364,7 +353,8 @@ zstyle ':vcs_info:git:*' stagedstr "+"    # %c で表示する文字列
 zstyle ':vcs_info:git:*' unstagedstr "-"  # %u で表示する文字列
 
 
-# formats '[%b]' '%c%u %m' , actionformats '[%b]' '%c%u %m' '<!%a>' のメッセージを設定する直前のフック関数今回の設定の場合はformat の時は2つ, actionformats の時は3つメッセージがあるので各関数が最大3回呼び出される。
+# formats '[%b]' '%c%u %m' , actionformats '[%b]' '%c%u %m' '<!%a>' のメッセージを設定する直前のフック関数
+# 今回の設定の場合はformat の時は2つ, actionformats の時は3つメッセージがあるので各関数が最大3回呼び出される。
 zstyle ':vcs_info:git+set-message:*' hooks git-hook-begin git-untracked git-push-status git-nomerge-branch git-stash-count
 
 # フックの最初の関数
