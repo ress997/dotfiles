@@ -60,9 +60,7 @@ export ZPLUG_LOADFILE=$XDG_CONFIG_HOME/zplug/packages.zsh
 
 source $ZPLUG_HOME/init.zsh
 
-if ! zplug check; then
-	zplug install
-fi
+zplug check || zplug install
 
 zplug load --verbose
 
