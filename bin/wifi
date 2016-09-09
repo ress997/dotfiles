@@ -5,7 +5,7 @@ function is_osx() {
 }
 
 if ! is_osx; then
-    echo "OS X only" 1>&2
+    echo "macOS only" 1>&2
     exit 1
 fi
 
