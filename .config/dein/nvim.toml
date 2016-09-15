@@ -1,0 +1,48 @@
+[[plugins]]
+repo = 'Shougo/denite.nvim'
+
+# 補完 {{{
+
+[[plugins]]
+repo = 'Shougo/deoplete.nvim'
+depends = 'context_filetype.vim'
+on_event = 'InsertEnter'
+hook_add = '''
+	let g:deoplete#enable_at_startup = 1
+	let g:deoplete#enable_smart_case = 1
+
+	" set completeopt-=preview " プレビューウィンドウを開かないようにする
+
+	" <TAB>: completion.
+	imap <silent><expr> <TAB> pumvisible() ? "\<C-n>" : <SID>check_back_space() ? "\<TAB>" : deoplete#mappings#manual_complete()
+
+	function! s:check_back_space() abort
+		let col = col('.') - 1
+		return !col || getline('.')[col - 1]  =~ '\s'
+	endfunction
+
+	" <S-TAB>: completion back.
+	inoremap <expr><S-TAB>  pumvisible() ? "\<C-p>" : "\<C-h>"
+'''
+
+[[plugins]] # Golang
+repo = 'zchee/deoplete-go'
+depends = 'deoplete.nvim'
+on_ft = 'go'
+build = 'make'
+hook_source = '''
+	let g:deoplete#sources#go#use_cache = 1
+	let g:deoplete#sources#go#gocode_binary = $GOPATH . '/bin/gocode'
+	let g:deoplete#sources#go#sort_class = ['package', 'func', 'type', 'var', 'const']
+'''
+
+[[plugins]] # Vim
+repo = 'Shougo/neco-vim'
+depends = 'deoplete.nvim'
+on_ft = 'vim'
+
+[[plugins]] # Zsh
+repo = 'zchee/deoplete-zsh'
+depends = 'deoplete.nvim'
+
+# }}}

@@ -16,11 +16,17 @@ execute 'set runtimepath^=' . s:dein_repo_dir
 let g:dein#install_max_processes = 16
 let g:dein#install_progress_type = 'title'
 let g:dein#install_message_type = 'none'
-let s:toml = '~/.config/dein/plugins.toml'
+
+let s:toml_dir = '~/.config/dein'
+let s:toml_init = s:toml_dir . '/plugins.toml'
+let s:toml_nvim = s:toml_dir . '/nvim.toml'
 
 if dein#load_state(s:dein_dir)
-	call dein#begin(s:dein_dir, [$MYVIMRC, s:toml])
-	call dein#load_toml(s:toml)
+	call dein#begin(s:dein_dir, [$MYVIMRC, s:toml_init, s:toml_nvim])
+
+	call dein#load_toml(s:toml_init)
+	call dein#load_toml(s:toml_nvim)
+
 	call dein#end()
 	call dein#save_state()
 endif
@@ -39,9 +45,9 @@ if has('nvim')
 	let $NVIM_TUI_ENABLE_TRUE_COLOR = 1		" 制御シーケンスの設定
 	let $NVIM_TUI_ENABLE_CURSOR_SHAPE = 1	" カラースチームの有効化
 	if $TERM_PROGRAM == "iTerm.app"
-		let &t_SI = "\e]50;CursorShape=1\x7"    " インサートモード開始時
-		let &t_EI = "\e]50;CursorShape=0\x7"    " 挿入または置換モード終了
-		let &t_SR = "\e]50;CursorShape=2\x7"    " 置換モードの開始
+		let &t_SI = "\e]50;CursorShape=1\x7"	" インサートモード開始時
+		let &t_EI = "\e]50;CursorShape=0\x7"	" 挿入または置換モード終了
+		let &t_SR = "\e]50;CursorShape=2\x7"	" 置換モードの開始
 	endif
 endif
 
@@ -105,8 +111,6 @@ set history=10000
 " Clipboard
 set clipboard+=unnamedplus
 
-" Help の言語を設定
-set helplang=ja,en
 " }}}
 " キーマッピング {{{
 
