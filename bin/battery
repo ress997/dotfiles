@@ -1,12 +1,12 @@
 #!/usr/bin/env zsh
- 
+
 # macOS + tmux 用
 # Help
 #	-m : メーター表示
 #	-r : remain を表示
 
 if ! [[ "${(L)$( uname -s )}" == darwin ]]; then
-	echo "OS X only"
+	echo "macOS only"
 fi
 
 get_percentage() {

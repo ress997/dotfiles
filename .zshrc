@@ -33,7 +33,7 @@ if [ -z "$TMUX" ]; then
 		fi
 		if [[ "${(L)$( uname -s )}" == darwin ]] && (( $+commands[reattach-to-user-namespace] )); then
 			tmux_config=$(cat $HOME/.tmux.conf <(echo 'set-option -g default-command "reattach-to-user-namespace -l $SHELL"'))
-			tmux -f <(echo "$tmux_config") new-session && echo "$(tmux -V) created new session supported OS X"
+			tmux -f <(echo "$tmux_config") new-session && echo "$(tmux -V) created new session supported macOS"
 		else
 			tmux new-session && echo "tmux created new session"
 		fi
