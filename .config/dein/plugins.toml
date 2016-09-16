@@ -211,7 +211,6 @@ repo = 'leafgarland/typescript-vim'
 
 [[plugins]] # Vim
 repo = 'vim-jp/syntax-vim-ex'
-on_ft = 'vim'
 
 [[plugins]] # Japanese doc
 repo = 'vim-jp/vimdoc-ja'
