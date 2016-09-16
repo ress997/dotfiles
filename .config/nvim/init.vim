@@ -25,13 +25,13 @@ let g:dein#enable_notification = 1
 " }}}
 
 let s:toml_dir = '~/.config/dein'
-let s:toml_init = s:toml_dir . '/plugins.toml'
+let s:toml = s:toml_dir . '/plugins.toml'
 let s:toml_nvim = s:toml_dir . '/nvim.toml'
 
 if dein#load_state(s:dein_dir)
-	call dein#begin(s:dein_dir, [$MYVIMRC, s:toml_init, s:toml_nvim])
+	call dein#begin(s:dein_dir, [$MYVIMRC, s:toml, s:toml_nvim])
 
-	call dein#load_toml(s:toml_init)
+	call dein#load_toml(s:toml)
 	call dein#load_toml(s:toml_nvim)
 
 	call dein#end()
