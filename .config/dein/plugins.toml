@@ -1,10 +1,5 @@
 [[plugins]]
 repo = 'Shougo/dein.vim'
-hook_add = '''
-	if has('mac') && executable('osascript')
-		let g:dein#enable_notification = 1
-	endif
-'''
 
 # Library {{{
 
@@ -62,7 +57,7 @@ hook_source = '''
 	let g:user_emmet_settings = {'variables':{'lang':"ja"}}
 '''
 
-# Status line {{{
+## Status line {{{
 
 [[plugins]]
 repo = 'itchyny/lightline.vim'
@@ -84,8 +79,8 @@ hook_add = '''
 repo = 'cocopon/lightline-hybrid.vim'
 depends = 'lightline.vim'
 
-# }}}
-# NERD Tree {{{
+## }}}
+## NERD Tree {{{
 
 [[plugins]]
 repo = 'scrooloose/nerdtree'
@@ -116,8 +111,8 @@ hook_add = '''
 	end
 '''
 
-# }}}
-# Open Browser {{{
+## }}}
+## Open Browser {{{
 
 [[plugins]]
 repo = 'tyru/open-browser.vim'
@@ -134,6 +129,7 @@ hook_add = '''
 	xnoremap go :OpenGithubFile<CR>
 '''
 
+## }}}
 # }}}
 # Command {{{
 

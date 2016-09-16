@@ -3,7 +3,8 @@ augroup MyAutoCmd
 	autocmd!
 augroup END
 
-" dein settings {{{
+" dein {{{
+" Auto Download {{{
 let s:cache_home = empty($XDG_CACHE_HOME) ? expand('$HOME/.cache') : $XDG_CACHE_HOME
 let s:dein_dir = s:cache_home . '/dein'
 let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
@@ -11,11 +12,17 @@ let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
 if !isdirectory(s:dein_repo_dir)
 	call system('git clone https://github.com/Shougo/dein.vim ' . shellescape(s:dein_repo_dir))
 endif
+" }}}
+
+" dein.vim をプラグインとして読み込む
 execute 'set runtimepath^=' . s:dein_repo_dir
 
+" settings {{{
 let g:dein#install_max_processes = 16
 let g:dein#install_progress_type = 'title'
 let g:dein#install_message_type = 'none'
+let g:dein#enable_notification = 1
+" }}}
 
 let s:toml_dir = '~/.config/dein'
 let s:toml_init = s:toml_dir . '/plugins.toml'
