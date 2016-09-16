@@ -6,7 +6,6 @@ repo = 'Shougo/denite.nvim'
 [[plugins]]
 repo = 'Shougo/deoplete.nvim'
 depends = 'context_filetype.vim'
-on_event = ['InsertEnter']
 hook_add = '''
 	" <TAB>: completion.
 	imap <silent><expr> <TAB> pumvisible() ? "\<C-n>" : <SID>check_back_space() ? "\<TAB>" : deoplete#mappings#manual_complete()
@@ -19,9 +18,10 @@ hook_add = '''
 	inoremap <expr><S-TAB>  pumvisible() ? "\<C-p>" : "\<C-h>"
 '''
 hook_source = '''
-	let g:deoplete#enable_at_startup = 1
+	let g:deoplete#enable_ignore_case = 1
 	let g:deoplete#enable_smart_case = 1
 '''
+hook_post_source = 'call deoplete#enable()'
 
 [[plugins]] # Golang
 repo = 'zchee/deoplete-go'
