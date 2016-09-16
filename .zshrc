@@ -99,6 +99,10 @@ available () {
 	return 1
 }
 
+showoptions() {
+	set -o | sed -e 's/^no\(.*\)on$/\1  off/' -e 's/^no\(.*\)off$/\1  on/'
+}
+
 # ghq
 if (( $+commands[ghq] )); then
 	local DIRECTORY
@@ -217,6 +221,15 @@ alias vim='nvim'
 autoload -Uz zmv
 alias zmv='noglob zmv -W'
 
+alias ls='ls -G'
+alias la='ls -AF'
+alias lc='ls -ltcr'     # Sort by and show change time, most recent last
+alias lk='ls -lSr'      # Sort by size, biggest last
+alias ll='ls -lF'
+alias lla='ls -lAF'
+alias lt='ls -ltr'      # Sort by date, most recent last
+alias lu='ls -ltur'     # Sort by and show access time, most recent last
+
 # }}}
 # 略語展開(iab) {{{
 typeset -A abbreviations
@@ -282,23 +295,12 @@ magic-abbrev-expand() {
 
 no-magic-abbrev-expand() {
 	LBUFFER+=' '
-
 }
 
 zle -N magic-abbrev-expand
 zle -N no-magic-abbrev-expand
 bindkey " " magic-abbrev-expand
 bindkey "^x " no-magic-abbrev-expand
-## TODO: 追加予定 {{{
-alias ls='ls -G'
-alias la='ls -AF'
-alias lc='ls -ltcr'     # Sort by and show change time, most recent last
-alias lk='ls -lSr'      # Sort by size, biggest last
-alias ll='ls -lF'
-alias lla='ls -lAF'
-alias lt='ls -ltr'      # Sort by date, most recent last
-alias lu='ls -ltur'     # Sort by and show access time, most recent last
-## }}}
 # }}}
 # keybinds {{{
 bindkey -v
