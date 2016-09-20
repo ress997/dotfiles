@@ -31,6 +31,11 @@ hook_source = '''
 '''
 hook_post_source = 'call AutoSave()'
 
+
+[[plugins]] # 対応括弧をハイライト
+repo = 'itchyny/vim-parenmatch'
+hook_add = 'let g:loaded_matchparen = 1'
+
 [[plugins]]
 repo = 'airblade/vim-gitgutter'
 on_path = '.*'
@@ -78,6 +83,27 @@ hook_add = '''
 [[plugins]]
 repo = 'cocopon/lightline-hybrid.vim'
 depends = 'lightline.vim'
+
+## }}}
+## search {{{
+
+[[plugins]]
+repo = 'haya14busa/incsearch.vim'
+on_map = '<Plug>(incsearch-'
+hook_add = '''
+	map /  <Plug>(incsearch-forward)
+	map ?  <Plug>(incsearch-backward)
+	map g/ <Plug>(incsearch-stay)
+'''
+
+[[plugins]] # 曖昧検索
+repo = 'haya14busa/incsearch-fuzzy.vim'
+depends = 'incsearch.vim'
+hook_add = '''
+	map z/ <Plug>(incsearch-fuzzy-/)
+	map z? <Plug>(incsearch-fuzzy-?)
+	map zg/ <Plug>(incsearch-fuzzy-stay)
+'''
 
 ## }}}
 ## NERD Tree {{{
