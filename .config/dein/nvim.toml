@@ -1,6 +1,13 @@
+# Denite {{{
+
 [[plugins]]
 repo = 'Shougo/denite.nvim'
 
+[[plugins]]
+repo = 'Shougo/neomru.vim'
+depends = 'denite.nvim'
+
+# }}}
 # 補完 {{{
 
 [[plugins]]
