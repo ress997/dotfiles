@@ -34,6 +34,7 @@ export AWS_CREDENTIAL_FILE="$DEV_DATA_HOME/secret/aws"
 
 # enhancd
 export ENHANCD_DIR="$XDG_DATA_HOME/enhancd"
+export ENHANCD_DISABLE_HOME=1
 
 # FZF
 export FZF_DEFAULT_OPTS="--extended --ansi --multi"
