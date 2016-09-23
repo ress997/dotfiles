@@ -241,7 +241,6 @@ alias lu='ls -ltur'     # Sort by and show access time, most recent last
 typeset -A abbreviations
 abbreviations=(
 	# Global Alias
-	"C" "| cat"
 	"CP" "| pbcopy"
 	"E" "| emojify"
 	"J" "| jq ."
@@ -257,7 +256,6 @@ abbreviations=(
 	"drmi" "docker rmi"
 	"ds" "docker start"
 	# Git系
-	"g" "git"
 	"ga"  "git add"
 	"gb" "git branch"
 	"gcm" "git commit"
@@ -274,7 +272,6 @@ abbreviations=(
 	"gst" "git status --short --branch"
 	"ts" "tig status"
 	# Homebrew
-	"b" "brew"
 	"bc" "brew cleanup"
 	"bd" "brew doctor"
 	"bi" "brew install"
@@ -283,11 +280,10 @@ abbreviations=(
 	"bu" "brew update"
 	"bug" "brew upgrade"
 	# エディタ
-	"s" "subl"
 	"v" "nvim"
 	# miss
 	"e" "exit"
-	"sk" "ssh-keygen -t rsa -b 4096 -C 'email@example.com'"
+	"sk" "ssh-keygen -t ecdsa -b 521 -C 'email@example.com'"
 	"t" "type"
 )
 
