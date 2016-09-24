@@ -325,11 +325,10 @@ bindkey '^r' __fzf-select-history
 # }}}
 # PROMPT {{{
 
-PROMPT="[%n@%m] [%F{cyan}%~%f]
+PROMPT="[%n@%m:%F{cyan}%~%f]
 [%#]-> "
 PROMPT2='[%#]-> '
 SPROMPT="%{${fg[red]}%}Did you mean?: %R -> %r [nyae]? %{${reset_color}%}"
-# RPROMPT="[%F{cyan}%~%f]"
 
 # }}}
 # vcs_info {{{
