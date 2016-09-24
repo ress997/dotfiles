@@ -31,7 +31,6 @@ hook_source = '''
 '''
 hook_post_source = 'call AutoSave()'
 
-
 [[plugins]] # 対応括弧をハイライト
 repo = 'itchyny/vim-parenmatch'
 hook_add = 'let g:loaded_matchparen = 1'
@@ -39,11 +38,6 @@ hook_add = 'let g:loaded_matchparen = 1'
 [[plugins]]
 repo = 'airblade/vim-gitgutter'
 on_path = '.*'
-hook_source = '''
-	let g:gitgutter_sign_added = '✚'
-	let g:gitgutter_sign_modified = '➜'
-	let g:gitgutter_sign_removed = '✘'
-'''
 
 [[plugins]] # EditorConfig
 repo = 'editorconfig/editorconfig-vim'
@@ -131,10 +125,7 @@ deoplete = 'nerdtree'
 repo = 'jistr/vim-nerdtree-tabs'
 deoplete = 'nerdtree'
 hook_add = '''
-	" ファイルが指定されていなければNERD treeを有効にする
-	if argc() == 0
-		let g:nerdtree_tabs_open_on_console_startup = 1
-	end
+	nnoremap <silent> tf :NERDTreeTabsToggle<CR>
 '''
 
 ## }}}
