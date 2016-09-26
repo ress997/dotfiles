@@ -56,6 +56,11 @@ zplug "Code-Hex/pget", \
 	as:command, \
 	from:gh-r
 
+zplug "b4b4r07/httpstat", \
+    as:command, \
+    use:"httpstat.sh", \
+    rename-to:httpstat
+
 # Plugin
 zplug "b4b4r07/emoji-cli", \
 	on:"stedolan/jq"
