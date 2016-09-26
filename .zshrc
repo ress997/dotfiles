@@ -2,6 +2,40 @@ umask 022
 bindkey -d
 limit coredumpsize 0
 
+# ENV {{{
+
+# AWS CLI
+export AWS_CONFIG_FILE="$XDG_CONFIG_HOME/aws/config"
+export AWS_CREDENTIAL_FILE="$DEV_DATA_HOME/secret/aws"
+
+# enhancd
+export ENHANCD_DIR="$XDG_DATA_HOME/enhancd"
+export ENHANCD_DISABLE_HOME=1
+
+# FZF
+export FZF_DEFAULT_OPTS="--extended --ansi --multi"
+
+# GitHub
+export GITHUB_USER=$(git config --get github.user)
+
+# Gomi
+export GOMI_DIR="$XDG_CACHE_HOME/gomi"
+
+# Hub
+export HUB_CONFIG="$XDG_CONFIG_HOME/hub/config"
+
+# Tig
+export TIGRC_USER="$XDG_CONFIG_HOME/tig/config"
+
+# zplug
+export ZPLUG_HOME="$DEV_DATA_HOME/zplug"
+export ZPLUG_CACHE_DIR="$XDG_CACHE_HOME/zplug"
+export ZPLUG_CACHE_FILE="$ZPLUG_CACHE_DIR/cache"
+export ZPLUG_FILTER=$FILTER
+export ZPLUG_THREADS='32'
+export ZPLUG_LOADFILE=$XDG_CONFIG_HOME/zplug/packages.zsh
+
+# }}}
 # Tmux {{{
 if (( $+commands[tmux] )); then
 ## Pluzogin Manager {{{
@@ -49,12 +83,6 @@ fi
 fi
 # }}}
 # zplug {{{
-export ZPLUG_HOME="$DEV_DATA_HOME/zplug"
-export ZPLUG_CACHE_DIR="$XDG_CACHE_HOME/zplug"
-export ZPLUG_CACHE_FILE="$ZPLUG_CACHE_DIR/cache"
-export ZPLUG_FILTER=$FILTER
-export ZPLUG_THREADS='32'
-export ZPLUG_LOADFILE=$XDG_CONFIG_HOME/zplug/packages.zsh
 
 [[ -d $ZPLUG_HOME ]] || curl -sL zplug.sh/installer | zsh
 
@@ -112,13 +140,6 @@ fi
 # ghq
 if (( $+commands[ghq] )); then
 	local DIRECTORY
-	g() {
-		if zplug check 'b4b4r07/enhancd'; then
-			__enhancd::custom::ghq ${1:+\"$@\"}
-		else
-			DIRECTORY=$(ghq list | $(available $FILTER)) && cd $(ghq root)/$DIRECTORY
-		fi
-	}
 	gh() {
 		DIRECTORY=$(ghq list | $(available $FILTER) | cut -d "/" -f 2,3) && hub browse $DIRECTORY
 	}
@@ -221,13 +242,15 @@ zstyle ':completion:*' group-name ''
 
 alias rm='rm -i'
 
-alias vim='nvim'
+alias vim='nvim' # TODO: 消したい
 
 # 複数ファイルのmv 例　zmv *.txt *.txt.bk
 autoload -Uz zmv
 alias zmv='noglob zmv -W'
 
-alias ls='ls -G'
+alias ls='ls -G' # TODO: 環境によって変更するようにする
+
+# TODO: よくわかってないものもあるから整理したい
 alias la='ls -AF'
 alias lc='ls -ltcr'     # Sort by and show change time, most recent last
 alias lk='ls -lSr'      # Sort by size, biggest last
@@ -283,8 +306,9 @@ abbreviations=(
 	"v" "nvim"
 	# miss
 	"e" "exit"
-	"sk" "ssh-keygen -t ecdsa -b 521 -C 'email@example.com'"
+	"sk" "ssh-keygen -t ed25519 -C 'email@example.com'"
 	"t" "type"
+	"rm!" "rm -fr"
 )
 
 magic-abbrev-expand() {
@@ -330,9 +354,7 @@ PROMPT="[%n@%m:%F{cyan}%~%f]
 PROMPT2='[%#]-> '
 SPROMPT="%{${fg[red]}%}Did you mean?: %R -> %r [nyae]? %{${reset_color}%}"
 
-# }}}
-# vcs_info {{{
-## TODO: 最適化
+## vcs_info {{{
 
 autoload -Uz vcs_info
 zstyle ':vcs_info:*' enable git
@@ -344,8 +366,8 @@ zstyle ':vcs_info:*' enable git
 zstyle ':vcs_info:*' max-exports 3
 
 # フォーマット
-zstyle ':vcs_info:git:*' formats '[%b]' '%c%u %m'
-zstyle ':vcs_info:git:*' actionformats '[%b]' '%c%u %m' '<!%a>'
+zstyle ':vcs_info:git:*' formats '(%s:%b)' '%c%u %m'
+zstyle ':vcs_info:git:*' actionformats '(%s:%b)' '%c%u %m' '<!%a>'
 zstyle ':vcs_info:git:*' check-for-changes true
 zstyle ':vcs_info:git:*' stagedstr "+"    # %c で表示する文字列
 zstyle ':vcs_info:git:*' unstagedstr "-"  # %u で表示する文字列
@@ -353,7 +375,7 @@ zstyle ':vcs_info:git:*' unstagedstr "-"  # %u で表示する文字列
 
 # formats '[%b]' '%c%u %m' , actionformats '[%b]' '%c%u %m' '<!%a>' のメッセージを設定する直前のフック関数
 # 今回の設定の場合はformat の時は2つ, actionformats の時は3つメッセージがあるので各関数が最大3回呼び出される。
-zstyle ':vcs_info:git+set-message:*' hooks git-hook-begin git-untracked git-push-status git-nomerge-branch git-stash-count
+zstyle ':vcs_info:git+set-message:*' hooks git-hook-begin git-untracked git-push-status git-nomerge-branch
 
 # フックの最初の関数
 # git の作業コピーのあるディレクトリのみフック関数を呼び出すようにする (.git ディレクトリ内にいるときは呼び出さない) .git ディレクトリ内では git status --porcelain などがエラーになるため
@@ -392,7 +414,6 @@ zstyle ':vcs_info:git+set-message:*' hooks git-hook-begin git-untracked git-push
 	fi
 
 	if [[ "${hook_com[branch]}" != "master" ]]; then
-		# master ブランチでない場合は何もしない
 		return 0
 	fi
 
@@ -417,7 +438,6 @@ zstyle ':vcs_info:git+set-message:*' hooks git-hook-begin git-untracked git-push
 	fi
 
 	if [[ "${hook_com[branch]}" == "master" ]]; then
-		# master ブランチの場合は何もしない
 		return 0
 	fi
 
@@ -429,23 +449,6 @@ zstyle ':vcs_info:git+set-message:*' hooks git-hook-begin git-untracked git-push
 		hook_com[misc]+="(m${nomerged})"
 	fi
 }
-
-# stash 件数表示
-# stash している場合は :SN という形式で misc (%m) に表示
-+vi-git-stash-count() {
-	# zstyle formats, actionformats の2番目のメッセージのみ対象にする
-	if [[ "$1" != "1" ]]; then
-		return 0
-	fi
-
-	local stash
-	stash=$(command git stash list 2>/dev/null | wc -l | tr -d ' ')
-	if [[ "${stash}" -gt 0 ]]; then
-		# misc (%m) に追加
-		hook_com[misc]+=":S${stash}"
-	fi
-}
-
 
 _update_vcs_info_msg() {
 	local -a messages
@@ -467,8 +470,10 @@ _update_vcs_info_msg() {
 	fi
 
 	RPROMPT="$prompt"
+
 }
 
 add-zsh-hook precmd _update_vcs_info_msg
 
+## }}}
 # }}}

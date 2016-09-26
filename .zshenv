@@ -28,34 +28,6 @@ export FILTER='fzf-tmux:fzf:peco-tmux:peco'
 
 # ---
 
-# AWS CLI
-export AWS_CONFIG_FILE="$XDG_CONFIG_HOME/aws/config"
-export AWS_CREDENTIAL_FILE="$DEV_DATA_HOME/secret/aws"
-
-# enhancd
-export ENHANCD_DIR="$XDG_DATA_HOME/enhancd"
-export ENHANCD_DISABLE_HOME=1
-
-# FZF
-export FZF_DEFAULT_OPTS="--extended --ansi --multi"
-
-# GitHub
-export GITHUB_USER=$(git config --get github.user)
-
-# golamg
-export GOPATH="$DEV_DATA_HOME/go"
-
-# Gomi
-export GOMI_DIR="$XDG_CACHE_HOME/gomi"
-
-# Hub
-export HUB_CONFIG="$XDG_CONFIG_HOME/hub/config"
-
-# Tig
-export TIGRC_USER="$XDG_CONFIG_HOME/tig/config"
-
-# ---
-
 # Editor
 export EDITOR=nvim
 export GIT_EDITOR=$EDITOR
@@ -82,8 +54,8 @@ export LSCOLORS=exfxcxdxbxegedabagacad
 
 # History
 export HISTFILE="$XDG_DATA_HOME/zsh/history"
-export HISTSIZE=1000
-export SAVEHIST=10000000
+export HISTSIZE=10000
+export SAVEHIST=1000000000
 
 # dotfile を コマンドの候補として出さない？
 export CORRECT_IGNORE='_*'
@@ -91,6 +63,12 @@ export CORRECT_IGNORE_FILE='.*'
 
 # 単語の一部とみなしたい非アルファベット文字
 export WORDCHARS='*?.[]~&;!#$%^(){}<>'
+
+
+# ---
+
+# golamg
+export GOPATH="$DEV_DATA_HOME/go"
 
 # PATH
 typeset -U path PATH
