@@ -108,6 +108,11 @@ fi
 
 ## }}}
 # }}}
+# NodeBrew {{{
+
+[[ -d $NODEBREW_ROOT ]] || curl -L git.io/nodebrew | perl - setup
+
+# }}}
 # function {{{
 
 # available

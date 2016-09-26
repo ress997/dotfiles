@@ -70,12 +70,16 @@ export WORDCHARS='*?.[]~&;!#$%^(){}<>'
 # golamg
 export GOPATH="$DEV_DATA_HOME/go"
 
+# Nodebrew
+export NODEBREW_ROOT="$DEV_DATA_HOME/nodebrew"
+
 # PATH
 typeset -U path PATH
 path=( \
 	$HOME/.local/bin(N-/)
 	$HOME/bin(N-/) \
 	$GOPATH/bin(N-/) \
+	$NODEBREW_ROOT/current/bin(N-/) \
 	/usr/local/bin(N-/) \
 	$path \
 )
