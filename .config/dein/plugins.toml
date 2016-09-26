@@ -179,6 +179,9 @@ hook_source = '''
 # }}}
 # Lang {{{
 
+[[plugins]] # Docker
+repo = 'ekalinin/Dockerfile.vim'
+
 [[plugins]] # Golang
 repo = 'fatih/vim-go'
 if = 'executable("go")'
