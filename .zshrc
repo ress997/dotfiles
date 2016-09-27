@@ -247,8 +247,6 @@ zstyle ':completion:*' group-name ''
 
 alias rm='rm -i'
 
-alias vim='nvim' # TODO: 消したい
-
 # 複数ファイルのmv 例　zmv *.txt *.txt.bk
 autoload -Uz zmv
 alias zmv='noglob zmv -W'
@@ -308,7 +306,7 @@ abbreviations=(
 	"bu" "brew update"
 	"bug" "brew upgrade"
 	# エディタ
-	"v" "nvim"
+	"vim" "nvim"
 	# miss
 	"e" "exit"
 	"sk" "ssh-keygen -t ed25519 -C 'email@example.com'"
