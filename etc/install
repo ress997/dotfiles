@@ -1,7 +1,7 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-DOTPATH=${DOTPATH:-$HOME/.dotfiles}
-DOTFILES_GITHUB="https://github.com/ress997/dotfiles.git"
+DOTPATH=${DOTPATH:-$HOME/.dev/dotfiles}
+DOTFILES_GITHUB="https://github.com/39e/dotfiles"
 
 function is_exists() {
     type "$1" >/dev/null 2>&1
@@ -37,7 +37,7 @@ function _dotfiles_download() {
         if is_exists "git"; then
             git clone --recursiv $DOTFILES_GITHUB $DOTPATH
         elif is_exists "curl" || is_exists "wget"; then
-            local tarball="https://github.com/ress997/dotfiles/archive/master.tar.gz"
+            local tarball="https://github.com/39e/dotfiles/archive/master.tar.gz"
             if is_exists "curl"; then
                 curl -L "$tarball"
             elif is_exists "wget"; then
