@@ -33,11 +33,12 @@ let g:dein#install_message_type = 'none'
 let g:dein#enable_notification = 1
 " }}}
 
-let s:toml_dir = '~/.config/dein'
-let s:toml = s:toml_dir . '/plugins.toml'
-let s:toml_nvim = s:toml_dir . '/nvim.toml'
-
 if dein#load_state(s:dein_dir)
+
+	let s:toml_dir = '~/.config/dein'
+	let s:toml = s:toml_dir . '/plugins.toml'
+	let s:toml_nvim = s:toml_dir . '/nvim.toml'
+
 	call dein#begin(s:dein_dir, [$MYVIMRC, s:toml, s:toml_nvim])
 
 	call dein#load_toml(s:toml)
@@ -45,6 +46,7 @@ if dein#load_state(s:dein_dir)
 
 	call dein#end()
 	call dein#save_state()
+
 endif
 
 if has('vim_starting') && dein#check_install()

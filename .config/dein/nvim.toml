@@ -2,6 +2,7 @@
 
 [[plugins]]
 repo = 'Shougo/denite.nvim'
+if = 'has("python3")'
 on_cmd = 'Denite'
 hook_post_source = '''
 	if executable('pt')
@@ -15,6 +16,7 @@ hook_post_source = '''
 
 [[plugins]]
 repo = 'nixprime/cpsm'
+if = 'has("python3")'
 build = 'env PY3=ON ./install.sh'
 hook_source = 'denite.nvim'
 
@@ -31,6 +33,7 @@ depends = 'denite.nvim'
 
 [[plugins]]
 repo = 'Shougo/deoplete.nvim'
+if = 'has("python3")'
 depends = 'context_filetype.vim'
 on_event = 'InsertEnter'
 hook_add = '''
