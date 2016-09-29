@@ -4,5 +4,5 @@ hidden = true
 # 無視するファイル
 ignore = ['.git', 'node_modules']
 
-# # Match case insensitively unless PATTERN contains uppercase characters
+# Match case insensitively unless PATTERN contains uppercase characters
 smart-case = true
