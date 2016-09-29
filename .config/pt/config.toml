@@ -2,7 +2,7 @@
 hidden = true
 
 # 無視するファイル
-ignore = [".git"]
+ignore = ['.git', 'node_modules']
 
-# 不明
+# # Match case insensitively unless PATTERN contains uppercase characters
 smart-case = true
