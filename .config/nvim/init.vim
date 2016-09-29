@@ -80,4 +80,5 @@ function s:load_rc(file)
 endfunction
 
 call s:load_rc('setting')
+call s:load_rc('grep')
 call s:load_rc('keymap')

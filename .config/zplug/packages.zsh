@@ -1,6 +1,17 @@
 zplug "zplug/zplug"
 
 # Command
+
+zplug "monochromegane/the_platinum_searcher", \
+	as:command, \
+	from:gh-r, \
+	rename-to:pt
+
+zplug "BurntSushi/ripgrep", \
+	as:command, \
+	from:gh-r, \
+	rename-to:rg
+
 zplug "peco/peco", \
 	as:command, \
 	from:gh-r
@@ -20,12 +31,6 @@ zplug "junegunn/fzf", \
 	as:command, \
 	on:"junegunn/fzf-bin", \
 	use:"bin/fzf-tmux"
-
-zplug "monochromegane/the_platinum_searcher", \
-	as:command, \
-	from:gh-r, \
-	on:"junegunn/fzf-bin", \
-	rename-to:pt
 
 zplug "stedolan/jq", \
 	as:command, \
@@ -62,6 +67,7 @@ zplug "b4b4r07/httpstat", \
     rename-to:httpstat
 
 # Plugin
+
 zplug "b4b4r07/emoji-cli", \
 	on:"stedolan/jq"
 

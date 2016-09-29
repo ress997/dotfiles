@@ -13,6 +13,9 @@ export ENHANCD_DIR="$XDG_DATA_HOME/enhancd"
 export ENHANCD_DISABLE_HOME=1
 
 # FZF
+# export FZF_DEFAULT_COMMAND='pt -g ""'
+# export FZF_DEFAULT_COMMAND='rg --files --hidden --glob "!.git" ""'
+export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.git/*"'
 export FZF_DEFAULT_OPTS="--extended --ansi --multi"
 
 # GitHub
@@ -93,11 +96,6 @@ zplug check || zplug install
 zplug load --verbose
 
 ## Plugin Seting {{{
-
-### FZF
-if (( $+commands[fzf] )) && (( $+commands[pt] )); then
-	export FZF_DEFAULT_COMMAND='pt -g ""'
-fi
 
 ### Hub
 if (( $+commands[hub] )); then
