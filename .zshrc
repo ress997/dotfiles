@@ -14,21 +14,25 @@ export ENHANCD_DISABLE_HOME=1
 
 # FZF
 # export FZF_DEFAULT_COMMAND='pt -g ""'
-# export FZF_DEFAULT_COMMAND='rg --files --hidden --glob "!.git" ""'
-export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.git/*"'
+# export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.git/*"'
+export FZF_DEFAULT_COMMAND='rg --files --hidden --glob "!.git" ""'
 export FZF_DEFAULT_OPTS="--extended --ansi --multi"
-
-# GitHub
-export GITHUB_USER=$(git config --get github.user)
 
 # Gomi
 export GOMI_DIR="$XDG_CACHE_HOME/gomi"
+
+# Git {{{
+
+# GitHub
+export GITHUB_USER=$(git config --get github.user)
 
 # Hub
 export HUB_CONFIG="$XDG_CONFIG_HOME/hub/config"
 
 # Tig
 export TIGRC_USER="$XDG_CONFIG_HOME/tig/config"
+
+# }}}
 
 # zplug
 export ZPLUG_HOME="$DEV_DATA_HOME/zplug"
@@ -255,15 +259,6 @@ elif [[ "${(L)$( uname -s )}" == darwin ]]; then
 	alias ls='ls --color=auto'
 fi
 
-# TODO: よくわかってないものもあるから整理したい
-alias la='ls -AF'
-alias lc='ls -ltcr'     # Sort by and show change time, most recent last
-alias lk='ls -lSr'      # Sort by size, biggest last
-alias ll='ls -lF'
-alias lla='ls -lAF'
-alias lt='ls -ltr'      # Sort by date, most recent last
-alias lu='ls -ltur'     # Sort by and show access time, most recent last
-
 # }}}
 # 略語展開(iab) {{{
 typeset -A abbreviations
@@ -272,6 +267,10 @@ abbreviations=(
 	"CP" "| pbcopy"
 	"E" "| emojify"
 	"J" "| jq ."
+	# LS
+	"la" "ls -AF"
+	"ll" "ls -lF"
+	"lla" "ls -lAF"
 	# Docker
 	"d" "docker"
 	"da" "docker attach"
