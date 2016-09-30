@@ -1,23 +1,25 @@
-
 set fileformat=unix
 set fileformats=unix,dos,mac
 set fileencoding=utf-8
 set fileencodings=utf-8,iso-2022-jp,cp932,euc-jp
-set termencoding=
-
-let g:cache_home = empty($XDG_CACHE_HOME) ? expand('$HOME/.cache') : $XDG_CACHE_HOME
-let g:config_home = empty($XDG_CONFIG_HOME) ? expand('$HOME/.config') : $XDG_CONFIG_HOME
 
 " reset augroup
 augroup MyAutoCmd
 	autocmd!
 augroup END
 
+" ENV {{{
+
+let g:cache_home = empty($XDG_CACHE_HOME) ? expand('$HOME/.cache') : $XDG_CACHE_HOME
+let g:config_home = empty($XDG_CONFIG_HOME) ? expand('$HOME/.config') : $XDG_CONFIG_HOME
+
+" }}}
 " dein {{{
-" Auto Download {{{
+
 let s:dein_dir = g:cache_home . '/dein'
 let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
 
+" Auto Download {{{
 if !isdirectory(s:dein_repo_dir)
 	call system('git clone https://github.com/Shougo/dein.vim ' . shellescape(s:dein_repo_dir))
 endif
@@ -53,7 +55,8 @@ if has('vim_starting') && dein#check_install()
 	call dein#install()
 endif
 
-filetype plugin indent on " ファイル形式の検出
+filetype plugin indent on
+
 " }}}
 
 colorscheme hybrid
@@ -73,6 +76,8 @@ if $TERM_PROGRAM == "iTerm.app"
 endif
 
 " }}}
+" Load Setting File {{{
+
 let s:rc_dir = g:config_home . '/vim' . '/rc'
 
 function s:load_rc(file)
@@ -82,3 +87,5 @@ endfunction
 call s:load_rc('setting')
 call s:load_rc('grep')
 call s:load_rc('keymap')
+
+" }}}
