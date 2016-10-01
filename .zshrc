@@ -254,9 +254,9 @@ autoload -Uz zmv
 alias zmv='noglob zmv -W'
 
 if [[ "${(L)$( uname -s )}" == darwin ]]; then
-	alias ls='ls -G'
+	alias ls='ls -G -F'
 elif [[ "${(L)$( uname -s )}" == darwin ]]; then
-	alias ls='ls --color=auto'
+	alias ls='ls --color=auto -F'
 fi
 
 # }}}
@@ -268,9 +268,9 @@ abbreviations=(
 	"E" "| emojify"
 	"J" "| jq ."
 	# LS
-	"la" "ls -AF"
-	"ll" "ls -lF"
-	"lla" "ls -lAF"
+	"la" "ls -A"
+	"ll" "ls -l"
+	"lla" "ls -lA"
 	# Docker
 	"d" "docker"
 	"da" "docker attach"
