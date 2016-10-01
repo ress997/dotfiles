@@ -133,6 +133,8 @@ hook_add = '''
 
 [[plugins]]
 repo = 'tyru/open-browser.vim'
+on_cmd = ['OpenBrowser', 'OpenBrowserSearch', 'OpenBrowserSmartSearch']
+on_map = '<Plug>(openbrowser-'
 hook_add = '''
 	let g:openbrowser_menu_lang = 'ja'
 '''
