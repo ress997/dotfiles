@@ -93,6 +93,7 @@ hook_add = '''
 [[plugins]] # 曖昧検索
 repo = 'haya14busa/incsearch-fuzzy.vim'
 depends = 'incsearch.vim'
+on_map = '<Plug>(incsearch-fuzzy-'
 hook_add = '''
 	map z/ <Plug>(incsearch-fuzzy-/)
 	map z? <Plug>(incsearch-fuzzy-?)
@@ -124,8 +125,9 @@ deoplete = 'nerdtree'
 [[plugins]]
 repo = 'jistr/vim-nerdtree-tabs'
 deoplete = 'nerdtree'
+hook_cmd = ['NERDTreeTabsOpen', 'NERDTreeTabsClose', 'NERDTreeTabsToggle', 'NERDTreeMirrorOpen', 'NERDTreeMirrorToggle']
 hook_add = '''
-	nnoremap <silent> tf :NERDTreeTabsToggle<CR>
+	nnoremap <silent> tf :NERDTreeMirrorToggle<CR>
 '''
 
 ## }}}
