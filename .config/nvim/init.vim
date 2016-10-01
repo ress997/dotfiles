@@ -39,12 +39,12 @@ if dein#load_state(s:dein_dir)
 
 	let s:toml_dir = '~/.config/dein'
 	let s:toml = s:toml_dir . '/plugins.toml'
-	let s:toml_nvim = s:toml_dir . '/nvim.toml'
+	let s:toml_neovim = s:toml_dir . '/neovim.toml'
 
-	call dein#begin(s:dein_dir, [$MYVIMRC, s:toml, s:toml_nvim])
+	call dein#begin(s:dein_dir, [$MYVIMRC, s:toml, s:toml_neovim])
 
 	call dein#load_toml(s:toml)
-	call dein#load_toml(s:toml_nvim)
+	call dein#load_toml(s:toml_neovim)
 
 	call dein#end()
 	call dein#save_state()
