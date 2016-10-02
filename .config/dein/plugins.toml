@@ -125,7 +125,7 @@ deoplete = 'nerdtree'
 [[plugins]]
 repo = 'jistr/vim-nerdtree-tabs'
 deoplete = 'nerdtree'
-hook_cmd = ['NERDTreeTabsOpen', 'NERDTreeTabsClose', 'NERDTreeTabsToggle', 'NERDTreeMirrorOpen', 'NERDTreeMirrorToggle']
+on_cmd = ['NERDTreeTabsOpen', 'NERDTreeTabsClose', 'NERDTreeTabsToggle', 'NERDTreeMirrorOpen', 'NERDTreeMirrorToggle']
 hook_add = '''
 	nnoremap <silent> tf :NERDTreeMirrorToggle<CR>
 '''
