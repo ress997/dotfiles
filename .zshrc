@@ -147,7 +147,7 @@ fi
 # ghq
 if (( $+commands[ghq] )); then
 	local DIRECTORY
-	gh() {
+	ghq-browse() {
 		DIRECTORY=$(ghq list | $(available $FILTER) | cut -d "/" -f 2,3) && hub browse $DIRECTORY
 	}
 	ghq-update() {
