@@ -138,12 +138,6 @@ showoptions() {
 	set -o | sed -e 's/^no\(.*\)on$/\1  off/' -e 's/^no\(.*\)off$/\1  on/'
 }
 
-if (( $+commands[docker] )); then
-	jekyll(){
-		docker run --rm --label=jekyll --volume=$(pwd):/srv/jekyll -it -p 80:4000 jekyll/jekyll:pages jekyll $@
-	}
-fi
-
 # ghq
 if (( $+commands[ghq] )); then
 	local DIRECTORY
