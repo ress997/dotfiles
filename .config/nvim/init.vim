@@ -66,8 +66,8 @@ filetype plugin indent on
 
 " }}}
 
+syntax enable
 colorscheme hybrid
-syntax on
 
 " NeoVim Settings {{{
 
