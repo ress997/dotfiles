@@ -38,6 +38,10 @@ hook_add = 'let g:loaded_matchparen = 1'
 [[plugins]]
 repo = 'airblade/vim-gitgutter'
 on_path = '.*'
+hook_add = '''
+	" キーマップを無効にする
+	let g:gitgutter_map_keys = 0
+'''
 
 [[plugins]] # EditorConfig
 repo = 'editorconfig/editorconfig-vim'
@@ -197,6 +201,12 @@ hook_source = '''
 
 [[plugins]] # Markdown
 repo = 'rhysd/vim-gfm-syntax'
+
+[[plugins]] # npm
+repo = 'rhysd/npm-filetypes.vim'
+
+[[plugins]] # Swift
+repo = '39e/vim-swift'
 
 [[plugins]] # TMUX
 repo = 'tmux-plugins/vim-tmux'
