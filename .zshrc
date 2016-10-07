@@ -18,6 +18,9 @@ export ENHANCD_DISABLE_HOME=1
 export FZF_DEFAULT_COMMAND='rg --files --hidden --glob "!.git" ""'
 export FZF_DEFAULT_OPTS="--extended --ansi --multi"
 
+# npm
+export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npm/config"
+
 # Gomi
 export GOMI_DIR="$XDG_CACHE_HOME/gomi"
 
