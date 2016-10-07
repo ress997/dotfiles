@@ -37,11 +37,11 @@ set wrapscan   " 最後尾まで検索を終えたら次の検索で先頭に移
 set gdefault   " 置換の時 g オプションをデフォルトで有効にする
 
 " タブ/インデントの設定
-set softtabstop=4   " Tabキー押下時のカーソル移動幅
-set noexpandtab       " タブ入力を複数の空白入力に置き換えない
-set tabstop=4       " 画面上でタブ文字が占める幅
-set shiftwidth=4    " 自動インデントでずれる幅
-set autoindent      " 改行時に前の行のインデントを継続する
+set softtabstop=4		" Tabキー押下時のカーソル移動幅
+set noexpandtab			" タブ入力を複数の空白入力に置き換えない
+set tabstop=4			" 画面上でタブ文字が占める幅
+set shiftwidth=4		" 自動インデントでずれる幅
+set smartindent			" 改行時に前の行のインデントを継続する
 
 " etc
 "" コマンドラインの履歴を10000件保存する
