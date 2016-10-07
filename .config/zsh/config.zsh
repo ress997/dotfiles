@@ -226,11 +226,14 @@ zstyle ':completion:*:*:(^rm):*:*files' ignored-patterns '*?.o|*?.d|*?.aux|*?~|*
 # ps コマンドのプロセス名補完
 zstyle ':completion:*:processes' command "ps -u $USER -o pid,stat,%cpu,%mem,cputime,command"
 
+# 候補に色付け?
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+
 # kill 候補を色付け
 zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([%0-9]#)*=0=01;31'
 
 # 補完候補をカーソルで選ぶ。
-zstyle ':completion:*:default' menu select=1
+zstyle ':completion:*:default' menu select=2
 
 # 補完時にこれらのディレクトリは除外する。
 zstyle ':completion:*:cd:*' ignored-patterns '*CVS|*.git|*lost+found'
@@ -240,6 +243,14 @@ zstyle ':completion:*' verbose yes
 zstyle ':completion:*' format '%B%d%b'
 zstyle ':completion:*:warnings' format 'No matches for: %d'
 zstyle ':completion:*' group-name ''
+
+# キャッシュを使う?
+zstyle ':completion:*' use-cache true
+
+# 不明 (補完関係)
+zstyle ':completion:*' completer _complete _match _approximate
+zstyle ':completion:*:descriptions' format '%F{yellow}-- %d --%f'
+zstyle ':completion:*:options' description 'yes'
 
 # }}}
 # aliases {{{
