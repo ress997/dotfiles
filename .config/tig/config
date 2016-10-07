@@ -20,4 +20,9 @@ color diff-chunk magenta default
 color "Reported-by:" green default
 color graph-commit cyan default
 
+# open commit at github
+bind main o !@hub browse -- commit/%(commit)
+bind diff o !@hub browse -- commit/%(commit)
+bind log  o !@hub browse -- commit/%(commit)
+
 # vim: ft=config
