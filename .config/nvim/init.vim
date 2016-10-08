@@ -46,12 +46,12 @@ if dein#load_state(s:dein_dir)
 
 	call dein#load_toml(s:toml)
 
-	if has('nvim')
+	" if has('nvim')
 		call dein#load_toml(s:toml_neovim)
 		if has('mac')
 			call dein#load_toml(s:toml_mac)
 		endif
-	endif
+	" endif
 
 	call dein#end()
 	call dein#save_state()
@@ -76,13 +76,25 @@ let $NVIM_TUI_ENABLE_TRUE_COLOR = 1
 " カラースチームの有効化
 let $NVIM_TUI_ENABLE_CURSOR_SHAPE = 1
 
-if $TERM_PROGRAM == "iTerm.app"
-	let &t_SI = "\e]50;CursorShape=1\x7"	" インサートモード開始時
-	let &t_EI = "\e]50;CursorShape=0\x7"	" 挿入または置換モード終了
-	let &t_SR = "\e]50;CursorShape=2\x7"	" 置換モードの開始
+" }}}
+
+" カーソルの形状を変える
+" t_SI: インサートモード開始時
+" t_EI: 挿入または置換モード終了
+" t_SR: 置換モードの開始
+
+if exists('$ITERM_SESSION_ID')
+	if empty('$TMUX')
+		let &t_SI = "\e]50;CursorShape=1\x7"
+		let &t_EI = "\e]50;CursorShape=0\x7"
+		let &t_SR = "\e]50;CursorShape=2\x7"
+	else
+		let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
+		let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
+		let &t_SR = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=2\x7\<Esc>\\"
+	endif
 endif
 
-" }}}
 " Load Setting File {{{
 
 let s:rc_dir = g:config_home . '/vim' . '/rc'
