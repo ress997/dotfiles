@@ -1,3 +1,4 @@
+" TODO: 見やすいように整理
 " 表示設定
 set background=dark " 背景を黒ベースに
 set cmdheight=1     " メッセージ表示欄を1行確保
