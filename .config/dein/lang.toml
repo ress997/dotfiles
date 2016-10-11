@@ -1,0 +1,68 @@
+[[plugins]] # Docker
+repo = 'ekalinin/Dockerfile.vim'
+
+[[plugins]] # Golang
+repo = 'fatih/vim-go'
+if = 'executable("go")'
+on_cmd = ['GoInstallBinaries', 'GoUpdateBinaries']
+on_ft = 'go'
+hook_source = '''
+	let g:go_fmt_command = 'goimports'
+'''
+
+[[plugins]] # Markdown (GitHub Flavored Markdown)
+repo = 'rhysd/vim-gfm-syntax'
+
+[[plugins]] # npm
+repo = 'rhysd/npm-filetypes.vim'
+
+[[plugins]] # Swift
+repo = '39e/vim-swift'
+
+[[plugins]] # TMUX
+repo = 'tmux-plugins/vim-tmux'
+
+[[plugins]] # Toml
+repo  = 'cespare/vim-toml'
+
+[[plugins]] # zsh - zplug
+repo = 'zplug/vim-zplug'
+
+
+# Web系 {{{
+
+[[plugins]] # amber
+repo = 'burner/amber.vim'
+
+[[plugins]] # CoffeeScript
+repo = 'kchmck/vim-coffee-script'
+
+[[plugins]] # css3
+repo = 'hail2u/vim-css3-syntax'
+
+[[plugins]] # Haml
+repo  = 'tpope/vim-haml'
+
+[[plugins]] # Html5
+repo  = 'othree/html5.vim'
+
+[[plugins]] # JavaScript
+repo = 'jelera/vim-javascript-syntax'
+
+[[plugins]] # TypeScript
+repo = 'leafgarland/typescript-vim'
+
+# }}}
+
+# Vim {{{
+
+[[plugins]] # Vim
+repo = 'vim-jp/syntax-vim-ex'
+
+[[plugins]] # Japanese doc
+repo = 'vim-jp/vimdoc-ja'
+hook_add = '''
+	set helplang=ja,en
+'''
+
+# }}}
