@@ -48,13 +48,15 @@ export ZPLUG_LOADFILE=$XDG_CONFIG_HOME/zplug/packages.zsh
 # }}}
 # Tmux {{{
 if (( $+commands[tmux] )); then
-## Pluzogin Manager {{{
+
+# Pluzogin Manager {{{
 if [ ! -d $XDG_CACHE_HOME/tmux/tpm ]; then
 	git clone https://github.com/tmux-plugins/tpm $XDG_CACHE_HOME/tmux/tpm
 	$XDG_CACHE_HOME/tmux/tpm/bin/install_plugins
 fi
-## }}}
-## Auto new-session {{{
+# }}}
+
+# Auto new-session {{{
 if [ -z "$TMUX" ]; then
 	if [ ! -z "$PS1" ] && [ -z "$SSH_CONECTION" ]; then
 		if tmux has-session >/dev/null 2>&1 && tmux list-sessions | grep -qE '.*]$'; then
@@ -89,7 +91,11 @@ else
 	echo "${fg_bold[red]}  | | | |  | | |_| |/  \  ${reset_color}"
 	echo "${fg_bold[red]}  |_| |_|  |_|\___//_/\_\ ${reset_color}"
 fi
-## }}}
+# }}}
+
+#TERM 変更
+[ -n "$TMUX" ] && export TERM=xterm-256color
+
 fi
 # }}}
 # zplug {{{
@@ -102,18 +108,15 @@ zplug check || zplug install
 
 zplug load --verbose
 
-## Plugin Seting {{{
+# Plugin Seting {{{
 
-### Hub
-if (( $+commands[hub] )); then
-	git() {
-		hub "$@"
-	}
-fi
+# Hub
+(( $+commands[hub] )) && function git(){hub "$@"}
 
-## }}}
 # }}}
-# NodeBrew {{{
+
+# }}}
+# NodeBrew auto download {{{
 
 [[ -d $NODEBREW_ROOT ]] || curl -L git.io/nodebrew | perl - setup
 
