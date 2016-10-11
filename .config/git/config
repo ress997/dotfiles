@@ -5,6 +5,7 @@
 [user]
     email = 39e@users.noreply.github.com
     name = Aoi Tachibana
+	signingkey = FB025A9A4B48D997
 [github]
     user = 39e
 # ---
@@ -23,6 +24,7 @@
 # ---
 [commit]
     template = ~/.config/git/message.txt
+	gpgsign = true
 [diff]
     algorithm = histogram
     compactionHeuristic = true
@@ -35,3 +37,5 @@
 # ---
 [ghq]
     root = ~/.dev/ghq
+[gpg]
+	program = /usr/local/opt/gnupg/libexec/gpgbin/gpg
