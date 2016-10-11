@@ -1,3 +1,6 @@
+set encoding=utf-8
+scriptencoding utf-8
+
 set fileformat=unix
 set fileformats=unix,dos,mac
 set fileencoding=utf-8
@@ -42,7 +45,7 @@ if dein#load_state(s:dein_dir)
 	let s:toml_neovim = s:toml_dir . '/neovim.toml'
 	let s:toml_mac = s:toml_dir . '/mac.toml'
 
-	call dein#begin(s:dein_dir, [$MYVIMRC, s:toml, s:toml_neovim, s:toml_mac])
+	call dein#begin(s:dein_dir, [$MYVIMRC, s:toml])
 
 	call dein#load_toml(s:toml)
 

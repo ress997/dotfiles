@@ -9,9 +9,15 @@ set list            " 不可視文字を表示
 set matchtime=1     " 対応する括弧の表示する時間
 set number          " 行番号を表示する
 set showmatch       " 対応する括弧を強調表示
-set termguicolors   " GUI Colors
 
-"" 不可視文字の表示記号指定
+" GUI Colors
+if has('termguicolors')
+	set termguicolors
+elseif has('guicolors')
+	set guicolors
+endif
+
+" 不可視文字の表示記号指定
 set lcs=tab:»-,eol:↲,trail:·,extends:>,precedes:<,nbsp:%
 
 " 折りたたみ機能
