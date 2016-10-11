@@ -93,9 +93,6 @@ else
 fi
 # }}}
 
-#TERM 変更
-[ -n "$TMUX" ] && export TERM=xterm-256color
-
 fi
 # }}}
 # zplug {{{
