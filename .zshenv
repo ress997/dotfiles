@@ -67,7 +67,6 @@ export CORRECT_IGNORE_FILE='.*'
 # 単語の一部とみなしたい非アルファベット文字
 export WORDCHARS='*?.[]~&;!#$%^(){}<>'
 
-
 # ---
 
 # golamg
@@ -83,6 +82,7 @@ path=( \
 	$HOME/bin(N-/) \
 	$GOPATH/bin(N-/) \
 	$NODEBREW_ROOT/current/bin(N-/) \
+	/usr/local/opt/gnupg/libexec/gpgbin(N-/) \
 	/usr/local/bin(N-/) \
 	$path \
 )
