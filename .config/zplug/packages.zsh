@@ -1,6 +1,6 @@
 zplug "zplug/zplug"
 
-# Command
+# Command {{{
 
 zplug "monochromegane/the_platinum_searcher", \
 	as:command, \
@@ -62,11 +62,19 @@ zplug "Code-Hex/pget", \
 	from:gh-r
 
 zplug "b4b4r07/httpstat", \
-    as:command, \
-    use:"httpstat.sh", \
-    rename-to:httpstat
+	as:command, \
+	use:"httpstat.sh", \
+	rename-to:httpstat
 
-# Plugin
+zplug "39e/go-notify", \
+	as:command, \
+	if:"(( $+commands[go] ))", \
+	hook-build:"go build", \
+	use:"go-notify", \
+	rename-to:"line"
+
+# }}}
+# Plugin {{{
 
 zplug "b4b4r07/emoji-cli", \
 	on:"stedolan/jq"
@@ -79,4 +87,5 @@ zplug "39e/zsh-completions"
 zplug "zsh-users/zsh-syntax-highlighting", \
 	nice:15
 
+# }}}
 # vim:ft=zplug:
