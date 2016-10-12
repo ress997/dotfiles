@@ -25,6 +25,7 @@
 [commit]
 	template = ~/.config/git/message.txt
 	gpgsign = true
+	verbose = true
 [diff]
 	algorithm = histogram
 	compactionHeuristic = true
