@@ -5,8 +5,27 @@ repo = 'Shougo/denite.nvim'
 if = 'has("python3")'
 on_cmd = 'Denite'
 hook_post_source = '''
+	" file_rec
 	if executable('pt')
 		call denite#custom#var('file_rec', 'command', ['pt', '--follow', '--nocolor', '--nogroup', '--hidden', '-g', ''])
+	elseif executable('ag')
+		" https://git.io/vPEZA
+		call denite#custom#var('file_rec', 'command', ['ag', '--follow', '--nocolor', '--nogroup', '-g', ''])
+	elseif executable('rg')
+		" Note: It is slower than ag
+		" https://git.io/vPEZj
+		call denite#custom#var('file_rec', 'command', ['rg', '--files'])
+	endif
+
+	" grep
+	if executable('rg')
+		" https://git.io/vPEZP
+		call denite#custom#var('grep', 'command', ['rg'])
+		call denite#custom#var('grep', 'recursive_opts', [])
+		call denite#custom#var('grep', 'final_opts', [])
+		call denite#custom#var('grep', 'separator', ['--'])
+		call denite#custom#var('grep', 'default_opts', ['--vimgrep', '--no-heading'])
+	elseif executable('pt')
 		call denite#custom#var('grep', 'command', ['pt', '--nogroup', '--nocolor', '--smart-case', '--hidden'])
 		call denite#custom#var('grep', 'default_opts', [])
 		call denite#custom#var('grep', 'recursive_opts', [])
@@ -53,6 +72,27 @@ hook_source = '''
 	let g:deoplete#enable_smart_case = 1
 '''
 hook_post_source = 'call deoplete#enable()'
+
+# neosnippet {{{
+
+[[plugins]]
+repo = 'Shougo/neosnippet-snippets'
+
+[[plugins]]
+repo = 'Shougo/neosnippet'
+depends = ['neosnippet-snippets', 'context_filetype.vim', 'deoplete.nvim']
+on_event = 'InsertCharPre'
+on_ft = 'snippet'
+hook_add = '''
+	imap <C-k> <Plug>(neosnippet_expand_or_jump)
+	smap <C-k> <Plug>(neosnippet_expand_or_jump)
+	xmap <C-k> <Plug>(neosnippet_expand_target)
+'''
+hook_source = '''
+	let g:neosnippet#snippets_directory = dein#get('neosnippet-snippets').path . '/neosnippets'
+'''
+
+# }}}
 
 [[plugins]] # Docker
 repo = 'zchee/deoplete-docker'

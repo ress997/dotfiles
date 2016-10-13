@@ -15,10 +15,18 @@ repo = 'vim-jp/vital.vim'
 [[plugins]] # ファイルタイプ自動切り替え
 repo = 'osyo-manga/vim-precious'
 depends = 'context_filetype.vim'
+on_path = '.*'
 
 [[plugins]] # Auto Close (括弧)
 repo = 'jiangmiao/auto-pairs'
 on_event = 'InsertEnter'
+hook_add = '''
+	" キーマップを無効にする
+	let g:AutoPairsShortcutToggle = ''
+	let g:AutoPairsShortcutFastWrap = ''
+	let g:AutoPairsShortcutJump = ''
+	let g:AutoPairsShortcutBackInsert = ''
+'''
 hook_post_source = 'call AutoPairsTryInit()'
 
 [[plugins]] # Auto save
@@ -35,7 +43,7 @@ hook_post_source = 'call AutoSave()'
 repo = 'itchyny/vim-parenmatch'
 hook_add = 'let g:loaded_matchparen = 1'
 
-[[plugins]]
+[[plugins]] # git で管理してるファイルの変更を表示
 repo = 'airblade/vim-gitgutter'
 on_path = '.*'
 hook_add = '''
@@ -43,12 +51,28 @@ hook_add = '''
 	let g:gitgutter_map_keys = 0
 '''
 
-[[plugins]] # EditorConfig
-repo = 'editorconfig/editorconfig-vim'
-on_path = '.*'
+[[plugins]] # j/k によう移動を早くする
+repo = 'rhysd/accelerated-jk'
+on_map = '<Plug>(accelerated_jk_g'
+hook_add = '''
+	nmap j <Plug>(accelerated_jk_gj)
+	nmap k <Plug>(accelerated_jk_gk)
+'''
+
+[[plugins]]
+repo = 'easymotion/vim-easymotion'
+on_map = '<Plug>(easymotion-'
 
 [[plugins]] # 選択範囲を記号やタグで囲んだり外したりできる
 repo = 'tpope/vim-surround'
+on_path = '.*'
+hook_add = '''
+	" キーマップを無効にする
+	let g:surround_no_mappings = 1
+'''
+
+[[plugins]] # EditorConfig
+repo = 'editorconfig/editorconfig-vim'
 on_path = '.*'
 
 [[plugins]] # Emmet
@@ -107,6 +131,11 @@ hook_add = '''
 	map zg/ <Plug>(incsearch-fuzzy-stay)
 '''
 
+[[plugins]]
+repo = 'haya14busa/incsearch-easymotion.vim'
+depends = ['incsearch.vim', 'vim-easymotion']
+on_map = '<Plug>(incsearch-easymotion-'
+
 ## }}}
 ## NERD Tree {{{
 
@@ -144,8 +173,13 @@ hook_add = '''
 [[plugins]]
 repo = 'tyru/open-browser.vim'
 on_cmd = ['OpenBrowser', 'OpenBrowserSearch', 'OpenBrowserSmartSearch']
-on_map = '<Plug>(openbrowser-'
+on_map = '<Plug>(openbrowser-smart-search)'
 hook_add = '''
+	" カーソル下のURLや単語をブラウザで開く
+	nmap gx <Plug>(openbrowser-smart-search)
+	vmap gx <Plug>(openbrowser-smart-search)
+'''
+hook_source = '''
 	let g:openbrowser_menu_lang = 'ja'
 '''
 
