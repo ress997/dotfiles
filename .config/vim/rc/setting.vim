@@ -17,6 +17,10 @@ elseif has('guicolors')
 	set guicolors
 endif
 
+" エディタの分割方向を設定する
+set splitbelow
+set splitright
+
 " 不可視文字の表示記号指定
 set lcs=tab:»-,eol:↲,trail:·,extends:>,precedes:<,nbsp:%
 
