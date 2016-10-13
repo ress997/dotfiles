@@ -16,10 +16,12 @@ hook_post_source = '''
 [[plugins]]
 repo = 'Shougo/neomru.vim'
 depends = 'denite.nvim'
+on_path = '.*'
 
 [[plugins]]
 repo = 'Shougo/neoyank.vim'
 depends = 'denite.nvim'
+on_event = 'TextYankPost'
 
 # }}}
 # 補完 {{{
