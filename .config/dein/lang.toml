@@ -53,7 +53,6 @@ repo = 'jelera/vim-javascript-syntax'
 repo = 'leafgarland/typescript-vim'
 
 # }}}
-
 # Vim {{{
 
 [[plugins]] # Vim
