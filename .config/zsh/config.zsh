@@ -267,6 +267,10 @@ elif [[ "${(L)$( uname -s )}" == darwin ]]; then
 	alias ls='ls --color=auto -F'
 fi
 
+alias la='ls -A'
+alias ll='la -l'
+alias lla='ls -lA'
+
 # }}}
 # 略語展開(iab) {{{
 typeset -A abbreviations
@@ -275,10 +279,6 @@ abbreviations=(
 	"CP" "| pbcopy"
 	"E" "| emojify"
 	"J" "| jq ."
-	# LS
-	"la" "ls -A"
-	"ll" "ls -l"
-	"lla" "ls -lA"
 	# Docker
 	"d" "docker"
 	"da" "docker attach"
