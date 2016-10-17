@@ -2,8 +2,11 @@ set encoding=utf-8
 scriptencoding utf-8
 
 set fileformat=unix
+" 改行コードの自動判別. 左側が優先される
 set fileformats=unix,dos,mac
+" 保存時の文字コード
 set fileencoding=utf-8
+" 読み込み時の文字コードの自動判別. 左側が優先される
 set fileencodings=utf-8,iso-2022-jp,cp932,euc-jp
 
 " reset augroup
@@ -82,24 +85,6 @@ let $NVIM_TUI_ENABLE_TRUE_COLOR = 1
 let $NVIM_TUI_ENABLE_CURSOR_SHAPE = 1
 
 " }}}
-
-" カーソルの形状を変える
-" t_SI: インサートモード開始時
-" t_EI: 挿入または置換モード終了
-" t_SR: 置換モードの開始
-
-if exists('$ITERM_SESSION_ID')
-	if empty('$TMUX')
-		let &t_SI = "\e]50;CursorShape=1\x7"
-		let &t_EI = "\e]50;CursorShape=0\x7"
-		let &t_SR = "\e]50;CursorShape=2\x7"
-	else
-		let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
-		let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
-		let &t_SR = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=2\x7\<Esc>\\"
-	endif
-endif
-
 " Load Setting File {{{
 
 let s:rc_dir = g:config_home . '/vim' . '/rc'
