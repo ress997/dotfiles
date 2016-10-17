@@ -8,6 +8,11 @@ limit coredumpsize 0
 export AWS_CONFIG_FILE="$XDG_CONFIG_HOME/aws/config"
 export AWS_CREDENTIAL_FILE="$DEV_DATA_HOME/secret/aws"
 
+# Homebrew
+if (( $+commands[brew] )); then
+	export HOMEBREW_NO_ANALYTICS=1
+fi
+
 # enhancd
 export ENHANCD_DIR="$XDG_DATA_HOME/enhancd"
 export ENHANCD_DISABLE_HOME=1
