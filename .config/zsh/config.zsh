@@ -25,6 +25,8 @@ export FZF_DEFAULT_OPTS="--extended --ansi --multi"
 
 # npm
 export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npm/config"
+export NPM_CONFIG_CACHE="$XDG_CACHE_HOME/npm"
+export NOM_CONFIG_PREFIX="$XDG_DATA_HOME/npm"
 
 # Gomi
 export GOMI_DIR="$XDG_CACHE_HOME/gomi"
