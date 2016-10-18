@@ -35,7 +35,7 @@ export GOMI_DIR="$XDG_CACHE_HOME/gomi"
 export GITHUB_USER=$(git config --get github.user)
 
 # Hub
-export HUB_CONFIG="$XDG_CONFIG_HOME/hub/config"
+export HUB_CONFIG="$XDG_CONFIG_HOME/hub/config.yaml"
 
 # Tig
 export TIGRC_USER="$XDG_CONFIG_HOME/tig/config"
