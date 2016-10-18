@@ -119,6 +119,9 @@ set smartindent
 
 " }}}
 
+" 補完の表示オプション? TODO: 後で調べる
+set completeopt=menu,menuone,noinsert,noselect
+
 " エディタの分割方向を設定する
 set splitbelow
 set splitright
