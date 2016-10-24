@@ -94,6 +94,6 @@ endfunction
 call s:load_rc('setting')
 call s:load_rc('grep')
 call s:load_rc('keymap')
-call s:load_rc('function')
+call s:load_rc('command')
 
 " }}}
