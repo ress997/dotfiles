@@ -2,11 +2,11 @@ set encoding=utf-8
 scriptencoding utf-8
 
 set fileformat=unix
-" 改行コードの自動判別. 左側が優先される
+" 改行コードの自動判別 (左側が優先される)
 set fileformats=unix,dos,mac
 " 保存時の文字コード
 set fileencoding=utf-8
-" 読み込み時の文字コードの自動判別. 左側が優先される
+" 読み込み時の文字コードの自動判別 (左側が優先される)
 set fileencodings=utf-8,iso-2022-jp,cp932,euc-jp
 
 " reset augroup
@@ -43,7 +43,7 @@ let g:dein#enable_notification = 1
 
 if dein#load_state(s:dein_dir)
 
-	let s:toml_dir = '~/.config/dein'
+	let s:toml_dir = g:config_home . '/dein'
 	let s:toml = s:toml_dir . '/plugins.toml'
 	let s:toml_lang = s:toml_dir . '/lang.toml'
 
@@ -85,7 +85,7 @@ let $NVIM_TUI_ENABLE_CURSOR_SHAPE = 1
 " }}}
 " Load Setting File {{{
 
-let s:rc_dir = g:config_home . '/vim' . '/rc'
+let s:rc_dir = g:config_home . '/nvim' . '/rc'
 
 function s:load_rc(file)
 	execute 'source ' . s:rc_dir . '/' . a:file . '.vim'
