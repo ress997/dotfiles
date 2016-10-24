@@ -244,4 +244,7 @@ hook_source = '''
 [[plugins]] # hybrid
 repo = 'w0ng/vim-hybrid'
 
+[[plugins]]
+repo = 'joshdick/onedark.vim'
+
 # }}}
