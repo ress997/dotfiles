@@ -51,12 +51,9 @@ if dein#load_state(s:dein_dir)
 
 	call dein#load_toml(s:toml)
 	call dein#load_toml(s:toml_lang)
-
-	if has('nvim')
-		call dein#load_toml(s:toml_dir . '/neovim.toml')
-		if has('mac')
-			call dein#load_toml(s:toml_dir . '/mac.toml')
-		endif
+	call dein#load_toml(s:toml_dir . '/neovim.toml')
+	if has('mac')
+		call dein#load_toml(s:toml_dir . '/mac.toml')
 	endif
 
 	call dein#end()
@@ -77,16 +74,15 @@ colorscheme hybrid
 
 " NeoVim Settings {{{
 
-" 制御シーケンスの設定
+" True Color 有効化
 let $NVIM_TUI_ENABLE_TRUE_COLOR = 1
 " カラースチームの有効化
 let $NVIM_TUI_ENABLE_CURSOR_SHAPE = 1
 
-" }}}
-" Load Setting File {{{
+ " }}}
+" Load Setti ng File {{{
 
 let s:rc_dir = g:config_home . '/nvim' . '/rc'
-
 function s:load_rc(file)
 	execute 'source ' . s:rc_dir . '/' . a:file . '.vim'
 endfunction

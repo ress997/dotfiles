@@ -57,9 +57,6 @@ export HISTFILE="$XDG_DATA_HOME/zsh/history"
 export HISTSIZE=10000
 export SAVEHIST=1000000000
 
-# TERM
-[ -n $ITERM_SESSION_ID ] && export TERM='xterm-256color'
-
 # dotfile を コマンドの候補として出さない？
 export CORRECT_IGNORE='_*'
 export CORRECT_IGNORE_FILE='.*'

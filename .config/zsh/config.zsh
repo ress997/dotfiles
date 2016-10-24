@@ -31,18 +31,11 @@ export NOM_CONFIG_PREFIX="$XDG_DATA_HOME/npm"
 # Gomi
 export GOMI_DIR="$XDG_CACHE_HOME/gomi"
 
-# Git {{{
-
-# GitHub
-export GITHUB_USER=$(git config --get github.user)
-
 # Hub
 export HUB_CONFIG="$XDG_CONFIG_HOME/hub/config.yaml"
 
 # Tig
 export TIGRC_USER="$XDG_CONFIG_HOME/tig/config"
-
-# }}}
 
 # zplug
 export ZPLUG_HOME="$DEV_DATA_HOME/zplug"

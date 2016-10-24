@@ -25,8 +25,6 @@ set lcs=tab:»-,eol:↲,trail:·,extends:>,precedes:<,nbsp:%
 " GUI Colors
 if has('termguicolors')
 	set termguicolors
-elseif has('guicolors')
-	set guicolors
 endif
 
 " }}}
@@ -119,7 +117,7 @@ set smartindent
 
 " }}}
 
-" 補完の表示オプション? TODO: 後で調べる
+" 補完の表示オプション
 set completeopt=menu,menuone,noinsert,noselect
 
 " エディタの分割方向を設定する
