@@ -75,9 +75,8 @@ zplug "39e/go-notify", \
 
 zplug "Code-Hex/battery", \
 	as:command, \
-	if:"(( $+commands[go] ))", \
-	hook-build:"go build ./cmd/battery", \
-	use:"battery"
+	from:gh-r, \
+	use:"*.zip"
 
 # }}}
 # Plugin {{{
@@ -95,4 +94,3 @@ zplug "zsh-users/zsh-syntax-highlighting", \
 
 # }}}
 # vim:ft=zplug:
-zplug "Code-Hex/battery", as:command, if:\(\(\ 1\ \)\), hook-build:go\ build\ ./cmd/battery, use:battery
