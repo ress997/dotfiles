@@ -5,7 +5,7 @@ repo = 'Shougo/deoplete.nvim'
 if = 'has("python3")'
 depends = 'context_filetype.vim'
 on_event = 'InsertEnter'
-hook_add = '''
+hook_source = '''
 	" <TAB>: completion.
 	imap <silent><expr> <TAB> pumvisible() ? "\<C-n>" : <SID>check_back_space() ? "\<TAB>" : deoplete#mappings#manual_complete()
 	function! s:check_back_space() abort
@@ -15,33 +15,12 @@ hook_add = '''
 
 	" <S-TAB>: completion back.
 	inoremap <expr><S-TAB>  pumvisible() ? "\<C-p>" : "\<C-h>"
-'''
-hook_source = '''
+
 	let g:deoplete#enable_at_startup = 1
 	let g:deoplete#enable_ignore_case = 1
 	let g:deoplete#enable_smart_case = 1
 '''
 hook_post_source = 'call deoplete#enable()'
-
-# neosnippet {{{
-
-[[plugins]]
-repo = 'Shougo/neosnippet-snippets'
-
-[[plugins]]
-repo = 'Shougo/neosnippet'
-depends = ['neosnippet-snippets', 'context_filetype.vim', 'deoplete.nvim']
-on_event = 'InsertCharPre'
-on_ft = 'snippet'
-hook_source = '''
-	imap <C-k> <Plug>(neosnippet_expand_or_jump)
-	smap <C-k> <Plug>(neosnippet_expand_or_jump)
-	xmap <C-k> <Plug>(neosnippet_expand_target)
-
-	let g:neosnippet#snippets_directory = dein#get('neosnippet-snippets').path . '/neosnippets'
-'''
-
-# }}}
 
 [[plugins]] # Docker
 repo = 'zchee/deoplete-docker'
@@ -67,6 +46,25 @@ on_ft = 'vim'
 repo = 'zchee/deoplete-zsh'
 depends = 'deoplete.nvim'
 
+# neosnippet {{{
+
+[[plugins]]
+repo = 'Shougo/neosnippet-snippets'
+
+[[plugins]]
+repo = 'Shougo/neosnippet'
+depends = ['neosnippet-snippets', 'context_filetype.vim', 'deoplete.nvim']
+on_event = 'InsertCharPre'
+on_ft = 'snippet'
+hook_source = '''
+	imap <C-k> <Plug>(neosnippet_expand_or_jump)
+	smap <C-k> <Plug>(neosnippet_expand_or_jump)
+	xmap <C-k> <Plug>(neosnippet_expand_target)
+
+	let g:neosnippet#snippets_directory = dein#get('neosnippet-snippets').path . '/neosnippets'
+'''
+
+# }}}
 # }}}
 # Denite {{{
 
@@ -117,6 +115,7 @@ on_event = 'TextYankPost'
 
 [[plugins]]
 repo = 'nixprime/cpsm'
+if = 'has("python3")'
 depends = 'denite.nvim'
 build = 'PY3=ON ./install.sh'
 hook_post_source = '''
