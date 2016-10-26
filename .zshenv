@@ -23,6 +23,7 @@ export XDG_DATA_HOME="$HOME/.local/share"
 
 # Dev
 export DEV_DATA_HOME="$HOME/.dev"
+export DEV_PROGRAM_HOME="$HOME/.local/opt"
 export DOTPATH=$DEV_DATA_HOME/dotfiles
 export FILTER='fzf-tmux:fzf:peco-tmux:peco'
 
@@ -70,7 +71,7 @@ export WORDCHARS='*?.[]~&;!#$%^(){}<>'
 export GOPATH="$DEV_DATA_HOME/go"
 
 # Nodebrew
-export NODEBREW_ROOT="$DEV_DATA_HOME/nodebrew"
+export NODEBREW_ROOT="$DEV_PROGRAM_HOME/nodebrew"
 
 # PATH
 typeset -U path PATH

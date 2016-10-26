@@ -18,7 +18,6 @@ export ENHANCD_DIR="$XDG_DATA_HOME/enhancd"
 export ENHANCD_DISABLE_HOME=1
 
 # FZF
-# export FZF_DEFAULT_COMMAND='pt -g ""'
 # export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.git/*"'
 export FZF_DEFAULT_COMMAND='rg --files --hidden --glob "!.git" ""'
 export FZF_DEFAULT_OPTS="--extended --ansi --multi"
@@ -38,84 +37,80 @@ export HUB_CONFIG="$XDG_CONFIG_HOME/hub/config.yaml"
 export TIGRC_USER="$XDG_CONFIG_HOME/tig/config"
 
 # zplug
-export ZPLUG_HOME="$DEV_DATA_HOME/zplug"
+export ZPLUG_HOME="$DEV_PROGRAM_HOME/zplug"
+export ZPLUG_LOADFILE=$XDG_CONFIG_HOME/zplug/packages.zsh
 export ZPLUG_CACHE_DIR="$XDG_CACHE_HOME/zplug"
 export ZPLUG_CACHE_FILE="$ZPLUG_CACHE_DIR/cache"
+export ZPLUG_REPOS="$ZPLUG_CACHE_DIR/repos"
 export ZPLUG_FILTER=$FILTER
 export ZPLUG_THREADS='32'
-export ZPLUG_LOADFILE=$XDG_CONFIG_HOME/zplug/packages.zsh
+
+# }}}
+# Auto Download {{{
+
+# TMP
+if (( $+commands[tmux] )) && [ ! -d $XDG_CACHE_HOME/tmux/tpm ]; then
+	if (( $+commands[git] )); then
+		git clone https://github.com/tmux-plugins/tpm $XDG_CACHE_HOME/tmux/tpm
+	fi
+	$XDG_CACHE_HOME/tmux/tpm/bin/install_plugins
+fi
+
+# nodebrew
+[[ -d $NODEBREW_ROOT ]] || curl -L git.io/nodebrew | perl - setup
+
+# zplug
+[[ -d $ZPLUG_HOME ]] || curl -sL zplug.sh/installer | zsh
 
 # }}}
 # Tmux {{{
+
+# Auto new-session
 if (( $+commands[tmux] )); then
-
-# Pluzogin Manager {{{
-if [ ! -d $XDG_CACHE_HOME/tmux/tpm ]; then
-	git clone https://github.com/tmux-plugins/tpm $XDG_CACHE_HOME/tmux/tpm
-	$XDG_CACHE_HOME/tmux/tpm/bin/install_plugins
-fi
-# }}}
-
-# Auto new-session {{{
-if [ -z "$TMUX" ]; then
-	if [ ! -z "$PS1" ] && [ -z "$SSH_CONECTION" ]; then
-		if tmux has-session >/dev/null 2>&1 && tmux list-sessions | grep -qE '.*]$'; then
-			tmux list-sessions
-			echo -n "Tmux: attach? (y/N/num) "
-			read
-			if [[ "$REPLY" =~ ^[Yy]$ ]] || [[ "$REPLY" == '' ]]; then
-				tmux attach-session
-				if [ $? -eq 0 ]; then
-					echo "$(tmux -V) attached session"
-					return 0
-				fi
-			elif [[ "$REPLY" =~ ^[0-9]+$ ]]; then
-				tmux attach -t "$REPLY"
-				if [ $? -eq 0 ]; then
-					echo "$(tmux -V) attached session"
-					return 0
+	if [ -z "$TMUX" ]; then
+		if [ ! -z "$PS1" ] && [ -z "$SSH_CONECTION" ]; then
+			if tmux has-session >/dev/null 2>&1 && tmux list-sessions | grep -qE '.*]$'; then
+				tmux list-sessions
+				echo -n "Tmux: attach? (y/N/num) "
+				read
+				if [[ "$REPLY" =~ ^[Yy]$ ]] || [[ "$REPLY" == '' ]]; then
+					tmux attach-session
+					if [ $? -eq 0 ]; then
+						echo "$(tmux -V) attached session"
+						return 0
+					fi
+				elif [[ "$REPLY" =~ ^[0-9]+$ ]]; then
+					tmux attach -t "$REPLY"
+					if [ $? -eq 0 ]; then
+						echo "$(tmux -V) attached session"
+						return 0
+					fi
 				fi
 			fi
+			if [[ "${(L)$( uname -s )}" == darwin ]] && (( $+commands[reattach-to-user-namespace] )); then
+				tmux_config=$(cat $HOME/.tmux.conf <(echo 'set-option -g default-command "reattach-to-user-namespace -l $SHELL"'))
+				tmux -f <(echo "$tmux_config") new-session && echo "$(tmux -V) created new session supported macOS"
+			else
+				tmux new-session && echo "tmux created new session"
+			fi
 		fi
-		if [[ "${(L)$( uname -s )}" == darwin ]] && (( $+commands[reattach-to-user-namespace] )); then
-			tmux_config=$(cat $HOME/.tmux.conf <(echo 'set-option -g default-command "reattach-to-user-namespace -l $SHELL"'))
-			tmux -f <(echo "$tmux_config") new-session && echo "$(tmux -V) created new session supported macOS"
-		else
-			tmux new-session && echo "tmux created new session"
-		fi
+	else
+		echo "${fg_bold[red]} _____ __  __ _   ___  __ ${reset_color}"
+		echo "${fg_bold[red]}|_   _|  \/  | | | \ \/ / ${reset_color}"
+		echo "${fg_bold[red]}  | | | |\/| | | | |\  /  ${reset_color}"
+		echo "${fg_bold[red]}  | | | |  | | |_| |/  \  ${reset_color}"
+		echo "${fg_bold[red]}  |_| |_|  |_|\___//_/\_\ ${reset_color}"
 	fi
-else
-	echo "${fg_bold[red]} _____ __  __ _   ___  __ ${reset_color}"
-	echo "${fg_bold[red]}|_   _|  \/  | | | \ \/ / ${reset_color}"
-	echo "${fg_bold[red]}  | | | |\/| | | | |\  /  ${reset_color}"
-	echo "${fg_bold[red]}  | | | |  | | |_| |/  \  ${reset_color}"
-	echo "${fg_bold[red]}  |_| |_|  |_|\___//_/\_\ ${reset_color}"
 fi
-# }}}
 
-fi
 # }}}
 # zplug {{{
 
-[[ -d $ZPLUG_HOME ]] || curl -sL zplug.sh/installer | zsh
-
-source $ZPLUG_HOME/init.zsh
-
-zplug check || zplug install
-
-zplug load --verbose
-
-# Plugin Seting {{{
-
-# Hub
-(( $+commands[hub] )) && function git(){hub "$@"}
-
-# }}}
-
-# }}}
-# NodeBrew auto download {{{
-
-[[ -d $NODEBREW_ROOT ]] || curl -L git.io/nodebrew | perl - setup
+if [[ -d $ZPLUG_HOME ]]; then
+	source $ZPLUG_HOME/init.zsh
+	zplug check || zplug install
+	zplug load --verbose
+fi
 
 # }}}
 # function {{{
@@ -137,10 +132,6 @@ available () {
 	return 1
 }
 
-showoptions() {
-	set -o | sed -e 's/^no\(.*\)on$/\1  off/' -e 's/^no\(.*\)off$/\1  on/'
-}
-
 # ghq
 if (( $+commands[ghq] )); then
 	local DIRECTORY
@@ -160,6 +151,14 @@ mkcd() {
 	else
 		mkdir -p $1 && cd $1
 	fi
+}
+
+
+# Hub
+(( $+commands[hub] )) && function git(){hub "$@"}
+
+showoptions() {
+	set -o | sed -e 's/^no\(.*\)on$/\1  off/' -e 's/^no\(.*\)off$/\1  on/'
 }
 
 # }}}
@@ -263,8 +262,6 @@ alias zmv='noglob zmv -W'
 
 if [[ "${(L)$( uname -s )}" == darwin ]]; then
 	alias ls='ls -G -F'
-elif [[ "${(L)$( uname -s )}" == darwin ]]; then
-	alias ls='ls --color=auto -F'
 fi
 
 alias la='ls -A'
@@ -322,7 +319,6 @@ abbreviations=(
 	"e" "exit"
 	"sk" "ssh-keygen -t ed25519 -C 'email@example.com'"
 	"t" "type"
-	"rm!" "rm -fr"
 )
 
 magic-abbrev-expand() {
