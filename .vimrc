@@ -4,7 +4,7 @@ augroup END
 
 let g:cache_home = empty($XDG_CACHE_HOME) ? expand('$HOME/.cache') : $XDG_CACHE_HOME
 let g:config_home = empty($XDG_CONFIG_HOME) ? expand('$HOME/.config') : $XDG_CONFIG_HOME
-let s:dein_dir = '$HOME/.vim' . '/dein'
+let s:dein_dir = expand('$HOME/.vim') . '/dein'
 let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
 if !isdirectory(s:dein_repo_dir)
 	call system('git clone https://github.com/Shougo/dein.vim ' . shellescape(s:dein_repo_dir))
