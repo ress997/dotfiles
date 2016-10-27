@@ -76,19 +76,33 @@ repo = 'cocopon/lightline-hybrid.vim'
 depends = 'lightline.vim'
 
 ## }}}
-# }}}
-# operator {{{
+## Search {{{
 
 [[plugins]]
-repo = 'kana/vim-operator-user'
+repo = 'haya14busa/incsearch.vim'
+on_map = '<Plug>(incsearch-'
+hook_add = '''
+	map /  <Plug>(incsearch-forward)
+	map ?  <Plug>(incsearch-backward)
+	map g/ <Plug>(incsearch-stay)
+'''
 
-# }}}
-# text objects {{{
+[[plugins]] # 曖昧検索
+repo = 'haya14busa/incsearch-fuzzy.vim'
+depends = 'incsearch.vim'
+on_map = '<Plug>(incsearch-fuzzy-'
+hook_add = '''
+	map z/ <Plug>(incsearch-fuzzy-/)
+	map z? <Plug>(incsearch-fuzzy-?)
+	map zg/ <Plug>(incsearch-fuzzy-stay)
+'''
 
 [[plugins]]
-repo = 'kana/vim-textobj-user'
+repo = 'haya14busa/incsearch-easymotion.vim'
+depends = ['incsearch.vim', 'vim-easymotion']
+on_map = '<Plug>(incsearch-easymotion-'
 
-# }}}
+## }}}
 # 機能拡張 {{{
 
 [[plugins]] # j/k による移動を早くする
@@ -99,7 +113,7 @@ hook_add = '''
 	nmap k <Plug>(accelerated_jk_gk)
 '''
 
-[[plugins]]
+[[plugins]] # 移動拡張
 repo = 'easymotion/vim-easymotion'
 on_map = '<Plug>(easymotion-'
 
@@ -135,33 +149,19 @@ hook_source = '''
 	\}
 '''
 
-## search {{{
+# }}}
+# operator {{{
 
 [[plugins]]
-repo = 'haya14busa/incsearch.vim'
-on_map = '<Plug>(incsearch-'
-hook_add = '''
-	map /  <Plug>(incsearch-forward)
-	map ?  <Plug>(incsearch-backward)
-	map g/ <Plug>(incsearch-stay)
-'''
+repo = 'kana/vim-operator-user'
 
-[[plugins]] # 曖昧検索
-repo = 'haya14busa/incsearch-fuzzy.vim'
-depends = 'incsearch.vim'
-on_map = '<Plug>(incsearch-fuzzy-'
-hook_add = '''
-	map z/ <Plug>(incsearch-fuzzy-/)
-	map z? <Plug>(incsearch-fuzzy-?)
-	map zg/ <Plug>(incsearch-fuzzy-stay)
-'''
+# }}}
+# text objects {{{
 
 [[plugins]]
-repo = 'haya14busa/incsearch-easymotion.vim'
-depends = ['incsearch.vim', 'vim-easymotion']
-on_map = '<Plug>(incsearch-easymotion-'
+repo = 'kana/vim-textobj-user'
 
-## }}}
+# }}}
 ## NERD Tree {{{
 
 [[plugins]]
@@ -192,7 +192,7 @@ deoplete = 'nerdtree'
 repo = 'jistr/vim-nerdtree-tabs'
 deoplete = 'nerdtree'
 hook_add = '''
-	nmap tf <plug>NERDTreeTabsToggle<CR>
+	nmap tf <Plug>NERDTreeTabsToggle<CR>
 '''
 
 ## }}}
@@ -204,8 +204,8 @@ on_cmd = ['OpenBrowser', 'OpenBrowserSearch', 'OpenBrowserSmartSearch']
 on_map = '<Plug>(openbrowser-'
 hook_add = '''
 	" カーソル下のURLや単語をブラウザで開く
-	nmap gx <Plug>(openbrowser-smart-search)
-	vmap gx <Plug>(openbrowser-smart-search)
+	nmap go <Plug>(openbrowser-smart-search)
+	vmap go <Plug>(openbrowser-smart-search)
 '''
 hook_source = '''
 	let g:openbrowser_menu_lang = 'ja'
@@ -217,7 +217,7 @@ if = 'executable("git")'
 depends = 'open-browser.vim'
 on_cmd = ['OpenGithubFile', 'OpenGithubIssue', 'OpenGithubPullReq']
 hook_add = '''
-	nnoremap go :<C-u>OpenGithubFile<CR>
+	nnoremap gg :<C-u>OpenGithubFile<CR>
 '''
 
 ## }}}
@@ -268,12 +268,5 @@ repo = 'w0ng/vim-hybrid'
 
 [[plugins]] # solarized
 repo = 'altercation/vim-colors-solarized'
-
-# }}}
-# Test {{{
-
-[[plugins]]
-repo = 'Shougo/neoinclude.vim'
-depends = 'deoplete.nvim'
 
 # }}}

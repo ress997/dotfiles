@@ -22,6 +22,10 @@ hook_source = '''
 '''
 
 [[plugins]]
+repo = 'Shougo/neoinclude.vim'
+depends = 'deoplete.nvim'
+
+[[plugins]]
 repo = 'wellle/tmux-complete.vim'
 if = 'executable("tmux")'
 depends = 'deoplete.nvim'
@@ -70,9 +74,7 @@ hook_source = '''
 	xmap <C-k> <Plug>(neosnippet_expand_target)
 
 	" TODO: 後で調べる
-	let g:neosnippet#enable_snipmate_compatibility = 1
-	let g:neosnippet#enable_complete_done = 1
-	let g:neosnippet#expand_word_boundary = 1
+	let neosnippet#disable_select_mode_mappings = 0
 
 	let g:neosnippet#snippets_directory = dein#get('neosnippet-snippets').path . '/neosnippets'
 '''
@@ -80,6 +82,11 @@ hook_source = '''
 # }}}
 # }}}
 # Denite {{{
+
+[[plugins]]
+repo = 'nixprime/cpsm'
+if = 'has("python3")'
+build = 'PY3=ON ./install.sh'
 
 [[plugins]]
 repo = 'Shougo/denite.nvim'

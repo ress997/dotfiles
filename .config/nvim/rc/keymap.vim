@@ -1,3 +1,13 @@
+ "-------------------------------------------------------------------------------
+ " コマンド       ノーマルモード 挿入モード コマンドラインモード ビジュアルモード
+ " map/noremap           @            -              -                  @
+ " nmap/nnoremap         @            -              -                  -
+ " imap/inoremap         -            @              -                  -
+ " cmap/cnoremap         -            -              @                  -
+ " vmap/vnoremap         -            -              -                  @
+ " map!/noremap!         -            @              @                  -
+ "---------------------------------------------------------------------------
+
 " 無効化
 nnoremap ZZ <Nop>
 nnoremap ZQ <Nop>
@@ -21,6 +31,9 @@ nnoremap <silent> tc :<C-u>tabclose<CR>
 nnoremap <silent> to :<C-u>tabonly<CR>
 
 " ESCキー2度押しでハイライトの切り替え
-nnoremap <silent> <esc><esc> :<C-u>set nohlsearch!<CR>
+nnoremap <silent> <Esc><Esc> :<C-u>set nohlsearch!<CR>
+
+" jj でエスケープ
+imap jj <Esc>
 
 " 不明
