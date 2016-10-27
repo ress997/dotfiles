@@ -1,3 +1,21 @@
-.DS_Store
-*~
 .secret
+
+# macOS
+.DS_Store
+._*
+
+# Vim
+.netrwhist
+*~
+
+# Sass(SCSS)
+.sass-cache/
+*.css.map
+
+# Golang
+vendor/
+
+# Node.js
+node_modules
+
+# vim:ft=conf:
