@@ -86,16 +86,21 @@ repo = 'Shougo/denite.nvim'
 if = 'has("python3")'
 on_cmd = 'Denite'
 hook_post_source = '''
+	" file_mru
+	call denite#custom#source('file_mru', 'matchers', ['matcher_fuzzy', 'matcher_project_files'])
+	call denite#custom#source('file_mru', 'converters', ['converter_relative_word'])
+
 	" file_rec
-	if executable('pt')
+	if dein#get('cpsm').sourced
+		call denite#custom#source('file_rec', 'matchers', ['matcher_cpsm'])
+	endif
+	if executable('rg')
+		call denite#custom#var('file_rec', 'command', ['rg', '--files', '--hidden', '--glob', '!.git'])
+	elseif executable('pt')
 		call denite#custom#var('file_rec', 'command', ['pt', '--follow', '--nocolor', '--nogroup', '--hidden', '-g', ''])
 	elseif executable('ag')
 		" https://git.io/vPEZA
 		call denite#custom#var('file_rec', 'command', ['ag', '--follow', '--nocolor', '--nogroup', '-g', ''])
-	elseif executable('rg')
-		" Note: It is slower than ag
-		" https://git.io/vPEZj
-		call denite#custom#var('file_rec', 'command', ['rg', '--files'])
 	endif
 
 	" grep
@@ -107,32 +112,20 @@ hook_post_source = '''
 		call denite#custom#var('grep', 'separator', ['--'])
 		call denite#custom#var('grep', 'default_opts', ['--vimgrep', '--no-heading'])
 	elseif executable('pt')
-		call denite#custom#var('grep', 'command', ['pt', '--nogroup', '--nocolor', '--smart-case', '--hidden'])
-		call denite#custom#var('grep', 'default_opts', [])
+		call denite#custom#var('grep', 'command', ['pt'])
 		call denite#custom#var('grep', 'recursive_opts', [])
+		call denite#custom#var('grep', 'default_opts', ['--nogroup', '--nocolor', '--smart-case', '--hidden'])
 	endif
-
-	call denite#custom#source('file_mru', 'matchers', ['matcher_fuzzy', 'matcher_project_files'])
-	call denite#custom#source('file_mru', 'converters', ['converter_relative_word'])
 '''
 
 [[plugins]]
 repo = 'Shougo/neomru.vim'
-depends = 'denite.nvim'
+on_source = 'denite.nvim'
 on_path = '.*'
 
 [[plugins]]
 repo = 'Shougo/neoyank.vim'
-depends = 'denite.nvim'
+on_source = 'denite.nvim'
 on_event = 'TextYankPost'
-
-[[plugins]]
-repo = 'nixprime/cpsm'
-if = 'has("python3")'
-depends = 'denite.nvim'
-build = 'PY3=ON ./install.sh'
-hook_post_source = '''
-	call denite#custom#source('file_rec', 'matchers', ['matcher_cpsm'])
-'''
 
 # }}}
