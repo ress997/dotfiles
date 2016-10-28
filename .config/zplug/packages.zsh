@@ -75,8 +75,7 @@ zplug "39e/go-notify", \
 
 zplug "Code-Hex/battery", \
 	as:command, \
-	from:gh-r, \
-	use:"*.zip"
+	from:gh-r
 
 # }}}
 # Plugin {{{
