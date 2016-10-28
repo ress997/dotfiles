@@ -32,7 +32,7 @@ repo  = 'cespare/vim-toml'
 repo = 'zplug/vim-zplug'
 
 # Web系 {{{
-# HTML {{{
+# HTML 系
 
 [[plugins]] # Html5
 repo  = 'othree/html5.vim'
@@ -43,14 +43,12 @@ repo  = 'tpope/vim-haml'
 [[plugins]] # amber
 repo = 'burner/amber.vim'
 
-# }}}
-# CSS {{{
+# CSS 系
 
 [[plugins]] # css3
 repo = 'hail2u/vim-css3-syntax'
 
-# }}}
-# JavaScript {{{
+# JavaScript 系
 
 [[plugins]] # JavaScript
 repo = 'jelera/vim-javascript-syntax'
@@ -61,7 +59,6 @@ repo = 'kchmck/vim-coffee-script'
 [[plugins]] # TypeScript
 repo = 'leafgarland/typescript-vim'
 
-# }}}
 # }}}
 # Vim {{{
 

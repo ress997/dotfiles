@@ -1,7 +1,7 @@
 [[plugins]]
 repo = 'Shougo/dein.vim'
 
-# Library {{{
+# Library
 
 [[plugins]]
 repo = 'Shougo/context_filetype.vim'
@@ -9,8 +9,17 @@ repo = 'Shougo/context_filetype.vim'
 [[plugins]]
 repo = 'vim-jp/vital.vim'
 
-# }}}
-# Automatic {{{
+# operator
+
+[[plugins]]
+repo = 'kana/vim-operator-user'
+
+# text objects
+
+[[plugins]]
+repo = 'kana/vim-textobj-user'
+
+# Automatic
 
 [[plugins]] # ファイルタイプ切り替え
 repo = 'osyo-manga/vim-precious'
@@ -36,8 +45,7 @@ hook_source = '''
 '''
 hook_post_source = 'call AutoSave()'
 
-# }}}
-# View {{{
+# View
 
 [[plugins]] # 行番号表示
 repo = 'jeffkreeftmeijer/vim-numbertoggle'
@@ -57,7 +65,7 @@ hook_add = '''
 	let g:gitgutter_map_keys = 0
 '''
 
-## Status line {{{
+# Status line
 
 [[plugins]]
 repo = 'itchyny/lightline.vim'
@@ -75,8 +83,7 @@ hook_add = '''
 repo = 'cocopon/lightline-hybrid.vim'
 depends = 'lightline.vim'
 
-## }}}
-## Search {{{
+# Search
 
 [[plugins]]
 repo = 'haya14busa/incsearch.vim'
@@ -102,8 +109,7 @@ repo = 'haya14busa/incsearch-easymotion.vim'
 depends = ['incsearch.vim', 'vim-easymotion']
 on_map = '<Plug>(incsearch-easymotion-'
 
-## }}}
-# 機能拡張 {{{
+# 機能拡張
 
 [[plugins]] # j/k による移動を早くする
 repo = 'rhysd/accelerated-jk'
@@ -149,20 +155,7 @@ hook_source = '''
 	\}
 '''
 
-# }}}
-# operator {{{
-
-[[plugins]]
-repo = 'kana/vim-operator-user'
-
-# }}}
-# text objects {{{
-
-[[plugins]]
-repo = 'kana/vim-textobj-user'
-
-# }}}
-## NERD Tree {{{
+# NERD Tree
 
 [[plugins]]
 repo = 'scrooloose/nerdtree'
@@ -195,8 +188,7 @@ hook_add = '''
 	nmap tf <Plug>NERDTreeTabsToggle<CR>
 '''
 
-## }}}
-## Open Browser {{{
+# Open Browser
 
 [[plugins]]
 repo = 'tyru/open-browser.vim'
@@ -220,13 +212,10 @@ hook_add = '''
 	nnoremap gg :<C-u>OpenGithubFile<CR>
 '''
 
-## }}}
-# }}}
-# Command {{{
+# Command
 
 [[plugins]] # dein.vim command
-# repo = 'haya14busa/dein-command.vim'
-repo = '39e/dein-command.vim'
+repo = 'haya14busa/dein-command.vim'
 depends = 'dein.vim'
 on_cmd = 'Dein'
 
@@ -251,8 +240,7 @@ hook_source = '''
 	let g:vim_codic_access_token = $CODIC_ACCESS_TOKEN
 '''
 
-# }}}
-# Colors {{{
+# Colors
 
 [[plugins]] # Molokai
 repo = 'tomasr/molokai'
@@ -268,5 +256,3 @@ repo = 'w0ng/vim-hybrid'
 
 [[plugins]] # solarized
 repo = 'altercation/vim-colors-solarized'
-
-# }}}

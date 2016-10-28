@@ -1,4 +1,4 @@
-[[plugins]] # Swift
+[[plugins]] # Deoplete - Swift
 repo = 'mitsuse/autocomplete-swift'
 if = 'executable("sourcekitten")'
 depends = 'deoplete.nvim'
