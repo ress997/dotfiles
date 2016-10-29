@@ -209,7 +209,7 @@ if = 'executable("git")'
 depends = 'open-browser.vim'
 on_cmd = ['OpenGithubFile', 'OpenGithubIssue', 'OpenGithubPullReq']
 hook_add = '''
-	nnoremap gg :<C-u>OpenGithubFile<CR>
+	nnoremap gx :<C-u>OpenGithubFile<CR>
 '''
 
 # Command
