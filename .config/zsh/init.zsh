@@ -73,15 +73,19 @@ export GOPATH="$DEV_DATA_HOME/go"
 # Nodebrew
 export NODEBREW_ROOT="$DEV_PROGRAM_HOME/nodebrew"
 
+# zplug
+export ZPLUG_HOME="$DEV_PROGRAM_HOME/zplug"
+
 # PATH
 typeset -U path PATH
 path=( \
 	$HOME/.local/bin(N-/)
-	$HOME/bin(N-/) \
+	$HOME/bin \
+	$ZPLUG_HOME/bin \
 	$GOPATH/bin(N-/) \
 	$NODEBREW_ROOT/current/bin(N-/) \
-	/usr/local/opt/gnupg/libexec/gpgbin(N-/) \
 	/usr/local/bin(N-/) \
+	/usr/local/opt/gnupg/libexec/gpgbin(N-/) \
 	$path \
 )
 

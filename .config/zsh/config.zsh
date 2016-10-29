@@ -36,7 +36,6 @@ export HUB_CONFIG="$XDG_CONFIG_HOME/hub/config.yaml"
 export TIGRC_USER="$XDG_CONFIG_HOME/tig/config"
 
 # zplug
-export ZPLUG_HOME="$DEV_PROGRAM_HOME/zplug"
 export ZPLUG_LOADFILE=$XDG_CONFIG_HOME/zplug/packages.zsh
 export ZPLUG_CACHE_DIR="$XDG_CACHE_HOME/zplug"
 export ZPLUG_CACHE_FILE="$ZPLUG_CACHE_DIR/cache"
