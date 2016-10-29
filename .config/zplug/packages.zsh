@@ -77,6 +77,10 @@ zplug "Code-Hex/battery", \
 	as:command, \
 	from:gh-r
 
+zplug "minodisk/qiitactl", \
+	as:command, \
+	from:gh-r
+
 # }}}
 # Plugin {{{
 
