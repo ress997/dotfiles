@@ -9,12 +9,12 @@ repo = 'Shougo/context_filetype.vim'
 [[plugins]]
 repo = 'vim-jp/vital.vim'
 
-# operator
+# Operator
 
 [[plugins]]
 repo = 'kana/vim-operator-user'
 
-# text objects
+# Text Objects
 
 [[plugins]]
 repo = 'kana/vim-textobj-user'
@@ -23,7 +23,7 @@ repo = 'kana/vim-textobj-user'
 
 [[plugins]] # ファイルタイプ切り替え
 repo = 'osyo-manga/vim-precious'
-depends = 'context_filetype.vim'
+depends = 'context_filetype'
 
 [[plugins]] # Auto Close (括弧)
 repo = 'jiangmiao/auto-pairs'
@@ -96,7 +96,7 @@ hook_add = '''
 
 [[plugins]] # 曖昧検索
 repo = 'haya14busa/incsearch-fuzzy.vim'
-depends = 'incsearch.vim'
+depends = 'incsearch'
 on_map = '<Plug>(incsearch-fuzzy-'
 hook_add = '''
 	map z/ <Plug>(incsearch-fuzzy-/)
@@ -106,7 +106,7 @@ hook_add = '''
 
 [[plugins]]
 repo = 'haya14busa/incsearch-easymotion.vim'
-depends = ['incsearch.vim', 'vim-easymotion']
+depends = ['incsearch', 'easymotion']
 on_map = '<Plug>(incsearch-easymotion-'
 
 # 機能拡張
@@ -206,7 +206,7 @@ hook_source = '''
 [[plugins]]
 repo = 'tyru/open-browser-github.vim'
 if = 'executable("git")'
-depends = 'open-browser.vim'
+depends = 'open-browser'
 on_cmd = ['OpenGithubFile', 'OpenGithubIssue', 'OpenGithubPullReq']
 hook_add = '''
 	nnoremap gx :<C-u>OpenGithubFile<CR>
@@ -216,7 +216,7 @@ hook_add = '''
 
 [[plugins]] # dein.vim command
 repo = 'haya14busa/dein-command.vim'
-depends = 'dein.vim'
+depends = 'dein'
 on_cmd = 'Dein'
 
 [[plugins]] # Git
@@ -229,7 +229,7 @@ on_cmd = 'Gista'
 
 [[plugins]] # Preview
 repo = 'kannokanno/previm'
-depends = 'open-browser.vim'
+depends = 'open-browser'
 on_ft = 'markdown'
 
 [[plugins]] # Codic

@@ -3,13 +3,9 @@
 [[plugins]]
 repo = 'Shougo/deoplete.nvim'
 if = 'has("python3")'
-depends = 'context_filetype.vim'
+depends = 'context_filetype'
 on_event = 'InsertEnter'
 hook_source = '''
-	let g:deoplete#enable_at_startup = 1
-	let g:deoplete#enable_ignore_case = 1
-	let g:deoplete#enable_smart_case = 1
-
 	" <TAB>: completion.
 	imap <silent><expr> <TAB> pumvisible() ? "\<C-n>" : <SID>check_back_space() ? "\<TAB>" : deoplete#mappings#manual_complete()
 	function! s:check_back_space() abort
@@ -19,29 +15,34 @@ hook_source = '''
 
 	" <S-TAB>: completion back.
 	inoremap <expr><S-TAB>  pumvisible() ? "\<C-p>" : "\<C-h>"
+
+	let g:deoplete#enable_at_startup = 1
+	let g:deoplete#enable_ignore_case = 1
+	let g:deoplete#enable_smart_case = 1
 '''
 
-[[plugins]]
 # TODO: とりあえず入れただけだか何か調べる
-repo = 'Shougo/neoinclude.vim'
-depends = 'deoplete.nvim'
+# [[plugins]]
+# repo = 'Shougo/neoinclude.vim'
+# depends = 'deoplete'
 
 [[plugins]]
 repo = 'wellle/tmux-complete.vim'
 if = 'executable("tmux")'
-depends = 'deoplete.nvim'
+depends = 'deoplete'
 hook_source = '''
 	let g:tmuxcomplete#trigger = ''
 '''
 
 [[plugins]] # Docker
 repo = 'zchee/deoplete-docker'
-depends = 'deoplete.nvim'
+depends = 'deoplete'
+on_ft = 'Dockerfile'
 
 [[plugins]] # Golang
 repo = 'zchee/deoplete-go'
 if = 'executable("go")'
-depends = 'deoplete.nvim'
+depends = 'deoplete'
 on_ft = 'go'
 build = 'make'
 hook_source = '''
@@ -52,21 +53,23 @@ hook_source = '''
 
 [[plugins]] # Vim
 repo = 'Shougo/neco-vim'
-depends = 'deoplete.nvim'
+depends = 'deoplete'
 on_ft = 'vim'
 
 [[plugins]] # Zsh
 repo = 'zchee/deoplete-zsh'
-depends = 'deoplete.nvim'
+depends = 'deoplete'
+on_ft = 'zsh'
 
 # Neo Snippet
 
 [[plugins]]
 repo = 'Shougo/neosnippet-snippets'
+on_source = 'neosnippet'
 
 [[plugins]]
 repo = 'Shougo/neosnippet'
-depends = ['neosnippet-snippets', 'context_filetype.vim']
+depends = ['neosnippet-snippets', 'context_filetype.vim', 'deoplete.nvim']
 on_event = 'InsertCharPre'
 on_ft = 'snippet'
 hook_source = '''
@@ -127,12 +130,12 @@ hook_post_source = '''
 
 [[plugins]]
 repo = 'Shougo/neomru.vim'
-on_source = 'denite.nvim'
+on_source = 'denite'
 on_path = '.*'
 
 [[plugins]]
 repo = 'Shougo/neoyank.vim'
-on_source = 'denite.nvim'
+on_source = 'denite'
 on_event = 'TextYankPost'
 
 # }}}

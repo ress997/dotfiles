@@ -34,26 +34,39 @@ endif
 " dein.vim をプラグインとして読み込む
 execute 'set runtimepath^=' . s:dein_repo_dir
 
-" dein.vim settings {{{
+" dein.vim settings
 let g:dein#install_max_processes = 16
-let g:dein#install_progress_type = 'title'
 let g:dein#install_message_type = 'none'
+let g:dein#install_progress_type = 'title'
+let g:dein#enable_name_conversion = 1
 let g:dein#enable_notification = 1
-" }}}
 
 if dein#load_state(s:dein_dir)
 
 	let s:toml_dir = g:config_home . '/dein'
+
 	let s:toml = s:toml_dir . '/plugins.toml'
 	let s:toml_lang = s:toml_dir . '/lang.toml'
+	let s:toml_nvim = s:toml_dir . '/neovim.toml'
+	let s:toml_mac = s:toml_dir . '/neovim.toml'
+	let s:config_list = [$MYVIMRC, s:toml, s:toml_lang]
 
-	call dein#begin(s:dein_dir, [$MYVIMRC, s:toml, s:toml_lang])
+	if has('nvim')
+		call add(s:config_list, s:toml_nvim)
+		if has('mac')
+			call add(s:config_list, s:toml_mac)
+		endif
+	endif
+
+	call dein#begin(s:dein_dir, s:config_list)
 
 	call dein#load_toml(s:toml)
 	call dein#load_toml(s:toml_lang)
-	call dein#load_toml(s:toml_dir . '/neovim.toml')
-	if has('mac')
-		call dein#load_toml(s:toml_dir . '/mac.toml')
+	if has('nvim')
+		call dein#load_toml(s:toml_nvim)
+		if has('mac')
+			call dein#load_toml(s:toml_mac)
+		endif
 	endif
 
 	call dein#end()
@@ -87,9 +100,20 @@ function s:load_rc(file)
 	execute 'source ' . s:rc_dir . '/' . a:file . '.vim'
 endfunction
 
+call s:load_rc('view')
 call s:load_rc('setting')
 call s:load_rc('grep')
 call s:load_rc('keymap')
 call s:load_rc('command')
 
 " }}}
+
+" ファイル文末の改行を勝手に変更しない?
+if exists('+fixeol')
+	set nofixendofline
+endif
+
+" emoji (絵文字は全角とみなす)
+if exists('+emo')
+	set emoji
+endif
