@@ -30,14 +30,12 @@ hook_source = '''
 repo = 'wellle/tmux-complete.vim'
 if = 'executable("tmux")'
 depends = 'deoplete'
-hook_source = '''
-	let g:tmuxcomplete#trigger = ''
-'''
+hook_add = 'let g:tmuxcomplete#trigger = ""'
 
 [[plugins]] # Docker
 repo = 'zchee/deoplete-docker'
 depends = 'deoplete'
-on_ft = 'Dockerfile'
+on_source = 'Dockerfile'
 
 [[plugins]] # Golang
 repo = 'zchee/deoplete-go'
@@ -65,11 +63,10 @@ on_ft = 'zsh'
 
 [[plugins]]
 repo = 'Shougo/neosnippet-snippets'
-on_source = 'neosnippet'
 
 [[plugins]]
 repo = 'Shougo/neosnippet'
-depends = ['neosnippet-snippets', 'context_filetype', 'deoplete.nvim']
+depends = ['neosnippet-snippets', 'context_filetype', 'deoplete']
 on_event = 'InsertCharPre'
 on_ft = 'snippet'
 hook_source = '''
