@@ -32,11 +32,6 @@ if = 'executable("tmux")'
 depends = 'deoplete'
 hook_add = 'let g:tmuxcomplete#trigger = ""'
 
-[[plugins]] # Docker
-repo = 'zchee/deoplete-docker'
-depends = 'deoplete'
-on_source = 'Dockerfile'
-
 [[plugins]] # Golang
 repo = 'zchee/deoplete-go'
 if = 'executable("go")'
