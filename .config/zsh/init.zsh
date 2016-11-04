@@ -85,7 +85,6 @@ path=( \
 	$GOPATH/bin(N-/) \
 	$NODEBREW_ROOT/current/bin(N-/) \
 	/usr/local/bin(N-/) \
-	/usr/local/opt/gnupg/libexec/gpgbin(N-/) \
 	$path \
 )
 

@@ -38,4 +38,4 @@
 [ghq]
 	root = ~/.dev/ghq
 [gpg]
-	program = /usr/local/opt/gnupg/libexec/gpgbin/gpg
+	program = /usr/local/bin/gpg
