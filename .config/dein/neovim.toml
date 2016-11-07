@@ -21,11 +21,6 @@ hook_source = '''
 	let g:deoplete#enable_smart_case = 1
 '''
 
-# TODO: とりあえず入れただけだか何か調べる
-# [[plugins]]
-# repo = 'Shougo/neoinclude.vim'
-# depends = 'deoplete'
-
 [[plugins]]
 repo = 'wellle/tmux-complete.vim'
 if = 'executable("tmux")'
@@ -118,6 +113,9 @@ hook_post_source = '''
 		call denite#custom#var('grep', 'recursive_opts', [])
 		call denite#custom#var('grep', 'default_opts', ['--nogroup', '--nocolor', '--smart-case', '--hidden'])
 	endif
+
+	" Change default prompt
+	call denite#custom#option('default', 'prompt', '>')
 '''
 
 [[plugins]]
