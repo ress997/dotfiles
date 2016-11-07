@@ -54,6 +54,11 @@ set nobackup
 " ファイル編集中にスワップファイルを作らない
 set noswapfile
 
+" ファイル文末の改行を勝手に変更しない? TODO: 後で調べる
+if exists('+fixeol')
+	set nofixendofline
+endif
+
 " }}}
 " 検索/置換 {{{
 

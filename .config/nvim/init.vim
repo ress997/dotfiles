@@ -18,16 +18,17 @@ let g:config_home = empty($XDG_CONFIG_HOME) ? expand('$HOME/.config') : $XDG_CON
 
 let s:dein_cache_dir = g:cache_home . '/dein'
 let s:dein_config_dir = g:config_home . '/dein'
-let s:dein_repo_dir = s:dein_cache_dir . '/repos/github.com/Shougo/dein.vim'
 
 if &runtimepath !~# '/dein.vim'
+	let s:dein_repo_dir = s:dein_cache_dir . '/repos/github.com/Shougo/dein.vim'
+
 	" Auto Download
 	if !isdirectory(s:dein_repo_dir)
 		call system('git clone https://github.com/Shougo/dein.vim ' . shellescape(s:dein_repo_dir))
 	endif
 
 	" dein.vim をプラグインとして読み込む
-	execute 'set runtimepath^=' . fnamemodify(s:dein_repo_dir, ':p')
+	execute 'set runtimepath^=' . s:dein_repo_dir
 endif
 
 " dein.vim settings
@@ -69,10 +70,13 @@ syntax enable
 colorscheme hybrid
 
 " Load Settings File
-
-let s:rc_dir = g:config_home . '/nvim' . '/rc'
 function s:load_rc(file)
-	execute 'source ' . s:rc_dir . '/' . a:file . '.vim'
+	let s:rc_dir = g:config_home . '/nvim' . '/rc'
+	let s:rc_file = s:rc_dir . '/' . a:file . '.vim'
+
+	if filereadable(s:rc_file)
+		execute 'source ' . s:rc_file
+	endif
 endfunction
 
 call s:load_rc('view')
@@ -81,12 +85,6 @@ call s:load_rc('grep')
 call s:load_rc('keymap')
 call s:load_rc('command')
 
-" ファイル文末の改行を勝手に変更しない?
-if exists('+fixeol')
-	set nofixendofline
-endif
 
-" emoji (絵文字は全角とみなす)
-if exists('+emo')
-	set emoji
-endif
+" Open Vim internal help by K command
+set keywordprg=:help

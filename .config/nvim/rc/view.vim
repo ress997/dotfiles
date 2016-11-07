@@ -27,3 +27,8 @@ set list listchars=tab:»-,eol:↲,trail:･,extends:>,precedes:<,nbsp:%
 if has('termguicolors')
 	set termguicolors
 endif
+
+" emoji (絵文字は全角とみなす)
+if exists('+emo')
+	set emoji
+endif
