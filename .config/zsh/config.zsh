@@ -61,9 +61,7 @@ fi
 [[ -d $ZPLUG_HOME ]] || curl -sL zplug.sh/installer | zsh
 
 # }}}
-# Tmux {{{
-
-# Auto new-session
+# Tmux Auto new-session {{{
 if (( $+commands[tmux] )); then
 	if [ -z "$TMUX" ]; then
 		if [ ! -z "$PS1" ] && [ -z "$SSH_CONECTION" ]; then
@@ -100,7 +98,6 @@ if (( $+commands[tmux] )); then
 		echo "${fg_bold[red]}  |_| |_|  |_|\___//_/\_\ ${reset_color}"
 	fi
 fi
-
 # }}}
 # zplug {{{
 
@@ -285,6 +282,7 @@ abbreviations=(
 	"drm" "docker rm"
 	"drmi" "docker rmi"
 	"ds" "docker start"
+	"djekyll" "docker run --rm --label=jekyll --volume=$(pwd):/srv/jekyll -it -p 80:4000 jekyll/jekyll:pages jekyll serve --watch --force_polling"
 	# Git系
 	"ga"  "git add"
 	"gb" "git branch"
