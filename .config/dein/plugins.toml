@@ -1,7 +1,7 @@
 [[plugins]]
 repo = 'Shougo/dein.vim'
 
-# Library
+# Library {{{
 
 [[plugins]]
 repo = 'Shougo/context_filetype.vim'
@@ -9,17 +9,17 @@ repo = 'Shougo/context_filetype.vim'
 [[plugins]]
 repo = 'vim-jp/vital.vim'
 
-# Operator
-
 [[plugins]]
 repo = 'kana/vim-operator-user'
-
-# Text Objects
 
 [[plugins]]
 repo = 'kana/vim-textobj-user'
 
-# Automatic
+[[plugins]]
+repo = 'Shougo/neosnippet-snippets'
+
+# }}}
+# Automatic {{{
 
 [[plugins]] # ファイルタイプ切り替え
 repo = 'osyo-manga/vim-precious'
@@ -45,7 +45,8 @@ hook_source = '''
 '''
 hook_post_source = 'call AutoSave()'
 
-# View
+# }}}
+# View {{{
 
 [[plugins]] # 行番号表示
 repo = 'jeffkreeftmeijer/vim-numbertoggle'
@@ -78,7 +79,8 @@ hook_add = '''
 repo = 'cocopon/lightline-hybrid.vim'
 depends = 'lightline.vim'
 
-# Search
+# }}}
+# Search {{{
 
 [[plugins]]
 repo = 'haya14busa/incsearch.vim'
@@ -104,7 +106,8 @@ repo = 'haya14busa/incsearch-easymotion.vim'
 depends = ['incsearch', 'easymotion']
 on_map = '<Plug>(incsearch-easymotion-'
 
-# 機能拡張
+# }}}
+# 機能拡張 {{{
 
 [[plugins]] # j/k による移動を早くする
 repo = 'rhysd/accelerated-jk'
@@ -127,11 +130,9 @@ hook_add = 'let g:surround_no_mappings = 1'
 repo = 'editorconfig/editorconfig-vim'
 on_path = '.*'
 hook_source = '''
-	if executable('editorconfig')
+	if has('mac') && executable('/usr/local/bin/editorconfig')
 		let g:EditorConfig_core_mode = 'external_command'
-		if has('mac')
-			let g:EditorConfig_exec_path = '/usr/local/bin/editorconfig'
-		endif
+		let g:EditorConfig_exec_path = '/usr/local/bin/editorconfig'
 	endif
 '''
 
@@ -150,6 +151,35 @@ hook_source = '''
 [[plugins]] # Japanese doc
 repo = 'vim-jp/vimdoc-ja'
 hook_add = 'set helplang=ja,en'
+
+# Neo xxx
+
+[[plugins]]
+repo = 'Shougo/neomru.vim'
+on_source = 'denite'
+on_path = '.*'
+
+[[plugins]]
+repo = 'Shougo/neoyank.vim'
+on_source = 'denite'
+on_event = 'TextYankPost'
+
+[[plugins]] # Neo Snippet
+repo = 'Shougo/neosnippet'
+depends = ['neosnippet-snippets', 'context_filetype']
+on_event = 'InsertCharPre'
+on_ft = 'snippet'
+on_source = 'deoplete'
+hook_source = '''
+	imap <C-k> <Plug>(neosnippet_expand_or_jump)
+	smap <C-k> <Plug>(neosnippet_expand_or_jump)
+	xmap <C-k> <Plug>(neosnippet_expand_target)
+
+	" TODO: 後で調べる
+	let neosnippet#disable_select_mode_mappings = 0
+
+	let g:neosnippet#snippets_directory = dein#get('neosnippet-snippets').path . '/neosnippets'
+'''
 
 # NERD Tree
 
@@ -202,7 +232,8 @@ depends = 'open-browser'
 on_cmd = ['OpenGithubFile', 'OpenGithubIssue', 'OpenGithubPullReq']
 hook_add = 'nnoremap gx :<C-u>OpenGithubFile<CR>'
 
-# Command
+# }}}
+# Command {{{
 
 [[plugins]] # dein.vim command
 repo = 'haya14busa/dein-command.vim'
@@ -228,7 +259,10 @@ if = 'exists("$CODIC_ACCESS_TOKEN")'
 on_cmd = 'VimCodic'
 hook_source = 'let g:vim_codic_access_token = $CODIC_ACCESS_TOKEN'
 
-# Colors
+# }}}
+# Colors {{{
 
 [[plugins]] # hybrid
 repo = 'w0ng/vim-hybrid'
+
+# }}}

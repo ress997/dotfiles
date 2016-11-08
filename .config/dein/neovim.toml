@@ -49,27 +49,6 @@ repo = 'zchee/deoplete-zsh'
 depends = 'deoplete'
 on_ft = 'zsh'
 
-# Neo Snippet
-
-[[plugins]]
-repo = 'Shougo/neosnippet-snippets'
-
-[[plugins]]
-repo = 'Shougo/neosnippet'
-depends = ['neosnippet-snippets', 'context_filetype', 'deoplete']
-on_event = 'InsertCharPre'
-on_ft = 'snippet'
-hook_source = '''
-	imap <C-k> <Plug>(neosnippet_expand_or_jump)
-	smap <C-k> <Plug>(neosnippet_expand_or_jump)
-	xmap <C-k> <Plug>(neosnippet_expand_target)
-
-	" TODO: 後で調べる
-	let neosnippet#disable_select_mode_mappings = 0
-
-	let g:neosnippet#snippets_directory = dein#get('neosnippet-snippets').path . '/neosnippets'
-'''
-
 # }}}
 # Denite {{{
 
@@ -117,15 +96,5 @@ hook_post_source = '''
 	" Change default prompt
 	call denite#custom#option('default', 'prompt', '>')
 '''
-
-[[plugins]]
-repo = 'Shougo/neomru.vim'
-on_source = 'denite'
-on_path = '.*'
-
-[[plugins]]
-repo = 'Shougo/neoyank.vim'
-on_source = 'denite'
-on_event = 'TextYankPost'
 
 # }}}
