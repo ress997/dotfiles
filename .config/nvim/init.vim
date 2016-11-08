@@ -1,5 +1,3 @@
-" NeoVim Settings
-
 " True Color 有効化
 let $NVIM_TUI_ENABLE_TRUE_COLOR = 1
 " カラースチームの有効化
@@ -66,7 +64,7 @@ filetype plugin indent on
 
 " }}}
 
-syntax enable
+" syntax enable
 colorscheme hybrid
 
 " Load Settings File
@@ -84,7 +82,3 @@ call s:load_rc('setting')
 call s:load_rc('grep')
 call s:load_rc('keymap')
 call s:load_rc('command')
-
-
-" Open Vim internal help by K command
-set keywordprg=:help
