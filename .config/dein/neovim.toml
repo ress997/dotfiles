@@ -1,3 +1,7 @@
+[[plugins]]
+repo = 'Shougo/deol.nvim'
+on_cmd = 'Deol'
+
 # 補完 {{{
 
 [[plugins]]
