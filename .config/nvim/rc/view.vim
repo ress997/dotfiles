@@ -15,6 +15,9 @@ set cmdheight=1
 " ステータス行を常に表示
 set laststatus=2
 
+" タブページを常に表示
+set showtabline=2
+
 " 対応する括弧を強調表示
 set showmatch
 " 対応する括弧の表示する時間
