@@ -7,7 +7,9 @@ if = 'executable("go")'
 on_cmd = ['GoInstallBinaries', 'GoUpdateBinaries']
 on_ft = 'go'
 hook_source = '''
+	let g:go_fmt_autosave = 0
 	let g:go_fmt_command = 'goimports'
+	let g:go_snippet_engine = 'neosnippet'
 '''
 
 [[plugins]] # Lua

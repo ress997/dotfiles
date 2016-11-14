@@ -121,11 +121,6 @@ hook_add = '''
 repo = 'easymotion/vim-easymotion'
 on_map = '<Plug>(easymotion-'
 
-[[plugins]] # 選択範囲を記号やタグで囲んだり外したりできる
-repo = 'tpope/vim-surround'
-on_path = '.*'
-hook_add = 'let g:surround_no_mappings = 1'
-
 [[plugins]] # EditorConfig
 repo = 'editorconfig/editorconfig-vim'
 on_path = '.*'
@@ -154,29 +149,32 @@ hook_add = 'set helplang=ja,en'
 
 # Neo xxx
 
-[[plugins]]
+[[plugins]] # MRU
 repo = 'Shougo/neomru.vim'
 on_source = 'denite'
 on_path = '.*'
 
-[[plugins]]
+[[plugins]] # Yank
 repo = 'Shougo/neoyank.vim'
 on_source = 'denite'
 on_event = 'TextYankPost'
 
-[[plugins]] # Neo Snippet
+[[plugins]] # Snippet
 repo = 'Shougo/neosnippet'
 depends = ['neosnippet-snippets', 'context_filetype']
 on_event = 'InsertCharPre'
-on_ft = 'snippet'
-on_source = 'deoplete'
+# on_ft = 'snippet'
+# on_source = 'deoplete'
 hook_source = '''
 	imap <C-k> <Plug>(neosnippet_expand_or_jump)
 	smap <C-k> <Plug>(neosnippet_expand_or_jump)
 	xmap <C-k> <Plug>(neosnippet_expand_target)
 
 	" TODO: 後で調べる
-	let neosnippet#disable_select_mode_mappings = 0
+	let g:neosnippet#disable_select_mode_mappings = 0
+	let g:neosnippet#enable_complete_done = 1
+	let g:neosnippet#enable_snipmate_compatibility = 1
+	let g:neosnippet#expand_word_boundary = 1
 
 	let g:neosnippet#snippets_directory = dein#get('neosnippet-snippets').path . '/neosnippets'
 '''
@@ -231,6 +229,11 @@ depends = 'open-browser'
 on_cmd = ['OpenGithubFile', 'OpenGithubIssue', 'OpenGithubPullReq']
 hook_add = 'nnoremap gx :<C-u>OpenGithubFile<CR>'
 
+[[plugins]]
+repo = 'haya14busa/vim-open-googletranslate'
+depends = 'open-browser'
+on_cmd = 'OpenGoogleTranslate'
+
 # }}}
 # Command {{{
 
@@ -263,5 +266,38 @@ hook_source = 'let g:vim_codic_access_token = $CODIC_ACCESS_TOKEN'
 
 [[plugins]] # hybrid
 repo = 'w0ng/vim-hybrid'
+
+# }}}
+# Test {{{
+
+[[plugins]] # 選択範囲を記号やタグで囲んだり外したりできる
+repo = 'tpope/vim-surround'
+on_path = '.*'
+hook_add = 'let g:surround_no_mappings = 1'
+
+[[plugins]]
+repo = 'kana/vim-smartword'
+on_map = '<Plug>(smartword-'
+hook_add = '''
+	nmap w <Plug>(smartword-w)
+	nmap b <Plug>(smartword-b)
+	nmap e <Plug>(smartword-e)
+'''
+
+[[plugins]]
+repo = 'junegunn/vim-easy-align'
+on_map = '<Plug>(EasyAlign)'
+hook_add = '''
+	xmap ga <Plug>(EasyAlign)
+	nmap ga <Plug>(EasyAlign)
+'''
+
+[[plugins]]
+repo = 'haya14busa/vim-gtrans'
+if = 'executable("gtrans")'
+on_cmd = 'Gtrans'
+
+[[plugins]]
+repo = 't9md/vim-quickhl'
 
 # }}}

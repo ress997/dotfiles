@@ -2,4 +2,4 @@
 repo = 'mitsuse/autocomplete-swift'
 if = 'executable("sourcekitten")'
 depends = 'deoplete'
-on_ft = 'swift'
+on_source = 'swift'

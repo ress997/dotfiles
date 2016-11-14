@@ -1,4 +1,14 @@
 [[plugins]]
+repo = 'zchee/nvim-go'
+name = 'neogo'
+if = 'executable("bg")'
+build = 'gb build'
+on_source = 'go'
+hook_source = '''
+	let g:go#build#autobuild = 1
+'''
+
+[[plugins]]
 repo = 'Shougo/deol.nvim'
 on_cmd = 'Deol'
 
@@ -29,7 +39,10 @@ hook_source = '''
 repo = 'wellle/tmux-complete.vim'
 if = 'executable("tmux")'
 depends = 'deoplete'
-hook_add = 'let g:tmuxcomplete#trigger = ""'
+on_source = 'deoplete'
+hook_source = '''
+	let g:tmuxcomplete#trigger = ""
+'''
 
 [[plugins]] # Golang
 repo = 'zchee/deoplete-go'
@@ -100,6 +113,7 @@ build = 'PY3=ON ./install.sh'
 on_source = 'denite'
 hook_post_source = '''
 	call denite#custom#source('file_rec', 'matchers', ['matcher_cpsm'])
+	call denite#custom#source('grep', 'matchers', ['matcher_ignore_globs', 'matcher_cpsm'])
 '''
 
 # }}}
