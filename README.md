@@ -1,8 +1,10 @@
 # Dotfile
 
-[![MIT License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](LICENSE)
+[![Issues](https://img.shields.io/github/issues/39e/dotfiles.svg?style=flat-square)](https://github.com/39e/dotfiles/issues)
+[![Stars](https://img.shields.io/github/stars/39e/dotfiles.svg?style=flat-square)](https://github.com/39e/dotfiles/stargazers)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](LICENSE)
 
-My Dotfile
+My Dotfile for macOS
 
 ## Features
 
@@ -10,7 +12,7 @@ My Dotfile
 - **iTerm2** (Build 3.0.10, Full-screen)
 - **Tmux** 2.3
 - **Zsh** 5.2
-- **NeoVim** 0.1.5
+- **NeoVim** 0.1.6
 
 ## License
 
