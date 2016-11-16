@@ -1,3 +1,12 @@
+" 標準のシェルをZSHに変更
+set sh=zsh
+" True Color 有効化
+let $NVIM_TUI_ENABLE_TRUE_COLOR = 1
+" カラースチームの有効化
+let $NVIM_TUI_ENABLE_CURSOR_SHAPE = 1
+" <ESC> でterminalモードからコマンドモードに変更
+tnoremap <silent> <ESC> <C-\><C-n>
+
 augroup MyAutoCmd
 	autocmd!
 augroup END
@@ -5,11 +14,6 @@ augroup END
 " env
 let g:cache_home = empty($XDG_CACHE_HOME) ? expand('$HOME/.cache') : $XDG_CACHE_HOME
 let g:config_home = empty($XDG_CONFIG_HOME) ? expand('$HOME/.config') : $XDG_CONFIG_HOME
-
-" True Color 有効化
-let $NVIM_TUI_ENABLE_TRUE_COLOR = 1
-" カラースチームの有効化
-let $NVIM_TUI_ENABLE_CURSOR_SHAPE = 1
 
 " dein {{{
 let g:dein#install_max_processes = 16
@@ -73,3 +77,8 @@ call s:load_rc('setting')
 call s:load_rc('grep')
 call s:load_rc('keymap')
 call s:load_rc('command')
+
+let g:loaded_gzip = 1
+let g:loaded_tarPlugin = 1
+let g:loaded_vimballPlugin = 1
+let g:loaded_zipPlugin = 1
