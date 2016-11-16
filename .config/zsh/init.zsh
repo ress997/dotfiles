@@ -73,6 +73,9 @@ export GOPATH="$DEV_DATA_HOME/go"
 # Nodebrew
 export NODEBREW_ROOT="$DEV_PROGRAM_HOME/nodebrew"
 
+# rbnev
+export RBENV_ROOT=/usr/local/var/rbenv
+
 # zplug
 export ZPLUG_HOME="$DEV_PROGRAM_HOME/zplug"
 

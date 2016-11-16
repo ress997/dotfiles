@@ -2,6 +2,10 @@ umask 022
 bindkey -d
 limit coredumpsize 0
 
+if (( $+commands[rbenv] )); then
+	eval "$(rbenv init -)"
+fi
+
 # ENV {{{
 
 # AWS CLI
