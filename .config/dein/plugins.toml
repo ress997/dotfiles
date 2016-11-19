@@ -293,11 +293,6 @@ hook_add = '''
 '''
 
 [[plugins]]
-repo = 'haya14busa/vim-gtrans'
-if = 'executable("gtrans")'
-on_cmd = 'Gtrans'
-
-[[plugins]]
 repo = 't9md/vim-quickhl'
 
 # }}}

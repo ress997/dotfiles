@@ -1,14 +1,3 @@
-set encoding=utf-8
-scriptencoding utf-8
-
-set fileformat=unix
-" 改行コードの自動判別 (左側が優先される)
-set fileformats=unix,dos,mac
-" 保存時の文字コード
-set fileencoding=utf-8
-" 読み込み時の文字コードの自動判別 (左側が優先される)
-set fileencodings=utf-8,iso-2022-jp,cp932,euc-jp
-
 " 補完の表示オプション
 set completeopt=menu,menuone,noinsert,noselect
 

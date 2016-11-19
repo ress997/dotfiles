@@ -2,17 +2,19 @@ augroup MyAutoCmd
 	autocmd!
 augroup END
 
+let g:cache_home = empty($XDG_CACHE_HOME) ? expand('$HOME/.cache') : $XDG_CACHE_HOME
 let g:config_home = empty($XDG_CONFIG_HOME) ? expand('$HOME/.config') : $XDG_CONFIG_HOME
-let s:dein_cache_dir = $HOME . '/.vim' . '/dein'
+let s:dein_dir = $HOME . '/.vim' . '/dein'
+
 if &runtimepath !~# '/dein.vim'
-	let s:dein_repo_dir = s:dein_cache_dir . '/repos/github.com/Shougo/dein.vim'
+	let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
 	if !isdirectory(s:dein_repo_dir)
 		call system('git clone https://github.com/Shougo/dein.vim ' . shellescape(s:dein_repo_dir))
 	endif
 	execute 'set runtimepath^=' . s:dein_repo_dir
 endif
-if dein#load_state(s:dein_cache_dir)
-	call dein#begin(s:dein_cache_dir)
+if dein#load_state(s:dein_dir)
+	call dein#begin(s:dein_dir)
 	let s:toml_dir = g:config_home . '/dein'
 	let s:toml_list = [s:toml_dir . '/plugins.toml', s:toml_dir . '/lang.toml']
 	for toml in s:toml_list
@@ -30,13 +32,6 @@ endif
 filetype plugin indent on
 syntax enable
 colorscheme hybrid
-
-scriptencoding utf-8
-set encoding=utf-8
-set fileencoding=utf-8
-set fileencodings=utf-8,iso-2022-jp,cp932,euc-jp
-set fileformat=unix
-set fileformats=unix,dos,mac
 
 function s:load_rc(file)
 	let s:rc_dir = g:config_home . '/nvim' . '/rc'
