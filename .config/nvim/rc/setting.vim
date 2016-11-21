@@ -1,5 +1,6 @@
 " 補完の表示オプション
 set completeopt=menu,menuone,noinsert,noselect
+set pumheight=10
 
 " エディタの分割方向を設定する
 set splitbelow

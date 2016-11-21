@@ -30,10 +30,15 @@ nnoremap <silent> tN :<C-u>tabnew<CR>:<C-u>tabprev<CR>
 nnoremap <silent> tc :<C-u>tabclose<CR>
 nnoremap <silent> to :<C-u>tabonly<CR>
 
-" ESCキー2度押しでハイライトの切り替え
+" <Esc><Esc>: ハイライトの切り替え
 nnoremap <silent> <Esc><Esc> :<C-u>set nohlsearch!<CR>
 
-" jj でエスケープ
+" jj: エスケープ
 imap jj <Esc>
 
-" 不明
+" <Y>: 行末までヤンク
+nnoremap Y y$
+
+" + と - で数字を変化させる?
+nnoremap + <C-a>
+nnoremap - <C-x>
