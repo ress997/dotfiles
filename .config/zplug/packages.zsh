@@ -1,5 +1,15 @@
 zplug "zplug/zplug"
 
+zplug "~/.config/zsh", \
+	from:local, \
+	nice:1, \
+	use:"<->_*.zsh"
+
+zplug "~/.config/zsh/functions", \
+	from:local, \
+	nice:2, \
+	use:"*.zsh"
+
 # Command {{{
 
 zplug "monochromegane/the_platinum_searcher", \
@@ -96,8 +106,12 @@ zplug "b4b4r07/enhancd", \
 
 zplug "39e/zsh-completions"
 
+zplug "momo-lab/zsh-abbrev-alias", \
+	hook-load:"source ~/.config/zplug/plugins/abbrev-alias.zsh"
+
 zplug "hlissner/zsh-autopair", \
-	nice:10
+	nice:10, \
+	use:"autopair.zsh"
 
 zplug "zsh-users/zsh-syntax-highlighting", \
 	nice:15
