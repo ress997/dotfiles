@@ -81,8 +81,12 @@ zplug "minodisk/qiitactl", \
 	as:command, \
 	from:gh-r
 
+zplug "denysdovhan/gitio-zsh"
+
+zplug "andrewbonnington/vox.plugin.zsh"
+
 # }}}
-# Plugin {{{
+# 拡張 {{{
 
 zplug "b4b4r07/emoji-cli", \
 	on:"stedolan/jq"
@@ -92,8 +96,14 @@ zplug "b4b4r07/enhancd", \
 
 zplug "39e/zsh-completions"
 
+zplug "hlissner/zsh-autopair", \
+	nice:10
+
 zplug "zsh-users/zsh-syntax-highlighting", \
 	nice:15
+
+# }}}
+# Theme {{{
 
 # }}}
 # vim:ft=zplug:

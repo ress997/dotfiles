@@ -149,7 +149,7 @@ hook_add = 'set helplang=ja,en'
 
 # Neo xxx
 
-[[plugins]] # MRU
+[[plugins]] # Plugin to easily access Most Recently Used (MRU) files
 repo = 'Shougo/neomru.vim'
 on_source = 'denite'
 on_path = '.*'
@@ -163,8 +163,6 @@ on_event = 'TextYankPost'
 repo = 'Shougo/neosnippet'
 depends = ['neosnippet-snippets', 'context_filetype']
 on_event = 'InsertCharPre'
-# on_ft = 'snippet'
-# on_source = 'deoplete'
 hook_source = '''
 	imap <C-k> <Plug>(neosnippet_expand_or_jump)
 	smap <C-k> <Plug>(neosnippet_expand_or_jump)
@@ -229,11 +227,6 @@ depends = 'open-browser'
 on_cmd = ['OpenGithubFile', 'OpenGithubIssue', 'OpenGithubPullReq']
 hook_add = 'nnoremap gx :<C-u>OpenGithubFile<CR>'
 
-[[plugins]]
-repo = 'haya14busa/vim-open-googletranslate'
-depends = 'open-browser'
-on_cmd = 'OpenGoogleTranslate'
-
 # }}}
 # Command {{{
 
@@ -275,7 +268,7 @@ repo = 'tpope/vim-surround'
 on_path = '.*'
 hook_add = 'let g:surround_no_mappings = 1'
 
-[[plugins]]
+[[plugins]] # word単位の移動改善
 repo = 'kana/vim-smartword'
 on_map = '<Plug>(smartword-'
 hook_add = '''
@@ -284,7 +277,7 @@ hook_add = '''
 	nmap e <Plug>(smartword-e)
 '''
 
-[[plugins]]
+[[plugins]] # テキスト整形
 repo = 'junegunn/vim-easy-align'
 on_map = '<Plug>(EasyAlign)'
 hook_add = '''
@@ -292,7 +285,11 @@ hook_add = '''
 	nmap ga <Plug>(EasyAlign)
 '''
 
-[[plugins]]
+[[plugins]] # 任意の単語や文字列をハイライト表示
 repo = 't9md/vim-quickhl'
+on_map = '<Plug>(quickhl-'
+
+[[plugins]] # 折りたたみ改善?
+repo = 'Konfekt/FastFold'
 
 # }}}
