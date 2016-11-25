@@ -112,6 +112,10 @@ if [[ -d $ZPLUG_HOME ]]; then
 fi
 
 # }}}
+
+# Hub
+(( $+commands[hub] )) && function git(){hub "$@"}
+
 # function {{{
 
 # available
@@ -152,12 +156,15 @@ mkcd() {
 	fi
 }
 
-
-# Hub
-(( $+commands[hub] )) && function git(){hub "$@"}
-
 showoptions() {
 	set -o | sed -e 's/^no\(.*\)on$/\1  off/' -e 's/^no\(.*\)off$/\1  on/'
+}
+
+pathshorten() {
+    setopt localoptions noksharrays extendedglob
+    local MATCH MBEGIN MEND
+    local -a match mbegin mend
+    "${2:-echo}" "${1//(#m)[^\/]##\//${MATCH/(#b)([^.])*/$match[1]}/}"
 }
 
 # }}}
@@ -286,7 +293,6 @@ abbreviations=(
 	"drm" "docker rm"
 	"drmi" "docker rmi"
 	"ds" "docker start"
-	"djekyll" "docker run --rm --label=jekyll --volume=$(pwd):/srv/jekyll -it -p 80:4000 jekyll/jekyll:pages jekyll serve --watch --force_polling"
 	# Git系
 	"ga"  "git add"
 	"gb" "git branch"
@@ -359,35 +365,27 @@ bindkey '^r' __fzf-select-history
 # }}}
 # PROMPT {{{
 
-pathshorten() {
-    setopt localoptions noksharrays extendedglob
-    local MATCH MBEGIN MEND
-    local -a match mbegin mend
-    "${2:-echo}" "${1//(#m)[^\/]##\//${MATCH/(#b)([^.])*/$match[1]}/}"
-}
-
 PROMPT_CHAR="❯"
-
 ON_COLOR="%{$fg[green]%}"
 OFF_COLOR="%{$reset_color%}"
 ERR_COLOR="%{$fg[red]%}"
 
-__ultimate::prompt::user()
+__prompt::user()
 {
     echo "%(!.$ON_COLOR.$OFF_COLOR)$PROMPT_CHAR%{$reset_color%}"
 }
 
-__ultimate::prompt::job()
+__prompt::job()
 {
     echo "%(1j.$ON_COLOR.$OFF_COLOR)$PROMPT_CHAR%{$reset_color%}"
 }
 
-__ultimate::prompt::status()
+__prompt::status()
 {
     echo "%(0?.$ON_COLOR.$ERR_COLOR)$PROMPT_CHAR%{$reset_color%}"
 }
 
-__ultimate::prompt::path()
+__prompt::path()
 {
 	local path_color="%{[38;5;244m%}%}"
 	local rsc="%{$reset_color%}"
@@ -401,18 +399,18 @@ PROMPT+='%{${fg[cyan]}%}%m%{${reset_color}%}'
 PROMPT+=' :: '
 PROMPT+='%{${fg[yellow]}%}%n%{${reset_color}%}'
 PROMPT+=' :: '
-PROMPT+='$(__ultimate::prompt::path)'
+PROMPT+='$(__prompt::path)'
 PROMPT+="
 "
-PROMPT+='$(__ultimate::prompt::user)'
-PROMPT+='$(__ultimate::prompt::job)'
-PROMPT+='$(__ultimate::prompt::status)'
+PROMPT+='$(__prompt::user)'
+PROMPT+='$(__prompt::job)'
+PROMPT+='$(__prompt::status)'
 PROMPT+=' '
 
 PROMPT2=""
-PROMPT2+='$(__ultimate::prompt::user)'
-PROMPT2+='$(__ultimate::prompt::job)'
-PROMPT2+='$(__ultimate::prompt::status)'
+PROMPT2+='$(__prompt::user)'
+PROMPT2+='$(__prompt::job)'
+PROMPT2+='$(__prompt::status)'
 PROMPT2+=' '
 
 SPROMPT="%{${fg[red]}%}Did you mean?: %R -> %r [nyae]? %{${reset_color}%}"
