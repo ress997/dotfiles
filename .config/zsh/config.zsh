@@ -359,9 +359,62 @@ bindkey '^r' __fzf-select-history
 # }}}
 # PROMPT {{{
 
-PROMPT="[%n@%m:%F{cyan}%~%f]
-[%#]-> "
-PROMPT2='[%#]-> '
+pathshorten() {
+    setopt localoptions noksharrays extendedglob
+    local MATCH MBEGIN MEND
+    local -a match mbegin mend
+    "${2:-echo}" "${1//(#m)[^\/]##\//${MATCH/(#b)([^.])*/$match[1]}/}"
+}
+
+PROMPT_CHAR="❯"
+
+ON_COLOR="%{$fg[green]%}"
+OFF_COLOR="%{$reset_color%}"
+ERR_COLOR="%{$fg[red]%}"
+
+__ultimate::prompt::user()
+{
+    echo "%(!.$ON_COLOR.$OFF_COLOR)$PROMPT_CHAR%{$reset_color%}"
+}
+
+__ultimate::prompt::job()
+{
+    echo "%(1j.$ON_COLOR.$OFF_COLOR)$PROMPT_CHAR%{$reset_color%}"
+}
+
+__ultimate::prompt::status()
+{
+    echo "%(0?.$ON_COLOR.$ERR_COLOR)$PROMPT_CHAR%{$reset_color%}"
+}
+
+__ultimate::prompt::path()
+{
+	local path_color="%{[38;5;244m%}%}"
+	local rsc="%{$reset_color%}"
+	local sep="$rsc/$path_color"
+	local _path_="$(pathshorten "${PWD/$HOME/~}")"
+	echo "$path_color$_path_$rsc"
+}
+
+PROMPT=""
+PROMPT+='%{${fg[cyan]}%}%m%{${reset_color}%}'
+PROMPT+=' :: '
+PROMPT+='%{${fg[yellow]}%}%n%{${reset_color}%}'
+PROMPT+=' :: '
+PROMPT+='$(__ultimate::prompt::path)'
+PROMPT+="
+"
+PROMPT+='$(__ultimate::prompt::user)'
+PROMPT+='$(__ultimate::prompt::job)'
+PROMPT+='$(__ultimate::prompt::status)'
+PROMPT+=' '
+
+PROMPT2=""
+PROMPT2+='$(__ultimate::prompt::user)'
+PROMPT2+='$(__ultimate::prompt::job)'
+PROMPT2+='$(__ultimate::prompt::status)'
+PROMPT2+=' '
+
 SPROMPT="%{${fg[red]}%}Did you mean?: %R -> %r [nyae]? %{${reset_color}%}"
 
 ## vcs_info {{{
@@ -376,16 +429,15 @@ zstyle ':vcs_info:*' enable git
 zstyle ':vcs_info:*' max-exports 3
 
 # フォーマット
-zstyle ':vcs_info:git:*' formats '(%s:%b)' '%c%u %m'
-zstyle ':vcs_info:git:*' actionformats '(%s:%b)' '%c%u %m' '<!%a>'
+zstyle ':vcs_info:git:*' formats '%b' '%c%u %m'
+zstyle ':vcs_info:git:*' actionformats '%b' '%c%u %m' '<!%a>'
 zstyle ':vcs_info:git:*' check-for-changes true
 zstyle ':vcs_info:git:*' stagedstr "+"    # %c で表示する文字列
 zstyle ':vcs_info:git:*' unstagedstr "-"  # %u で表示する文字列
 
 
 # formats '[%b]' '%c%u %m' , actionformats '[%b]' '%c%u %m' '<!%a>' のメッセージを設定する直前のフック関数
-# 今回の設定の場合はformat の時は2つ, actionformats の時は3つメッセージがあるので各関数が最大3回呼び出される。
-zstyle ':vcs_info:git+set-message:*' hooks git-hook-begin git-untracked git-push-status git-nomerge-branch
+zstyle ':vcs_info:git+set-message:*' hooks git-hook-begin git-untracked git-push-status
 
 # フックの最初の関数
 # git の作業コピーのあるディレクトリのみフック関数を呼び出すようにする (.git ディレクトリ内にいるときは呼び出さない) .git ディレクトリ内では git status --porcelain などがエラーになるため
@@ -436,27 +488,6 @@ zstyle ':vcs_info:git+set-message:*' hooks git-hook-begin git-untracked git-push
 	if [[ "$ahead" -gt 0 ]]; then
 		# misc (%m) に追加
 		hook_com[misc]+="(p${ahead})"
-	fi
-}
-
-# マージしていない件数表示
-# master 以外のブランチにいる場合に、現在のブランチ上でまだ master にマージしていないコミットの件数を (mN) という形式で misc (%m) に表示
-+vi-git-nomerge-branch() {
-	# zstyle formats, actionformats の2番目のメッセージのみ対象にする
-	if [[ "$1" != "1" ]]; then
-		return 0
-	fi
-
-	if [[ "${hook_com[branch]}" == "master" ]]; then
-		return 0
-	fi
-
-	local nomerged
-	nomerged=$(command git rev-list master..${hook_com[branch]} 2>/dev/null | wc -l | tr -d ' ')
-
-	if [[ "$nomerged" -gt 0 ]] ; then
-		# misc (%m) に追加
-		hook_com[misc]+="(m${nomerged})"
 	fi
 }
 
