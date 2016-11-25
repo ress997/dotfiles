@@ -10,7 +10,7 @@ zplug "~/.config/zsh/functions", \
 	nice:2, \
 	use:"*.zsh"
 
-# Command {{{
+# Command
 
 zplug "monochromegane/the_platinum_searcher", \
 	as:command, \
@@ -91,12 +91,16 @@ zplug "minodisk/qiitactl", \
 	as:command, \
 	from:gh-r
 
-zplug "denysdovhan/gitio-zsh"
+zplug "denysdovhan/gitio-zsh", \
+	use:"gitio.zsh"
 
 zplug "andrewbonnington/vox.plugin.zsh"
 
-# }}}
-# 拡張 {{{
+zplug "ssh0/dot", \
+	use:"*.sh", \
+	hook-load:"source ${ZPLUG_CONFIG_HOME}/plugins/dot.zsh"
+
+# 拡張
 
 zplug "b4b4r07/emoji-cli", \
 	on:"stedolan/jq"
@@ -107,7 +111,7 @@ zplug "b4b4r07/enhancd", \
 zplug "39e/zsh-completions"
 
 zplug "momo-lab/zsh-abbrev-alias", \
-	hook-load:"source ~/.config/zplug/plugins/abbrev-alias.zsh"
+	hook-load:"source ${ZPLUG_CONFIG_HOME}/plugins/abbrev-alias.zsh"
 
 zplug "hlissner/zsh-autopair", \
 	nice:10, \
@@ -116,8 +120,5 @@ zplug "hlissner/zsh-autopair", \
 zplug "zsh-users/zsh-syntax-highlighting", \
 	nice:15
 
-# }}}
-# Theme {{{
-
-# }}}
+# Theme
 # vim:ft=zplug:
