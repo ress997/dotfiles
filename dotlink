@@ -21,9 +21,10 @@ config/zplug, .config/zplug
 config/tmux/config.conf, .tmux.conf
 
 # ZSH
-config/zsh/init.zsh,	.zshenv
-config/zsh/config.zsh,	.zshrc
-config/zsh/login.zsh,	.zlogin
+config/zsh, .config/zsh
+config/zsh/init.zsh, .zshenv
+config/zsh/config.zsh, .zshrc
+config/zsh/login.zsh, .zlogin
 
 # }}}
 # vim:ft=conf:
