@@ -16,19 +16,6 @@ autoload -Uz run-help
 export LANGUAGE="ja_JP.UTF-8"
 export LANG=$LANGUAGE
 
-# XDG Base Directory Specification
-export XDG_CACHE_HOME="$HOME/.cache"
-export XDG_CONFIG_HOME="$HOME/.config"
-export XDG_DATA_HOME="$HOME/.local/share"
-
-# Dev
-export DEV_DATA_HOME="$HOME/.dev"
-export DEV_PROGRAM_HOME="$HOME/.local/opt"
-export DOTPATH=$DEV_DATA_HOME/dotfiles
-export FILTER='fzf-tmux:fzf:peco-tmux:peco'
-
-# ---
-
 # Editor
 export EDITOR=nvim
 export GIT_EDITOR=$EDITOR
@@ -67,6 +54,11 @@ export WORDCHARS='*?.[]~&;!#$%^(){}<>'
 
 # ---
 
+# Dev
+export DEV_DATA_HOME="$HOME/.dev"
+export DEV_PROGRAM_HOME="$HOME/.local/opt"
+export DOTPATH=$DEV_DATA_HOME/dotfiles
+
 # golamg
 export GOPATH="$DEV_DATA_HOME/go"
 
@@ -75,15 +67,17 @@ export NODEBREW_ROOT="$DEV_PROGRAM_HOME/nodebrew"
 
 # rbnev
 # export RBENV_ROOT="$DEV_PROGRAM_HOME/rbenv"
-export RBENV_ROOT=/usr/local/var/rbenv
+export RBENV_ROOT="/usr/local/var/rbenv"
 
 # zplug
 export ZPLUG_HOME="$DEV_PROGRAM_HOME/zplug"
 
+# ---
+
 # PATH
 typeset -U path PATH
 path=( \
-	$HOME/.local/bin(N-/)
+	$HOME/.local/bin
 	$ZPLUG_HOME/bin \
 	$GOPATH/bin(N-/) \
 	$NODEBREW_ROOT/current/bin(N-/) \
