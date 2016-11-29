@@ -1,6 +1,21 @@
-# Basic
-config, .config
-bin, bin
+# bin
+bin/git-undo, .local/bin/git-undo
+bin/wifi, .local/bin/wifi
+
+# config {{{
+
+# Basic {{{
+config/aws, .config/aws
+config/dein, .config/dein
+config/git, .config/git
+config/hub, .config/hub
+config/npm, .config/npm
+config/nvim, .config/nvim
+config/peco, .config/peco
+config/pt, .config/pt
+config/tig, .config/tig
+config/zplug, .config/zplug
+# }}}
 
 # Tmux
 config/tmux/config.conf, .tmux.conf
@@ -10,4 +25,5 @@ config/zsh/init.zsh,	.zshenv
 config/zsh/config.zsh,	.zshrc
 config/zsh/login.zsh,	.zlogin
 
+# }}}
 # vim:ft=conf:

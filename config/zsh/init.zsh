@@ -74,6 +74,7 @@ export GOPATH="$DEV_DATA_HOME/go"
 export NODEBREW_ROOT="$DEV_PROGRAM_HOME/nodebrew"
 
 # rbnev
+# export RBENV_ROOT="$DEV_PROGRAM_HOME/rbenv"
 export RBENV_ROOT=/usr/local/var/rbenv
 
 # zplug
@@ -83,7 +84,6 @@ export ZPLUG_HOME="$DEV_PROGRAM_HOME/zplug"
 typeset -U path PATH
 path=( \
 	$HOME/.local/bin(N-/)
-	$HOME/bin \
 	$ZPLUG_HOME/bin \
 	$GOPATH/bin(N-/) \
 	$NODEBREW_ROOT/current/bin(N-/) \
