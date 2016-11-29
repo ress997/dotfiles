@@ -4,18 +4,21 @@
 .DS_Store
 ._*
 
-# Vim
-.netrwhist
-*~
-
-# Sass(SCSS)
-.sass-cache/
-*.css.map
+# ctags
+tags
 
 # Golang
 vendor/
 
 # Node.js
 node_modules
+
+# Sass(SCSS)
+.sass-cache/
+*.css.map
+
+# Vim
+.netrwhist
+*~
 
 # vim:ft=conf:
