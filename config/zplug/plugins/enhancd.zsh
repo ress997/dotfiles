@@ -1,0 +1,2 @@
+export ENHANCD_DIR="$XDG_DATA_HOME/enhancd"
+export ENHANCD_DISABLE_HOME=1

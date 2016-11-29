@@ -9,43 +9,32 @@ fi
 # ENV {{{
 
 # AWS CLI
-export AWS_CONFIG_FILE="$XDG_CONFIG_HOME/aws/config"
-export AWS_CREDENTIAL_FILE="$DEV_DATA_HOME/secret/aws"
+if (( $+commands[aws] )); then
+	export AWS_CONFIG_FILE="$XDG_CONFIG_HOME/aws/config"
+	export AWS_CREDENTIAL_FILE="$DEV_DATA_HOME/secret/aws"
+fi
 
 # Homebrew
 if (( $+commands[brew] )); then
 	export HOMEBREW_NO_ANALYTICS=1
 fi
 
-# enhancd
-export ENHANCD_DIR="$XDG_DATA_HOME/enhancd"
-export ENHANCD_DISABLE_HOME=1
-
-# FZF
-export FZF_DEFAULT_COMMAND='rg --files --hidden --glob "!.git"'
-export FZF_DEFAULT_OPTS="--extended --ansi --multi"
-
 # npm
-export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npm/config"
-export NPM_CONFIG_CACHE="$XDG_CACHE_HOME/npm"
-export NOM_CONFIG_PREFIX="$XDG_DATA_HOME/npm"
-
-# Gomi
-export GOMI_DIR="$XDG_CACHE_HOME/gomi"
-
-# Hub
-export HUB_CONFIG="$XDG_CONFIG_HOME/hub/config.yaml"
+if (( $+commands[npm] )); then
+	export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npm/config"
+	export NPM_CONFIG_CACHE="$XDG_CACHE_HOME/npm"
+	export NOM_CONFIG_PREFIX="$XDG_DATA_HOME/npm"
+fi
 
 # Tig
-export TIGRC_USER="$XDG_CONFIG_HOME/tig/config"
+if (( $+commands[tig] )); then
+	export TIGRC_USER="$XDG_CONFIG_HOME/tig/config"
+fi
 
 # zplug
 export ZPLUG_CONFIG_HOME="$XDG_CONFIG_HOME/zplug"
-export ZPLUG_LOADFILE=$ZPLUG_CONFIG_HOME/packages.zsh
-export ZPLUG_CACHE_DIR="$XDG_CACHE_HOME/zplug"
-export ZPLUG_CACHE_FILE="$ZPLUG_CACHE_DIR/cache"
-export ZPLUG_REPOS="$ZPLUG_CACHE_DIR/repos"
-export ZPLUG_FILTER=$FILTER
+export ZPLUG_CACHE_FILE="$XDG_CACHE_HOME/zplug/cache"
+export ZPLUG_LOADFILE="$ZPLUG_CONFIG_HOME/packages.zsh"
 export ZPLUG_THREADS='32'
 
 # }}}

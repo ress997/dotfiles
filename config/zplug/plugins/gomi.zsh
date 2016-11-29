@@ -1,0 +1,1 @@
+export GOMI_DIR="$XDG_CACHE_HOME/gomi"

@@ -5,11 +5,12 @@ zplug "~/.config/zsh", \
 	nice:1, \
 	use:"<->_*.zsh"
 
-zplug "~/.config/zsh/functions", \
+zplug "~/.config/zplug/plugins", \
 	from:local, \
-	nice:2, \
+	nice:5, \
 	use:"*.zsh"
 
+# Theme
 # Command
 
 zplug "monochromegane/the_platinum_searcher", \
@@ -97,8 +98,7 @@ zplug "denysdovhan/gitio-zsh", \
 zplug "andrewbonnington/vox.plugin.zsh"
 
 zplug "ssh0/dot", \
-	use:"*.sh", \
-	hook-load:"source ${ZPLUG_CONFIG_HOME}/plugins/dot.zsh"
+	use:"*.sh"
 
 # 拡張
 
@@ -110,8 +110,7 @@ zplug "b4b4r07/enhancd", \
 
 zplug "39e/zsh-completions"
 
-zplug "momo-lab/zsh-abbrev-alias", \
-	hook-load:"source ${ZPLUG_CONFIG_HOME}/plugins/abbrev-alias.zsh"
+zplug "momo-lab/zsh-abbrev-alias"
 
 zplug "hlissner/zsh-autopair", \
 	nice:10, \
@@ -120,5 +119,4 @@ zplug "hlissner/zsh-autopair", \
 zplug "zsh-users/zsh-syntax-highlighting", \
 	nice:15
 
-# Theme
 # vim:ft=zplug:
