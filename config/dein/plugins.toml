@@ -266,7 +266,10 @@ repo = 'w0ng/vim-hybrid'
 [[plugins]] # 選択範囲を記号やタグで囲んだり外したりできる
 repo = 'tpope/vim-surround'
 on_path = '.*'
-hook_add = 'let g:surround_no_mappings = 1'
+hook_add = '''
+	" mapping 無効化
+	let g:surround_no_mappings = 1
+'''
 
 [[plugins]] # word単位の移動改善
 repo = 'kana/vim-smartword'
@@ -279,6 +282,7 @@ hook_add = '''
 
 [[plugins]] # テキスト整形
 repo = 'junegunn/vim-easy-align'
+on_cmd = 'EasyAlign'
 on_map = '<Plug>(EasyAlign)'
 hook_add = '''
 	xmap ga <Plug>(EasyAlign)
@@ -288,6 +292,12 @@ hook_add = '''
 [[plugins]] # 任意の単語や文字列をハイライト表示
 repo = 't9md/vim-quickhl'
 on_map = '<Plug>(quickhl-'
+hook_add = '''
+	nmap <Space>m <Plug>(quickhl-manual-this)
+	xmap <Space>m <Plug>(quickhl-manual-this)
+	nmap <Space>M <Plug>(quickhl-manual-reset)
+	xmap <Space>M <Plug>(quickhl-manual-reset)
+'''
 
 [[plugins]] # 折りたたみ改善?
 repo = 'Konfekt/FastFold'

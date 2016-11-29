@@ -2,7 +2,7 @@ alias rm='rm -i'
 
 # 複数ファイルのmv 例　zmv *.txt *.txt.bk
 autoload -Uz zmv
-alias zmv='noglob zmv -W'
+alias rename='noglob zmv -W'
 
 if [[ "${(L)$( uname -s )}" == darwin ]]; then
 	alias ls='ls -G -F'

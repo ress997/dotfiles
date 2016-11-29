@@ -62,7 +62,7 @@ filetype plugin indent on
 
 colorscheme hybrid
 
-" Load Settings File
+" Load Settings File {{{
 function s:load_rc(file)
 	let s:rc_dir = g:config_home . '/nvim' . '/rc'
 	let s:rc_file = s:rc_dir . '/' . a:file . '.vim'
@@ -77,8 +77,10 @@ call s:load_rc('setting')
 call s:load_rc('grep')
 call s:load_rc('keymap')
 call s:load_rc('command')
-
+" }}}
+" Test {{{
 let g:loaded_gzip = 1
 let g:loaded_tarPlugin = 1
 let g:loaded_vimballPlugin = 1
 let g:loaded_zipPlugin = 1
+" }}}
