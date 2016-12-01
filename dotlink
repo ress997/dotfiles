@@ -8,7 +8,6 @@ bin/wifi, .local/bin/wifi
 config/aws, .config/aws
 config/dein, .config/dein
 config/git, .config/git
-config/hub, .config/hub
 config/npm, .config/npm
 config/nvim, .config/nvim
 config/peco, .config/peco

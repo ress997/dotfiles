@@ -1,1 +1,0 @@
-export HUB_CONFIG="$XDG_CONFIG_HOME/hub/config.yaml"
