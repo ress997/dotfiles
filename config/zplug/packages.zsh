@@ -11,6 +11,11 @@ zplug "~/.config/zplug/plugins", \
 	use:"*.zsh"
 
 # Theme
+
+zplug "~/.config/zsh/prompt", \
+	from:local, \
+	as:theme
+
 # Command
 
 zplug "monochromegane/the_platinum_searcher", \
