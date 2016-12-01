@@ -1,18 +1,16 @@
 zplug "zplug/zplug"
 
-zplug "~/.config/zsh", \
+zplug "$XDG_CONFIG_HOME/zsh", \
 	from:local, \
 	nice:1, \
 	use:"<->_*.zsh"
 
-zplug "~/.config/zplug/plugins", \
-	from:local, \
-	nice:5, \
-	use:"*.zsh"
+# $ZPLUG_CONFIG_HOME/plugins
+# hook-load:""
 
 # Theme
 
-zplug "~/.config/zsh/prompt", \
+zplug "$XDG_CONFIG_HOME/zsh/prompt", \
 	from:local, \
 	as:theme
 
@@ -41,7 +39,8 @@ zplug "b4b4r07/peco-tmux.sh", \
 zplug "junegunn/fzf-bin", \
 	as:command, \
 	from:gh-r, \
-	rename-to:fzf
+	rename-to:fzf, \
+	hook-load:"source $ZPLUG_CONFIG_HOME/plugins/fzf.zsh"
 
 zplug "junegunn/fzf", \
 	as:command, \
@@ -66,7 +65,8 @@ zplug "mrowa44/emojify", \
 zplug "b4b4r07/zsh-gomi", \
 	as:command, \
 	on:"junegunn/fzf-bin", \
-	use:"bin/gomi"
+	use:"bin/gomi", \
+	hook-load:"source $ZPLUG_CONFIG_HOME/plugins/gomi.zsh"
 
 zplug "arukasio/cli", \
 	as:command, \
@@ -103,7 +103,8 @@ zplug "denysdovhan/gitio-zsh", \
 zplug "andrewbonnington/vox.plugin.zsh"
 
 zplug "ssh0/dot", \
-	use:"*.sh"
+	use:"*.sh", \
+	hook-load:"source $ZPLUG_CONFIG_HOME/plugins/dot.zsh"
 
 # 拡張
 
@@ -111,11 +112,13 @@ zplug "b4b4r07/emoji-cli", \
 	on:"stedolan/jq"
 
 zplug "b4b4r07/enhancd", \
-	use:"init.sh"
+	use:"init.sh", \
+	hook-load:"source $ZPLUG_CONFIG_HOME/plugins/enhancd.zsh"
 
 zplug "39e/zsh-completions"
 
-zplug "momo-lab/zsh-abbrev-alias"
+zplug "momo-lab/zsh-abbrev-alias", \
+	hook-load:"source $ZPLUG_CONFIG_HOME/plugins/abbrev-alias.zsh"
 
 zplug "hlissner/zsh-autopair", \
 	nice:10, \

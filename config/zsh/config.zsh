@@ -2,22 +2,27 @@ umask 022
 bindkey -d
 limit coredumpsize 0
 
-if (( $+commands[rbenv] )); then
-	eval "$(rbenv init -)"
-fi
-
-# ENV {{{
-
 # AWS CLI
 if (( $+commands[aws] )); then
 	export AWS_CONFIG_FILE="$XDG_CONFIG_HOME/aws/config"
 	export AWS_CREDENTIAL_FILE="$DEV_DATA_HOME/secret/aws"
 fi
 
+# enhancd
+export ENHANCD_DIR="$XDG_DATA_HOME/enhancd"
+
 # Homebrew
 if (( $+commands[brew] )); then
 	export HOMEBREW_NO_ANALYTICS=1
 fi
+
+# Tig
+if (( $+commands[tig] )); then
+	export TIGRC_USER="$XDG_CONFIG_HOME/tig/config"
+fi
+
+# nodebrew
+[[ -d $NODEBREW_ROOT ]] || curl -L git.io/nodebrew | perl - setup
 
 # npm
 if (( $+commands[npm] )); then
@@ -26,35 +31,11 @@ if (( $+commands[npm] )); then
 	export NOM_CONFIG_PREFIX="$XDG_DATA_HOME/npm"
 fi
 
-# Tig
-if (( $+commands[tig] )); then
-	export TIGRC_USER="$XDG_CONFIG_HOME/tig/config"
+# rbenv
+if (( $+commands[rbenv] )); then
+	eval "$(rbenv init -)"
 fi
 
-# zplug
-export ZPLUG_CONFIG_HOME="$XDG_CONFIG_HOME/zplug"
-export ZPLUG_CACHE_FILE="$XDG_CACHE_HOME/zplug/cache"
-export ZPLUG_LOADFILE="$ZPLUG_CONFIG_HOME/packages.zsh"
-export ZPLUG_THREADS='32'
-
-# }}}
-# Auto Download {{{
-
-# TMP
-if (( $+commands[tmux] )) && [ ! -d $XDG_CACHE_HOME/tmux/tpm ]; then
-	if (( $+commands[git] )); then
-		git clone https://github.com/tmux-plugins/tpm $XDG_CACHE_HOME/tmux/tpm
-	fi
-	$XDG_CACHE_HOME/tmux/tpm/bin/install_plugins
-fi
-
-# nodebrew
-[[ -d $NODEBREW_ROOT ]] || curl -L git.io/nodebrew | perl - setup
-
-# zplug
-[[ -d $ZPLUG_HOME ]] || curl -sL zplug.sh/installer | zsh
-
-# }}}
 # Tmux Auto new-session {{{
 if (( $+commands[tmux] )); then
 	if [ -z "$TMUX" ]; then
@@ -90,10 +71,18 @@ if (( $+commands[tmux] )); then
 		echo "${fg_bold[red]}  | | | |\/| | | | |\  /  ${reset_color}"
 		echo "${fg_bold[red]}  | | | |  | | |_| |/  \  ${reset_color}"
 		echo "${fg_bold[red]}  |_| |_|  |_|\___//_/\_\ ${reset_color}"
+		echo
 	fi
 fi
 # }}}
 # zplug {{{
+
+export ZPLUG_CONFIG_HOME="$XDG_CONFIG_HOME/zplug"
+export ZPLUG_CACHE_FILE="$XDG_CACHE_HOME/zplug/cache"
+export ZPLUG_LOADFILE="$ZPLUG_CONFIG_HOME/packages.zsh"
+export ZPLUG_THREADS='32'
+
+[[ -d $ZPLUG_HOME ]] || curl -sL zplug.sh/installer | zsh
 
 if [[ -d $ZPLUG_HOME ]]; then
 	source $ZPLUG_HOME/init.zsh
