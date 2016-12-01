@@ -1,6 +1,8 @@
 # Memo
 
-```zsh:/etc/zshenv
+## `/etc/zshenv`
+
+```zsh
 unsetopt GLOBAL_RCS
 
 # XDG Base Directory Specification
