@@ -3,9 +3,6 @@ bin/git-undo, .local/bin/git-undo
 bin/wifi, .local/bin/wifi
 
 # config {{{
-
-# Basic {{{
-config/aws, .config/aws
 config/dein, .config/dein
 config/git, .config/git
 config/npm, .config/npm
@@ -14,7 +11,9 @@ config/peco, .config/peco
 config/pt, .config/pt
 config/tig, .config/tig
 config/zplug, .config/zplug
-# }}}
+
+# aws cli
+config/aws/config, .config/aws/config
 
 # Tmux
 config/tmux/config.conf, .tmux.conf

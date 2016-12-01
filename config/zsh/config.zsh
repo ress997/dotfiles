@@ -5,7 +5,7 @@ limit coredumpsize 0
 # AWS CLI
 if (( $+commands[aws] )); then
 	export AWS_CONFIG_FILE="$XDG_CONFIG_HOME/aws/config"
-	export AWS_CREDENTIAL_FILE="$DEV_DATA_HOME/secret/aws"
+	export AWS_CREDENTIAL_FILE="$XDG_CONFIG_HOME/aws/credentials"
 fi
 
 # enhancd
