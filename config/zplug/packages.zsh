@@ -5,14 +5,11 @@ zplug "$XDG_CONFIG_HOME/zsh", \
 	nice:1, \
 	use:"<->_*.zsh"
 
-# $ZPLUG_CONFIG_HOME/plugins
-# hook-load:""
-
 # Theme
 
 zplug "$XDG_CONFIG_HOME/zsh/prompt", \
-	from:local, \
-	as:theme
+	as:theme, \
+	from:local
 
 # Command
 
@@ -61,12 +58,6 @@ zplug "github/hub", \
 
 zplug "mrowa44/emojify", \
 	as:command
-
-zplug "b4b4r07/zsh-gomi", \
-	as:command, \
-	on:"junegunn/fzf-bin", \
-	use:"bin/gomi", \
-	hook-load:"source $ZPLUG_CONFIG_HOME/plugins/gomi.zsh"
 
 zplug "arukasio/cli", \
 	as:command, \
