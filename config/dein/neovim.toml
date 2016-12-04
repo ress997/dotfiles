@@ -2,7 +2,7 @@
 repo = 'zchee/nvim-go'
 name = 'neogo'
 if = 'executable("bg")'
-build = 'gb build'
+build = 'make'
 on_source = 'go'
 hook_source = '''
 	let g:go#build#autobuild = 1
