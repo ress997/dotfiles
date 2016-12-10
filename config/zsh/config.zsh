@@ -79,7 +79,6 @@ fi
 
 export ZPLUG_CONFIG_HOME="$XDG_CONFIG_HOME/zplug"
 export ZPLUG_CACHE_DIR="$XDG_CACHE_HOME/zplug"
-export ZPLUG_CACHE_FILE="$ZPLUG_CACHE_DIR/cache"
 export ZPLUG_LOADFILE="$ZPLUG_CONFIG_HOME/packages.zsh"
 export ZPLUG_THREADS='32'
 

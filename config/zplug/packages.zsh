@@ -2,30 +2,35 @@ zplug "zplug/zplug"
 
 zplug "$XDG_CONFIG_HOME/zsh", \
 	from:local, \
-	nice:1, \
+	defer:1, \
 	use:"<->_*.zsh"
+
+zplug "$XDG_CONFIG_HOME/zsh/functions", \
+	from:local, \
+	defer:1, \
+	use:"*.zsh"
 
 # Theme
 
 zplug "$XDG_CONFIG_HOME/zsh/prompt", \
-	as:theme, \
-	from:local
+	from:local, \
+	as:theme
 
 # Command
 
 zplug "monochromegane/the_platinum_searcher", \
-	as:command, \
 	from:gh-r, \
+	as:command, \
 	rename-to:pt
 
 zplug "BurntSushi/ripgrep", \
-	as:command, \
 	from:gh-r, \
+	as:command, \
 	rename-to:rg
 
 zplug "peco/peco", \
-	as:command, \
-	from:gh-r
+	from:gh-r, \
+	as:command
 
 zplug "b4b4r07/peco-tmux.sh", \
 	as:command, \
@@ -34,8 +39,8 @@ zplug "b4b4r07/peco-tmux.sh", \
 	rename-to:"peco-tmux"
 
 zplug "junegunn/fzf-bin", \
-	as:command, \
 	from:gh-r, \
+	as:command, \
 	rename-to:fzf, \
 	hook-load:"source $ZPLUG_CONFIG_HOME/plugins/fzf.zsh"
 
@@ -45,28 +50,28 @@ zplug "junegunn/fzf", \
 	use:"bin/fzf-tmux"
 
 zplug "stedolan/jq", \
-	as:command, \
-	from:gh-r
+	from:gh-r, \
+	as:command
 
 zplug "motemen/ghq", \
-	as:command, \
-	from:gh-r
+	from:gh-r, \
+	as:command
 
 zplug "github/hub", \
-	as:command, \
-	from:gh-r
+	from:gh-r, \
+	as:command
 
 zplug "mrowa44/emojify", \
 	as:command
 
 zplug "arukasio/cli", \
-	as:command, \
 	from:gh-r, \
+	as:command, \
 	rename-to:arukas
 
 zplug "Code-Hex/pget", \
-	as:command, \
-	from:gh-r
+	from:gh-r, \
+	as:command
 
 zplug "b4b4r07/httpstat", \
 	as:command, \
@@ -81,12 +86,12 @@ zplug "39e/go-notify", \
 	rename-to:"line"
 
 zplug "Code-Hex/battery", \
-	as:command, \
-	from:gh-r
+	from:gh-r, \
+	as:command
 
 zplug "minodisk/qiitactl", \
-	as:command, \
-	from:gh-r
+	from:gh-r, \
+	as:command
 
 zplug "denysdovhan/gitio-zsh", \
 	use:"gitio.zsh"
@@ -96,6 +101,11 @@ zplug "andrewbonnington/vox.plugin.zsh"
 zplug "ssh0/dot", \
 	use:"*.sh", \
 	hook-load:"source $ZPLUG_CONFIG_HOME/plugins/dot.zsh"
+
+zplug "39e/c125d28ac6a70850e896968551a5ad81",\
+	from:gist, \
+	as:command, \
+	use:"diff-highlight"
 
 # 拡張
 
@@ -112,10 +122,10 @@ zplug "momo-lab/zsh-abbrev-alias", \
 	hook-load:"source $ZPLUG_CONFIG_HOME/plugins/abbrev-alias.zsh"
 
 zplug "hlissner/zsh-autopair", \
-	nice:10, \
+	defer:2, \
 	use:"autopair.zsh"
 
 zplug "zsh-users/zsh-syntax-highlighting", \
-	nice:15
+	defer:2
 
 # vim:ft=zplug:
