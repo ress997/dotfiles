@@ -21,7 +21,7 @@
 	log  = diff-highlight | less
 	show = diff-highlight | less
 	diff = diff-highlight | less
-# ---
+# サブコマンド
 [commit]
 	template = ~/.config/git/message.txt
 	gpgsign = true
@@ -34,8 +34,9 @@
 	default = current
 [help]
 	autocorrect = 1
-# ---
+# サードパーティー
 [ghq]
 	root = ~/.dev/ghq
 [gpg]
 	program = /usr/local/bin/gpg
+# vim:ft=gitconfig:

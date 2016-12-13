@@ -1,6 +1,3 @@
-# Hub
-(( $+commands[hub] )) && function git(){hub "$@"}
-
 # ghq
 if (( $+commands[ghq] )); then
 	local DIRECTORY

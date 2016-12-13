@@ -56,11 +56,12 @@ export WORDCHARS='*?.[]~&;!#$%^(){}<>'
 
 # Dev
 export DEV_DATA_HOME="$HOME/.dev"
-export DEV_PROGRAM_HOME="$HOME/.local/opt"
+export DEV_PROGRAM_HOME="$HOME/.opt"
 export DOTPATH=$DEV_DATA_HOME/dotfiles
 
 # golamg
 export GOPATH="$DEV_DATA_HOME/go"
+export GOBIN="$GOPATH/bin"
 
 # Nodebrew
 export NODEBREW_ROOT="$DEV_PROGRAM_HOME/nodebrew"
@@ -78,8 +79,8 @@ export ZPLUG_HOME="$DEV_PROGRAM_HOME/zplug"
 typeset -U path PATH
 path=( \
 	$HOME/.local/bin
+	$GOBIN(N-/) \
 	$ZPLUG_HOME/bin \
-	$GOPATH/bin(N-/) \
 	$NODEBREW_ROOT/current/bin(N-/) \
 	/usr/local/bin(N-/) \
 	$path \
