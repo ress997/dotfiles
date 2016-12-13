@@ -1,4 +1,5 @@
 zplug "zplug/zplug"
+# zplug "zplug/zplug", at:"new-spinners"
 
 zplug "$XDG_CONFIG_HOME/zsh", \
 	from:local, \
@@ -42,7 +43,7 @@ zplug "junegunn/fzf-bin", \
 	from:gh-r, \
 	as:command, \
 	rename-to:fzf, \
-	hook-load:"source $ZPLUG_CONFIG_HOME/plugins/fzf.zsh"
+	hook-load:"source $ZPLUG_CONFIG_DIR/plugins/fzf.zsh"
 
 zplug "junegunn/fzf", \
 	as:command, \
@@ -100,7 +101,7 @@ zplug "andrewbonnington/vox.plugin.zsh"
 
 zplug "ssh0/dot", \
 	use:"*.sh", \
-	hook-load:"source $ZPLUG_CONFIG_HOME/plugins/dot.zsh"
+	hook-load:"source $ZPLUG_CONFIG_DIR/plugins/dot.zsh"
 
 zplug "39e/c125d28ac6a70850e896968551a5ad81",\
 	from:gist, \
@@ -114,12 +115,12 @@ zplug "b4b4r07/emoji-cli", \
 
 zplug "b4b4r07/enhancd", \
 	use:"init.sh", \
-	hook-load:"source $ZPLUG_CONFIG_HOME/plugins/enhancd.zsh"
+	hook-load:"source $ZPLUG_CONFIG_DIR/plugins/enhancd.zsh"
 
 zplug "39e/zsh-completions"
 
 zplug "momo-lab/zsh-abbrev-alias", \
-	hook-load:"source $ZPLUG_CONFIG_HOME/plugins/abbrev-alias.zsh"
+	hook-load:"source $ZPLUG_CONFIG_DIR/plugins/abbrev-alias.zsh"
 
 zplug "hlissner/zsh-autopair", \
 	defer:2, \

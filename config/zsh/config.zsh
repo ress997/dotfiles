@@ -32,9 +32,7 @@ if (( $+commands[npm] )); then
 fi
 
 # rbenv
-if (( $+commands[rbenv] )); then
-	eval "$(rbenv init -)"
-fi
+(( $+commands[rbenv] )) && eval "$(rbenv init -)"
 
 # Tmux Auto new-session {{{
 if (( $+commands[tmux] )); then
@@ -77,17 +75,19 @@ fi
 # }}}
 # zplug {{{
 
-export ZPLUG_CONFIG_HOME="$XDG_CONFIG_HOME/zplug"
-export ZPLUG_CACHE_DIR="$XDG_CACHE_HOME/zplug"
-export ZPLUG_LOADFILE="$ZPLUG_CONFIG_HOME/packages.zsh"
 export ZPLUG_THREADS='32'
+export ZPLUG_CONFIG_DIR="$XDG_CONFIG_HOME/zplug"
+export ZPLUG_LOADFILE="$ZPLUG_CONFIG_DIR/packages.zsh"
+export ZPLUG_CACHE_DIR="$XDG_CACHE_HOME/zplug"
+export ZPLUG_REPOS="$XDG_CACHE_HOME/zsh/plugins"
+export ZPLUG_ERROR_LOG="$DEV_DATA_HOME/zplug/error.log"
 
 [[ -d $ZPLUG_HOME ]] || curl -sL zplug.sh/installer | zsh
 
 if [[ -d $ZPLUG_HOME ]]; then
 	source $ZPLUG_HOME/init.zsh
 	zplug check || zplug install
-	zplug load --verbose
+	zplug load
 fi
 
 # }}}

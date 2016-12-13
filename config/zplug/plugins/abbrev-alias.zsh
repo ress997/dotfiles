@@ -36,6 +36,9 @@ if (( $+commands[ghq] )); then
 	abbrev-alias gg="ghq get"
 	abbrev-alias gl="ghq list"
 fi
+if (( $+commands[hub] )); then
+	abbrev-alias g="hub"
+fi
 if (( $+commands[tig] )); then
 	abbrev-alias ts="tig status"
 fi
