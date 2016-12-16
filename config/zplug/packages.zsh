@@ -1,5 +1,4 @@
 zplug "zplug/zplug"
-# zplug "zplug/zplug", at:"new-spinners"
 
 zplug "$XDG_CONFIG_HOME/zsh", \
 	from:local, \
@@ -70,6 +69,7 @@ zplug "arukasio/cli", \
 	as:command, \
 	rename-to:arukas
 
+# 分割ダウンロード
 zplug "Code-Hex/pget", \
 	from:gh-r, \
 	as:command
@@ -79,6 +79,7 @@ zplug "b4b4r07/httpstat", \
 	use:"httpstat.sh", \
 	rename-to:httpstat
 
+# LINE Notify
 zplug "39e/go-notify", \
 	as:command, \
 	if:"(( $+commands[go] ))", \
@@ -90,10 +91,7 @@ zplug "Code-Hex/battery", \
 	from:gh-r, \
 	as:command
 
-zplug "minodisk/qiitactl", \
-	from:gh-r, \
-	as:command
-
+# git.io
 zplug "denysdovhan/gitio-zsh", \
 	use:"gitio.zsh"
 
