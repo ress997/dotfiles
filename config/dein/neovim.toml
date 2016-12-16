@@ -59,13 +59,13 @@ hook_source = '''
 
 [[plugins]] # Golang
 repo = 'zchee/deoplete-go'
-if = 'executable("go")'
+if = 'executable("gocode")'
 depends = 'deoplete'
 on_ft = 'go'
 build = 'make'
 hook_source = '''
 	let g:deoplete#sources#go#use_cache = 1
-	let g:deoplete#sources#go#gocode_binary = $GOPATH . '/bin/gocode'
+	let g:deoplete#sources#go#gocode_binary = $GOBIN . '/gocode'
 	let g:deoplete#sources#go#sort_class = ['package', 'func', 'type', 'var', 'const']
 '''
 
