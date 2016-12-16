@@ -54,7 +54,6 @@ hook_add = 'let g:NumberToggleTrigger="<F2>"'
 
 [[plugins]] # 対応括弧をハイライト
 repo = 'itchyny/vim-parenmatch'
-hook_add = 'let g:loaded_matchparen = 1'
 
 [[plugins]] # git で管理してるファイルの変更を表示
 repo = 'airblade/vim-gitgutter'
@@ -125,9 +124,8 @@ on_map = '<Plug>(easymotion-'
 repo = 'editorconfig/editorconfig-vim'
 on_path = '.*'
 hook_source = '''
-	if has('mac') && executable('/usr/local/bin/editorconfig')
+	if executable('editorconfig')
 		let g:EditorConfig_core_mode = 'external_command'
-		let g:EditorConfig_exec_path = '/usr/local/bin/editorconfig'
 	endif
 '''
 
@@ -143,9 +141,14 @@ hook_source = '''
 	\}
 '''
 
+# Help
+
 [[plugins]] # Japanese doc
 repo = 'vim-jp/vimdoc-ja'
 hook_add = 'set helplang=ja,en'
+
+[[plugins]] # Helpの折りたたみ改善
+repo = 'thinca/vim-ft-help_fold'
 
 # Neo xxx
 
