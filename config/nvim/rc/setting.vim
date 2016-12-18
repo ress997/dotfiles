@@ -33,9 +33,6 @@ set autoread
 " ファイル保存時にバックアップファイルを作らない
 set nobackup
 
-" ファイル編集中にスワップファイルを作らない
-set noswapfile
-
 " ファイル文末の改行を勝手に変更しない? TODO: 後で調べる
 if exists('+fixeol')
 	set nofixendofline

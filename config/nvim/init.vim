@@ -1,15 +1,14 @@
-" 標準のシェルをZSHに変更
-set sh=zsh
-" True Color 有効化
-let $NVIM_TUI_ENABLE_TRUE_COLOR = 1
-" カラースチームの有効化
-let $NVIM_TUI_ENABLE_CURSOR_SHAPE = 1
-" <ESC> でterminalモードからコマンドモードに変更
-tnoremap <silent> <ESC> <C-\><C-n>
-
+" reset
 augroup MyAutoCmd
 	autocmd!
 augroup END
+
+" let g:loaded_gzip = 1
+" let g:loaded_tar = 1
+" let g:loaded_tarPlugin = 1
+" let g:loaded_zip = 1
+" let g:loaded_zipPlugin = 1
+let g:loaded_matchparen = 1
 
 " env
 let g:cache_home = empty($XDG_CACHE_HOME) ? expand('$HOME/.cache') : $XDG_CACHE_HOME
@@ -78,9 +77,13 @@ call s:load_rc('grep')
 call s:load_rc('keymap')
 call s:load_rc('command')
 " }}}
-" Test {{{
-let g:loaded_gzip = 1
-let g:loaded_tarPlugin = 1
-let g:loaded_vimballPlugin = 1
-let g:loaded_zipPlugin = 1
-" }}}
+" NeoVim
+
+" True Color 有効化
+let $NVIM_TUI_ENABLE_TRUE_COLOR = 1
+" カラースチームの有効化
+let $NVIM_TUI_ENABLE_CURSOR_SHAPE = 1
+" 標準のシェルをZSHに変更
+set shell=zsh
+" <ESC> でterminalモードからコマンドモードに変更
+tnoremap <silent> <ESC> <C-\><C-n>
