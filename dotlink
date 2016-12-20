@@ -19,7 +19,8 @@ config/aws/config, .config/aws/config
 config/tmux/config.conf, .tmux.conf
 
 # ZSH
-config/zsh, .config/zsh
+config/zsh/functions, .config/zsh/functions
+config/zsh/prompt, .config/zsh/prompt
 config/zsh/init.zsh, .zshenv
 config/zsh/config.zsh, .zshrc
 config/zsh/login.zsh, .zlogin

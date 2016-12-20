@@ -1,10 +1,5 @@
 zplug "zplug/zplug"
 
-zplug "$XDG_CONFIG_HOME/zsh", \
-	from:local, \
-	defer:1, \
-	use:"<->_*.zsh"
-
 zplug "$XDG_CONFIG_HOME/zsh/functions", \
 	from:local, \
 	defer:1, \
