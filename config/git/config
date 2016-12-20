@@ -5,7 +5,7 @@
 [user]
 	name = Aoi Tachibana
 	email = 39e@users.noreply.github.com
-	signingkey = FB025A9A4B48D997
+	signingkey = 41539C1B0D4FD430
 [github]
 	user = 39e
 # ---
@@ -38,5 +38,5 @@
 [ghq]
 	root = ~/.local/src
 [gpg]
-	program = /usr/local/bin/gpg
+	program = /usr/local/bin/gpg2
 # vim:ft=gitconfig:
