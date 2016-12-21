@@ -79,15 +79,13 @@ export ZPLUG_THREADS='32'
 export ZPLUG_CONFIG_DIR="$XDG_CONFIG_HOME/zplug"
 export ZPLUG_LOADFILE="$ZPLUG_CONFIG_DIR/packages.zsh"
 export ZPLUG_CACHE_DIR="$XDG_CACHE_HOME/zplug"
-export ZPLUG_REPOS="$XDG_CACHE_HOME/zsh/plugins"
-export ZPLUG_ERROR_LOG="$DEV_DATA_HOME/zplug/error.log"
 
 [[ -d $ZPLUG_HOME ]] || curl -sL zplug.sh/installer | zsh
 
 if [[ -d $ZPLUG_HOME ]]; then
 	source $ZPLUG_HOME/init.zsh
 	zplug check || zplug install
-	zplug load
+	zplug load --verbose
 fi
 
 # }}}

@@ -71,7 +71,8 @@ export NODEBREW_ROOT="$DEV_PROGRAM_HOME/nodebrew"
 export RBENV_ROOT="/usr/local/var/rbenv"
 
 # zplug
-export ZPLUG_HOME="$DEV_PROGRAM_HOME/zplug"
+export ZPLUG_REPOS="$DEV_PROGRAM_HOME/zplug/src"
+export ZPLUG_HOME="$ZPLUG_REPOS/zplug/zplug"
 
 # ---
 
