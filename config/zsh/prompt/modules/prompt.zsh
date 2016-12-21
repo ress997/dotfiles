@@ -2,14 +2,14 @@ PROMPT=""
 PROMPT2=""
 PROMPT_CHAR="❯"
 
-__arukas::prompt::user ()
+__arukas::prompt::hostname ()
 {
-    echo "%(!.$ON_COLOR.$OFF_COLOR)$PROMPT_CHAR%{$reset_color%}"
+	echo "%{${fg[cyan]}%}%m%{$reset_color%}"
 }
 
-__arukas::prompt::job ()
+__arukas::prompt::username ()
 {
-    echo "%(1j.$ON_COLOR.$OFF_COLOR)$PROMPT_CHAR%{$reset_color%}"
+	echo "%{${fg[yellow]}%}%n%{$reset_color%}"
 }
 
 __arukas::prompt::status ()

@@ -1,3 +1,8 @@
+__arukas::misc::space ()
+{
+	echo " :: "
+}
+
 __arukas::misc::pathshorten ()
 {
 	setopt localoptions noksharrays extendedglob
