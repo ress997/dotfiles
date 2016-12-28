@@ -4,9 +4,9 @@ do
 done
 unset f
 
-PROMPT+='$(__arukas::prompt::hostname)'
-PROMPT+='$(__arukas::misc::space)'
 PROMPT+='$(__arukas::prompt::username)'
+PROMPT+='$(__arukas::misc::space)'
+PROMPT+='$(__arukas::prompt::hostname)'
 PROMPT+='$(__arukas::misc::space)'
 PROMPT+='$(__arukas::prompt::path)'
 PROMPT+="
