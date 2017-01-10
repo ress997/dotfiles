@@ -74,7 +74,6 @@ if (( $+commands[tmux] )); then
 fi
 # }}}
 # zplug {{{
-
 export ZPLUG_THREADS='32'
 export ZPLUG_CONFIG_DIR="$XDG_CONFIG_HOME/zplug"
 export ZPLUG_LOADFILE="$ZPLUG_CONFIG_DIR/packages.zsh"
@@ -87,7 +86,6 @@ if [[ -d $ZPLUG_HOME ]]; then
 	zplug check || zplug install
 	zplug load --verbose
 fi
-
 # }}}
 # autoload {{{
 
