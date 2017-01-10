@@ -24,7 +24,7 @@ set showmatch
 set matchtime=1
 
 " 不可視文字を表示
-set list listchars=tab:»-,eol:↲,trail:･,extends:>,precedes:<,nbsp:%
+set list listchars=tab:¦\ ,eol:↲,trail:･,extends:>,precedes:<,nbsp:%
 
 " GUI Colors
 if has('termguicolors')
