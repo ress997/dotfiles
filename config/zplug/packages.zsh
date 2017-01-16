@@ -13,25 +13,29 @@ zplug "$XDG_CONFIG_HOME/zsh/prompt", \
 
 # Command
 
-zplug "monochromegane/the_platinum_searcher", \
+zplug "Code-Hex/battery", \
 	from:gh-r, \
+	as:command
+
+zplug "39e/c125d28ac6a70850e896968551a5ad81",\
+	from:gist, \
 	as:command, \
-	rename-to:pt
+	use:"diff-highlight"
 
 zplug "BurntSushi/ripgrep", \
 	from:gh-r, \
 	as:command, \
 	rename-to:rg
 
-zplug "peco/peco", \
+zplug "monochromegane/the_platinum_searcher", \
 	from:gh-r, \
-	as:command
-
-zplug "b4b4r07/peco-tmux.sh", \
 	as:command, \
-	on:"peco/peco", \
-	use:"peco-tmux.sh", \
-	rename-to:"peco-tmux"
+	rename-to:pt
+
+zplug "jhawthorn/fzy", \
+	as:command, \
+	hook-build:'make', \
+	use:fzy
 
 zplug "junegunn/fzf-bin", \
 	from:gh-r, \
@@ -39,14 +43,15 @@ zplug "junegunn/fzf-bin", \
 	rename-to:fzf, \
 	hook-load:"source $ZPLUG_CONFIG_DIR/plugins/fzf.zsh"
 
-zplug "junegunn/fzf", \
+zplug "39e/2cd87b179166cfc6000532d854de27b4", \
+	from:gist, \
 	as:command, \
 	on:"junegunn/fzf-bin", \
-	use:"bin/fzf-tmux"
+	use:"fzf-tmux"
 
-zplug "stedolan/jq", \
-	from:gh-r, \
-	as:command
+zplug "ssh0/dot", \
+	use:"*.sh", \
+	hook-load:"source $ZPLUG_CONFIG_DIR/plugins/dot.zsh"
 
 zplug "motemen/ghq", \
 	from:gh-r, \
@@ -56,9 +61,14 @@ zplug "github/hub", \
 	from:gh-r, \
 	as:command
 
+zplug "stedolan/jq", \
+	from:gh-r, \
+	as:command
+
 zplug "mrowa44/emojify", \
 	as:command
 
+# arukas.io
 zplug "arukasio/cli", \
 	from:gh-r, \
 	as:command, \
@@ -71,40 +81,24 @@ zplug "Code-Hex/pget", \
 
 zplug "b4b4r07/httpstat", \
 	as:command, \
-	use:"httpstat.sh", \
-	rename-to:httpstat
-
-# LINE Notify
-zplug "39e/go-notify", \
-	as:command, \
-	if:"(( $+commands[go] ))", \
-	hook-build:"go build", \
-	use:"go-notify", \
-	rename-to:"line"
-
-zplug "Code-Hex/battery", \
-	from:gh-r, \
-	as:command
+	use:'(*).sh', \
+	rename-to:'$1'
 
 # git.io
 zplug "denysdovhan/gitio-zsh", \
 	use:"gitio.zsh"
 
-zplug "andrewbonnington/vox.plugin.zsh"
-
-zplug "ssh0/dot", \
-	use:"*.sh", \
-	hook-load:"source $ZPLUG_CONFIG_DIR/plugins/dot.zsh"
-
-zplug "39e/c125d28ac6a70850e896968551a5ad81",\
-	from:gist, \
+# Git - branch
+zplug "b4b4r07/git-br", \
 	as:command, \
-	use:"diff-highlight"
+	use:'git-br'
+
+# Git - browse
+zplug "rhysd/git-brws", \
+	from:gh-r, \
+	as:command
 
 # 拡張
-
-zplug "b4b4r07/emoji-cli", \
-	on:"stedolan/jq"
 
 zplug "b4b4r07/enhancd", \
 	use:"init.sh", \
