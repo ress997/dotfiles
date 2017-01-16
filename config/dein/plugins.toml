@@ -180,7 +180,8 @@ hook_source = '''
 	let g:neosnippet#snippets_directory = dein#get('neosnippet-snippets').path . '/neosnippets'
 '''
 
-# NERD Tree
+# File tree {{{
+# Shougo/defx.nvim によって、削除する可能性あり
 
 [[plugins]]
 repo = 'scrooloose/nerdtree'
@@ -210,6 +211,7 @@ repo = 'jistr/vim-nerdtree-tabs'
 deoplete = 'nerdtree'
 hook_add = 'nmap tf <Plug>NERDTreeTabsToggle<CR>'
 
+# }}}
 # Open Browser
 
 [[plugins]]
@@ -239,8 +241,8 @@ depends = 'dein'
 on_cmd = 'Dein'
 
 [[plugins]] # Git
-repo = 'cohama/agit.vim'
-on_cmd = 'Agit'
+repo = 'lambdalisue/gina.vim'
+on_cmd = 'Gina'
 
 [[plugins]] # Gist
 repo = 'lambdalisue/vim-gista'
@@ -249,19 +251,16 @@ on_cmd = 'Gista'
 [[plugins]] # Preview
 repo = 'kannokanno/previm'
 depends = 'open-browser'
-on_ft = 'markdown'
-
-[[plugins]] # Codic
-repo = 'yasuharu519/vim-codic'
-if = 'exists("$CODIC_ACCESS_TOKEN")'
-on_cmd = 'VimCodic'
-hook_source = 'let g:vim_codic_access_token = $CODIC_ACCESS_TOKEN'
+on_cmd = 'PrevimOpen'
 
 # }}}
 # Colors {{{
 
-[[plugins]] # hybrid
+[[plugins]]
 repo = 'w0ng/vim-hybrid'
+
+[[plugins]]
+repo = 'jacoborus/tender.vim'
 
 # }}}
 # Test {{{
