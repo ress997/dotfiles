@@ -38,9 +38,6 @@ if dein#load_state(s:dein_cache_dir)
 
 	let s:toml_dir = g:config_home . '/dein'
 	let s:toml_list = [s:toml_dir . '/plugins.toml', s:toml_dir . '/lang.toml', s:toml_dir . '/neovim.toml']
-	if has('mac')
-		call add(s:toml_list, s:toml_dir . '/mac.toml')
-	endif
 
 	for toml in s:toml_list
 		if filereadable(toml)
