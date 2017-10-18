@@ -6,6 +6,8 @@
 
 My Dotfile for macOS
 
+**注意:** このリポジトリは現在使用してません。<br>リメイクしたリポジトリは諸事情によりプライベートリポジトリとして管理してます。
+
 ## Features
 
 - **macOS** Sierra (MacBook Pro, Retina 15-inch, 2016)
