@@ -1,0 +1,5 @@
+# vim:ft=gitconfig:
+[credential]
+	helper = osxkeychain
+[gpg]
+	program = /usr/local/bin/gpg

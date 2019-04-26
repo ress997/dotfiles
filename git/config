@@ -1,0 +1,38 @@
+# vim:ft=gitconfig:
+[include]
+	path = ~/.config/git/local
+# ---
+[core]
+	pager = less -FRX
+	excludesfile = ~/.config/git/ignore
+	preloadindex = true
+[user]
+	name = Ress
+	email = git@x39.dev
+[github]
+	user = ress997
+# ---
+[alias]
+	last = log -1 HEAD
+[color]
+	ui = true
+[interactive]
+	diffFilter = diff-highlight
+[pager]
+	log  = diff-highlight | less -FRX
+	show = diff-highlight | less -FRX
+	diff = diff-highlight | less -FRX
+[help]
+	autocorrect = 1
+# Subcommands
+[commit]
+	template = ~/.config/git/message.txt
+[diff]
+	algorithm = histogram
+	compactionHeuristic = true
+[push]
+	default = current
+# Third party
+[ghq]
+	root = ~/.local/src
+	root = ~/.go/src

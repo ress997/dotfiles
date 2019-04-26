@@ -1,0 +1,35 @@
+# vim:ft=config:
+# タブサイズ
+set tab-size = 4
+
+# 検索時に大文字小文字を無視する
+set ignore-case = true
+
+# 空白無視 (status-view では表示するが diff-view では無視する) (W でトグル)
+set ignore-space = at-eol
+
+# 水平分割したウィンドウの下画面サイズを % で指定
+set split-view-width = 80%
+
+# 長い行をラップします
+set wrap-lines = yes
+
+# 差分表示に diff-highlight を使う
+set diff-highlight = true
+
+# メインビューの表示設定
+set main-view = id:yes date:custom author:full commit-title:graph=yes,refs=yes
+set main-view-date-format = "%y %m/%d %H:%M"
+
+# Color Settings {{{
+color default white black
+color cursor default magenta
+color date cyan default
+color delimiter cyan default
+color line-number yellow default
+color diff-header yellow default
+color diff-index blue default
+color diff-chunk magenta default
+color "Reported-by:" green default
+color graph-commit cyan default
+# }}}
