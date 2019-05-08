@@ -1,4 +1,20 @@
 # cheatsheet
+# <$mod+f> fullscreen
+# <$mod+Q> app kill
+# <$mod+R> i3 reload
+# <$mod+t> split toggle
+# <$mod+A> floating toggle
+# <$mod+a> focus mode_toggle
+# <$mod+D> move scratchpad
+# <$mod+d> scratchpad show
+# <Pause> lock user
+# <$mod+Return> run terminal
+# <Print> full screenshot
+# <Ctrl+Space> run launcher
+# <Mod4+:> run command
+# <Mod4+Tab> change window
+# <$mod+s> run system
+# <$mod+Shift+Escape> next wallpaper
 
 set $mod Mod4
 floating_modifier $mod
@@ -100,7 +116,6 @@ bindsym $mod+Shift+r restart
 # lock
 set $lock "env XSECURELOCK_SHOW_USERNAME=0 XSECURELOCK_SHOW_HOSTNAME=0 xsecurelock"
 bindsym Pause exec --no-startup-id $lock
-bindsym XF86HomePage exec --no-startup-id $lock
 
 # terminal
 bindsym $mod+Return exec alacritty
@@ -141,7 +156,7 @@ mode "Window" {
 
 	# focus the parent container
 	bindsym a focus parent
-	
+
 	# resize window
 	bindsym r mode "resize"
 
@@ -172,6 +187,7 @@ for_window [class="Pavucontrol"] floating enable, resize set 600 400
 for_window [class="Fcitx-config-gtk3"] floating enable, resize set 600 400
 for_window [class="mozc_tool"] floating enable, resize set 600 400
 for_window [class="Blueman-manager"] floating enable, resize set 600 400
+for_window [class="Bitwarden"] floating enable
 
 # no title
 for_window [class="^.*"] border pixel 1

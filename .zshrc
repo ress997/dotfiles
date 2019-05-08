@@ -397,34 +397,26 @@ path=(
 )
 
 # --- plugin ---
-typeset -A __plugins=()
-
-# __zcompile() {
-# 	if [[ "$1" -nt "$1.zwc" || ! -f "$1.zwc" ]]; then
-# 		zcompile "$1"
-# 	fi
-# }
-
 plugin() {
+	local dir="$HOME/.local/src"
 	local repo="$1"
 	local file="$2"
-	local dir="$(ghq list --full-path $repo)"
 
-	__plugins+=("${repo}" "${dir}/${file}")
-	source "${dir}/${file}"
+	p="$dir/$repo/$file"
+	[[ -f $p ]] && source $p
 }
 
-plugin "39e/zsh-ayame" ayame.zsh-theme
-plugin "39e/zsh-enhancd" init.zsh
+plugin "github.com/39e/zsh-ayame" ayame.zsh-theme
+plugin "github.com/39e/zsh-enhancd" init.zsh
 ENHANCD_DISABLE_HOME=1
 ENHANCD_DOT_SHOW_FULLPATH=1
 ENHANCD_USE_FUZZY_MATCH=0
 
-plugin "zsh-users/zsh-history-substring-search" zsh-history-substring-search.zsh
-plugin "zdharma/history-search-multi-word" history-search-multi-word.plugin.zsh
-plugin "zdharma/fast-syntax-highlighting" fast-syntax-highlighting.plugin.zsh
+plugin "github.com/zsh-users/zsh-history-substring-search" zsh-history-substring-search.zsh
+plugin "github.com/zdharma/history-search-multi-word" history-search-multi-word.plugin.zsh
+plugin "github.com/zdharma/fast-syntax-highlighting" fast-syntax-highlighting.plugin.zsh
 
-# echo "${__plugins}"
+# ------
 
 if [[ "~/.zshrc" -nt "~/.zshrc.zwc" || ! -f "~/.zshrc.zwc"  ]]; then
 	zcompile ~/.zshrc

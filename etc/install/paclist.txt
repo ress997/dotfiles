@@ -38,12 +38,10 @@ libu2f-host
 libva-intel-driver
 libvdpau-va-gl
 linux-lts
-mpc
-mpd
-ncmpcpp
 neovim
 nodejs-lts-dubnium
 noto-fonts-cjk
+noto-fonts-emoji
 ntfs-3g
 openssh
 pavucontrol
@@ -67,9 +65,11 @@ whois
 words
 wpa_supplicant
 xdg-user-dirs
+xf86-input-synaptics
 xf86-video-intel
 xorg-server
 xorg-xbacklight
+xorg-xev
 xorg-xinit
 xsecurelock-git
 yarn
