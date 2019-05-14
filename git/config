@@ -35,4 +35,3 @@
 # Third party
 [ghq]
 	root = ~/.local/src
-	root = ~/.go/src

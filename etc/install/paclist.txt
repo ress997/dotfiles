@@ -10,13 +10,11 @@ discord
 docker-bin
 docker-compose-bin
 dunst
-editorconfig-core-c
 exfat-utils
 fcitx-configtool
 fcitx-mozc
 fd
 feh
-firefox-developer-edition-i18n-ja
 firefox-i18n-ja
 fzf
 fzy
@@ -45,7 +43,6 @@ noto-fonts-emoji
 ntfs-3g
 openssh
 pavucontrol
-pget
 polybar
 pulseaudio
 python-neovim
@@ -53,7 +50,6 @@ rescached-git
 ripgrep
 rofi
 spacefm
-thunderbird-i18n-ja
 tig
 transmission-qt
 tree

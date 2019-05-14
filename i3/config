@@ -187,7 +187,6 @@ for_window [class="Pavucontrol"] floating enable, resize set 600 400
 for_window [class="Fcitx-config-gtk3"] floating enable, resize set 600 400
 for_window [class="mozc_tool"] floating enable, resize set 600 400
 for_window [class="Blueman-manager"] floating enable, resize set 600 400
-for_window [class="Bitwarden"] floating enable
 
 # no title
 for_window [class="^.*"] border pixel 1
