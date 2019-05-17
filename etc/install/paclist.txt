@@ -1,6 +1,4 @@
 alacritty
-base
-base-devel
 bind-tools
 bitwarden-bin
 blueman
@@ -16,7 +14,6 @@ fcitx-mozc
 fd
 feh
 firefox-i18n-ja
-fzf
 fzy
 ghq
 git
@@ -30,7 +27,6 @@ intel-media-driver
 intel-ucode
 jsoncpp
 keybase-bin
-libc++
 libsecret
 libu2f-host
 libva-intel-driver
