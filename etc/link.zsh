@@ -1,7 +1,7 @@
 #!/usr/bin/env zsh
 
 typeset -g -A _dotlist=()
-typeset -g    DOTPATH="$HOME/.local/src/git.3q.lt/ress/dot"
+typeset -g    DOTPATH="$HOME/.local/src/github.com/ress997/dotfiles"
 
 # --- func --- {{{
 __dot::add() {
@@ -90,7 +90,7 @@ fi
 		if [[ -f "$DOTPATH/$f" ]]; then
 			p="$HOME/${_dotlist[$f]}"
 			[[ -d "${p:h}" ]] || mkdir -p ${p:h}
-			[[ -f "${p}" ]] ln -sf "$DOTPATH/$f" "$p"
+			ln -sf "$DOTPATH/$f" "$p"
 		fi
 	done
 }

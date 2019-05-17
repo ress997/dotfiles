@@ -14,7 +14,7 @@ export TERMINAL=alacritty
 
 # Dev
 export DEV_TMP=${DEV_TMP:-`mktemp -d`}
-export DEV_DOT="$HOME/.local/src/git.3q.lt/ress/dot"
+export DEV_DOT="$HOME/.local/src/github.com/ress997/dotfiles"
 
 # change shell
 export SHELL=zsh
