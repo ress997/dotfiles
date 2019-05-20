@@ -57,12 +57,13 @@ whois
 words
 wpa_supplicant
 xdg-user-dirs
-xf86-input-synaptics
+xf86-input-libinput
 xf86-video-intel
 xorg-server
 xorg-xbacklight
 xorg-xev
 xorg-xinit
+xorg-xinput
 xsecurelock-git
 yarn
 yaskkserv
