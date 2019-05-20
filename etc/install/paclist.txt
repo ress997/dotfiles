@@ -20,7 +20,6 @@ git
 gnome-keyring
 go
 google-chrome
-htop
 hugo
 i3-gaps
 intel-media-driver
@@ -54,7 +53,6 @@ unarchiver
 vlc
 wget
 whois
-words
 wpa_supplicant
 xdg-user-dirs
 xf86-input-libinput

@@ -250,11 +250,13 @@ alias rename='noglob zmv -W'
 
 alias q='exit'
 
+## suffix alias
 if (( $+commands[unar] )); then
 	alias -s {gz,zip,7z}='unar'
 fi
 
 # --- complete ---
+# TODO: 整理
 
 ## 単語の区切りを調整
 export WORDCHARS='*?.[]~&;!#$%^(){}<>'

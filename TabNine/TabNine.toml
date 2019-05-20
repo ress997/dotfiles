@@ -1,0 +1,14 @@
+[language.go]
+command = "gopls"
+args = ["serve"]
+install = [["go", "get", "-u", "golang.org/x/tools/cmd/gopls"]]
+
+[language.css]
+command = "css-languageserver"
+args = ["--stdio"]
+install = [["yarn", "global", "add", "vscode-css-languageserver-bin"]]
+
+[language.scss]
+command = "css-languageserver"
+args = ["--stdio"]
+install = [["yarn", "global", "add", "vscode-css-languageserver-bin"]]
