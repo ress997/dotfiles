@@ -66,6 +66,7 @@ if [[ "${(L)$( uname -s )}" == linux ]]; then
 
 	if (( $+commands[i3] )); then
 		__dot::add::dir "i3/config"
+		__dot::add::dir "i3/screenshot.sh"
 	fi
 
 	if (( $+commands[polybar] )); then

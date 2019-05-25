@@ -60,6 +60,7 @@ xf86-video-intel
 xorg-server
 xorg-xbacklight
 xorg-xinit
+xorg-xrandr
 xsecurelock-git
 yarn
 yaskkserv
