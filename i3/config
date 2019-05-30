@@ -15,7 +15,6 @@
 # <Mod4+:> run command
 # <Mod4+Tab> change window
 # <$mod+s> run system
-# <$mod+Shift+Escape> next wallpaper
 # }}}
 
 set $mod Mod4
@@ -134,8 +133,6 @@ bindsym Mod4+Shift+semicolon exec "rofi -show run -terminal"
 bindsym Mod4+Tab exec "rofi -modi window -show window -kb-row-down Alt+Tab"
 bindsym Mod4+s exec "rofi -modi system:~/.config/rofi/system.sh -show system"
 
-bindsym $mod+Shift+Escape exec "systemctl start --user feh-wallpaper"
-
 # back light
 bindsym XF86MonBrightnessUp exec "xbacklight -inc 10"
 bindsym XF86MonBrightnessDown exec "xbacklight -dec 5"
@@ -199,5 +196,5 @@ font pango:Cica 8
 
 # autostart
 exec_always --no-startup-id "~/.config/polybar/launch.sh"
-#exec_always --no-startup-id "feh --no-fehbg --randomize --bg-max ~/Pictures/wallpaper/"
+exec_always --no-startup-id "feh --no-fehbg --randomize --bg-max ~/Pictures/wallpaper/"
 exec --no-startup-id dunst

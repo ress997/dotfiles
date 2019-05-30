@@ -408,11 +408,13 @@ plugin() {
 	[[ -f $p ]] && source $p
 }
 
-plugin "github.com/39e/zsh-ayame" ayame.zsh-theme
-plugin "github.com/39e/zsh-enhancd" init.zsh
+plugin "github.com/ress997/zsh-ayame" ayame.zsh-theme
+
+export ENHANCD_DIR="${XDG_DATA_HOME}/enhancd"
 ENHANCD_DISABLE_HOME=1
 ENHANCD_DOT_SHOW_FULLPATH=1
 ENHANCD_USE_FUZZY_MATCH=0
+plugin "github.com/b4b4r07/enhancd" init.sh
 
 plugin "github.com/zsh-users/zsh-history-substring-search" zsh-history-substring-search.zsh
 plugin "github.com/zdharma/history-search-multi-word" history-search-multi-word.plugin.zsh
