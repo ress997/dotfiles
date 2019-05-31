@@ -2,7 +2,6 @@ alacritty
 bind-tools
 bitwarden-bin
 blueman
-btrfs-progs
 discord
 docker-bin
 docker-compose-bin
@@ -30,13 +29,11 @@ libu2f-host
 libva-intel-driver
 libvdpau-va-gl
 linux-lts
+minecraft
 neovim
 network-manager-applet
-networkmanager
 nodejs-lts-dubnium
 noto-fonts
-noto-fonts-cjk
-noto-fonts-emoji
 ntfs-3g
 pavucontrol
 polybar
@@ -47,11 +44,13 @@ ripgrep
 rofi
 seahorse
 spacefm
+thunderbird-i18n-ja
 tig
 transmission-qt
 tree
 udisks2
 unarchiver
+visual-studio-code-bin
 vlc
 wget
 whois

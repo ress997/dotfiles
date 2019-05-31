@@ -50,8 +50,8 @@ fi
 
 # linux {{{
 if [[ "${(L)$( uname -s )}" == linux ]]; then
-	__dot::add ".xinitrc"
 
+	__dot::add ".xinitrc"
 	__dot::add ".bash_profile"
 
 	if (( $+commands[git] )); then

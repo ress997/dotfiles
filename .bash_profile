@@ -12,12 +12,9 @@ export XAUTHORITY="$XDG_RUNTIME_DIR/Xauthority"
 # Terminal
 export TERMINAL=alacritty
 
-# Dev
-export DEV_TMP=${DEV_TMP:-`mktemp -d`}
-export DEV_DOT="$HOME/.local/src/github.com/ress997/dotfiles"
-
-# change shell
-export SHELL=zsh
 if [[ -z $DISPLAY && $XDG_VTNR -eq 1 ]]; then
+	# change shell
+	export SHELL=zsh
+	# startx
 	exec startx
 fi
