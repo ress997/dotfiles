@@ -198,3 +198,4 @@ font pango:Cica 8
 exec_always --no-startup-id "~/.config/polybar/launch.sh"
 exec_always --no-startup-id "feh --no-fehbg --randomize --bg-max ~/Pictures/wallpaper/"
 exec --no-startup-id dunst
+exec --no-startup-id nm-applet

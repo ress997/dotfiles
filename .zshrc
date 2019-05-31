@@ -180,7 +180,7 @@ _abbreviations+=(
 		"gl" "ghq list"
 		)
 		if (( $+commands[tree] )); then
-			_abbreviations+=("gt" "tree -L 3 $(ghq root --all)")
+			_abbreviations+=("gt" "tree -L 2 ~/.local/src/github.com")
 		fi
 	fi
 fi

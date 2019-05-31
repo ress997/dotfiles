@@ -3,7 +3,6 @@ bind-tools
 bitwarden-bin
 blueman
 btrfs-progs
-dialog
 discord
 docker-bin
 docker-compose-bin
@@ -23,6 +22,7 @@ hugo
 i3-gaps
 intel-media-driver
 intel-ucode
+iwd
 jsoncpp
 keybase-bin
 libsecret
@@ -31,6 +31,8 @@ libva-intel-driver
 libvdpau-va-gl
 linux-lts
 neovim
+network-manager-applet
+networkmanager
 nodejs-lts-dubnium
 noto-fonts
 noto-fonts-cjk
@@ -53,7 +55,6 @@ unarchiver
 vlc
 wget
 whois
-wpa_supplicant
 xdg-user-dirs
 xf86-input-libinput
 xf86-video-intel
