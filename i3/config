@@ -117,6 +117,7 @@ bindsym $mod+Shift+r restart
 # lock
 set $lock "env XSECURELOCK_SHOW_USERNAME=0 XSECURELOCK_SHOW_HOSTNAME=0 xsecurelock"
 bindsym Pause exec --no-startup-id $lock
+bindsym Mod4+Escape exec --no-startup-id $lock
 
 # terminal
 bindsym $mod+Return exec alacritty

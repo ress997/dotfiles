@@ -3,14 +3,13 @@ limit coredumpsize 0
 zmodload zsh/files
 
 autoload -Uz colors && colors
-autoload -Uz compinit && compinit -d ${DEV_TMP:-$XDG_CACHE_HOME}/zcompdump
+autoload -Uz compinit && compinit -d $XDG_CACHE_HOME/zcompdump
 autoload -Uz zmv
 
 typeset -gx -U fpath FPATH
 fpath=(
-	$XDG_CONFIG_HOME/zsh/Completion(N-/)
-	$XDG_CONFIG_HOME/zsh/functions(N-/)
 	/usr/local/share/zsh/site-functions(N-/)
+	/usr/share/zsh/site-functions(N-/)
 	$fpath
 )
 
@@ -393,7 +392,7 @@ showopt() {
 # ------
 
 path=(
-	~/.local/bin(N-/)
+	~/.local/bin
 	~/.yarn/bin(N-/)
 	$path
 )
