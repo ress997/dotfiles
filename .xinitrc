@@ -19,16 +19,16 @@ export QT_QPA_PLATFORMTHEME=qt5ct
 
 # IME {{{
 # Fcitx
-#export GTK_IM_MODULE=fcitx
-#export XMODIFIERS=@im=fcitx
-#export QT_IM_MODULE=fcitx
-#fcitx-autostart
+export GTK_IM_MODULE=fcitx
+export QT_IM_MODULE=fcitx
+export XMODIFIERS=@im=fcitx
+fcitx-autostart
 
 # iBus
-export GTK_IM_MODULE=ibus
-export XMODIFIERS=@im=ibus
-export QT_IM_MODULE=ibus
-ibus-daemon -drx
+#export GTK_IM_MODULE=ibus
+#export QT_IM_MODULE=ibus
+#export XMODIFIERS=@im=ibus
+#ibus-daemon -drx
 # }}}
 
 exec i3

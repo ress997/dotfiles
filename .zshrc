@@ -109,7 +109,9 @@ _abbreviations+=(
 )
 
 ## Copy to clipboard
-if (( $+commands[xclip] )); then
+if (( $+commands[wl-copy] )); then
+	_abbreviations+=("CP" "| wl-copy")
+elif (( $+commands[xclip] )); then
 	_abbreviations+=("CP" "| xclip -in -selection clipboard")
 elif (( $+commands[xsel] )); then
 	_abbreviations+=("CP" "| xsel --input --clipboard")

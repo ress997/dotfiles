@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+export LANG=ja_JP.UTF-8
 
 # XDG Base Directory
 export XDG_CACHE_HOME="$HOME/.cache"
@@ -15,6 +16,6 @@ export TERMINAL=alacritty
 if [[ -z $DISPLAY && $XDG_VTNR -eq 1 ]]; then
 	# change shell
 	export SHELL=zsh
-	# startx
-	exec startx
+
+	exec sway
 fi

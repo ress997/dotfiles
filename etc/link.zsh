@@ -44,44 +44,57 @@ if [[ "${(L)$( uname -s )}" == mac ]]; then
 	if (( $+commands[tmux] )); then
 		__dot::add::dir "tmux"
 	fi
-
-fi
 # }}}
-
 # linux {{{
-if [[ "${(L)$( uname -s )}" == linux ]]; then
-
-	__dot::add ".xinitrc"
+elif [[ "${(L)$( uname -s )}" == linux ]]; then
 	__dot::add ".bash_profile"
+
+	__dot::add::dir "gtk-3.0/settings.ini"
+
+	if (( $+commands[sway] )); then
+		__dot::add::dir "sway/config"
+		__dot::add::dir "sway/wallpaper.sh"
+		__dot::add::dir "sway/screenshot.sh"
+
+		if (( $+commands[mako] )); then
+			__dot::add::dir "mako/config"
+		fi
+
+		if (( $+commands[waybar] )); then
+			__dot::add::dir "waybar/config"
+			__dot::add::dir "waybar/style.css"
+			__dot::add::dir "waybar/launch.sh"
+		fi
+	else
+		__dot::add ".xinitrc"
+
+		__dot::add::dir "i3/config"
+		__dot::add::dir "i3/screenshot.sh"
+
+		if (( $+commands[xkeysnail] )); then
+			__dot::add::dir "xkeysnail"
+		else
+			__dot::add ".Xmodmap"
+		fi
+
+		if (( $+commands[dunst] )); then
+			__dot::add::dir "dunst/dunstrc"
+		fi
+
+		if (( $+commands[polybar] )); then
+			__dot::add::dir "polybar/config"
+			__dot::add::dir "polybar/launch.sh"
+		fi
+	fi
 
 	if (( $+commands[git] )); then
 		__dot::add::dir "git/local/linux" "git/local"
-	fi
-
-	if (( $+commands[xkeysnail] )); then
-		__dot::add::dir "xkeysnail"
-	else
-		__dot::add ".Xmodmap"
-	fi
-
-	if (( $+commands[i3] )); then
-		__dot::add::dir "i3/config"
-		__dot::add::dir "i3/screenshot.sh"
-	fi
-
-	if (( $+commands[polybar] )); then
-		__dot::add::dir "polybar/config"
-		__dot::add::dir "polybar/launch.sh"
 	fi
 
 	if (( $+commands[rofi] )); then
 		__dot::add::dir "rofi/config"
 		__dot::add::dir "rofi/system.sh"
 		__dot::add::dir "rofi/theme.rasi"
-	fi
-
-	if (( $+commands[dunst] )); then
-		__dot::add::dir "dunst/dunstrc"
 	fi
 fi
 # }}}

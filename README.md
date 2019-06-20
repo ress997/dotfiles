@@ -1,14 +1,19 @@
-# Dotfile
-
+Dotfile
+===
 **Notes**: WIP
 
 My dot files for Unix
 
 ## 使用環境
-開発環境: macOS, Linux
+開発環境:
+
+- macOS
+- Arch Linux
+
+ログインシェルは `bash` を使用してます。
+ターミナル上では `zsh` を使用してます。
 
 ## License
-
 Copyright (c) 2016 [Ress](https://ress.mit-license.org/2016)
 
 Licensed under the [MIT license](LICENSE).
