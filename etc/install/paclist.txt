@@ -5,9 +5,9 @@ arc-icon-theme
 bat
 bluez
 bluez-utils
+btrfs-progs
 caja
 deadbeef
-dnsmasq
 docker-bin
 docker-compose-bin
 eom
@@ -22,7 +22,6 @@ ghq-bin
 git
 go
 grim
-gvfs
 intel-media-driver
 intel-ucode
 iwd
@@ -35,7 +34,6 @@ libu2f-host
 libxss
 light
 mako
-minecraft
 neovim
 network-manager-applet-indicator
 nodejs-lts-dubnium
@@ -54,16 +52,16 @@ sway
 swaylock
 tig
 tree
+udisks2
 unarchiver
 usb_modeswitch
 waybar
+wayland
 wd719x-firmware
-wget
 wl-clipboard
 xdg-user-dirs
-xorg-server
 xorg-server-xwayland
-xorg-xinit
 yarn
+yaskkserv
 yay-bin
 zsh

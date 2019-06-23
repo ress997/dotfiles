@@ -2,16 +2,16 @@ umask 022
 limit coredumpsize 0
 zmodload zsh/files
 
-autoload -Uz colors && colors
-autoload -Uz compinit && compinit -d $XDG_CACHE_HOME/zcompdump
-autoload -Uz zmv
-
 typeset -gx -U fpath FPATH
 fpath=(
 	/usr/local/share/zsh/site-functions(N-/)
 	/usr/share/zsh/site-functions(N-/)
 	$fpath
 )
+
+autoload -Uz colors && colors
+autoload -Uz compinit && compinit -d $XDG_CACHE_HOME/zcompdump
+autoload -Uz zmv
 
 # Homebrew
 if (( $+commands[brew] )); then
@@ -23,11 +23,7 @@ if (( $+commands[brew] )); then
 fi
 
 # Editor
-if (( $+commands[nvim] )); then
-	export EDITOR='nvim'
-elif (( $+commands[vim] )); then
-	export EDITOR='vim'
-fi
+export EDITOR='nvim'
 export GIT_EDITOR=$EDITOR
 
 # ls color
@@ -389,6 +385,11 @@ available() {
 
 showopt() {
 	set -o | sed -e 's/^no\(.*\)on$/\1  off/' -e 's/^no\(.*\)off$/\1  on/'
+}
+
+g() {
+	local repo=$(ghq list --full-path|$(available fzy fzf peco))
+	[[ -n "$repo" ]] && cd "$repo"
 }
 
 # ------
