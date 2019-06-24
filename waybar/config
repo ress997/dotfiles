@@ -4,7 +4,7 @@
     "height": 30,
     "modules-left": ["sway/workspaces", "sway/mode", "custom/media"],
     "modules-center": ["sway/window"],
-    "modules-right": ["tray", "backlight", "pulseaudio", "battery", "battery#bat2", "clock"],
+    "modules-right": ["network", "backlight", "pulseaudio", "battery", "battery#bat2", "clock", "tray"],
     // Modules configuration
     // "sway/workspaces": {
     //     "disable-scroll": true,
@@ -71,6 +71,14 @@
             "default": ["🔈", "🔉", "🔊"]
         },
         "on-click": "pavucontrol"
+    },
+    "network": {
+        // "interface": "wlp2*", // (Optional) To force the use of this interface
+        "format-wifi": "{essid} ({signalStrength}%) ",
+        "format-ethernet": "{ifname}: {ipaddr}/{cidr} ",
+        "format-linked": "{ifname} (No IP) ",
+        "format-disconnected": "Disconnected ⚠",
+        "format-alt": "{ifname}: {ipaddr}/{cidr}"
     },
     "custom/media": {
         "format": "{icon} {}",

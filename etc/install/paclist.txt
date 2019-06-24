@@ -7,6 +7,8 @@ bluez
 bluez-utils
 btrfs-progs
 caja
+connman
+connman-gtk
 deadbeef
 docker-bin
 docker-compose-bin
@@ -35,7 +37,6 @@ libxss
 light
 mako
 neovim
-network-manager-applet-indicator
 nodejs-lts-dubnium
 noto-fonts
 ntfs-3g

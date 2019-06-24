@@ -192,6 +192,5 @@ smart_borders on
 # autostart
 exec --no-startup-id fcitx-autostart
 exec --no-startup-id mako
-exec --no-startup-id nm-applet --indicator
 exec_always --no-startup-id ~/.config/sway/wallpaper.sh
 exec_always --no-startup-id ~/.config/waybar/launch.sh
