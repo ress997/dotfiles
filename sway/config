@@ -190,7 +190,7 @@ gaps inner 8
 smart_borders on
 
 # autostart
-exec --no-startup-id fcitx-autostart
+exec --no-startup-id fcitx5
 exec --no-startup-id mako
 exec_always --no-startup-id ~/.config/sway/wallpaper.sh
 exec_always --no-startup-id ~/.config/waybar/launch.sh
