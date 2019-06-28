@@ -393,6 +393,8 @@ g() {
 }
 
 # ------
+[[ -f "~/.select" ]] && source ~/.select
+# ------
 
 path=(
 	~/.local/bin
