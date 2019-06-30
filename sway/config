@@ -130,7 +130,7 @@ bindsym $mod+a focus mode_toggle
 bindsym $mod+Shift+d move scratchpad
 bindsym $mod+d scratchpad show
 
-bindsym $mod+Shift+q kill
+bindsym $mod+q kill
 bindsym $mod+Shift+r reload
 
 # lock
@@ -149,10 +149,10 @@ bindsym Print exec "~/.config/sway/screenshot.sh"
 bindsym $mod+Print exec "~/.config/sway/screenshot.sh full"
 
 # launcher
-bindsym control+space exec "rofi -show drun"
+bindsym Mod4+r exec "rofi -show drun"
 bindsym Mod4+Shift+semicolon exec "rofi -show run -terminal"
 bindsym Mod4+Tab exec "rofi -modi window -show window -kb-row-down Alt+Tab"
-bindsym Mod4+s exec "rofi -modi system:~/.config/rofi/system.sh -show system"
+bindsym Mod4+Shift+q exec "rofi -modi system:~/.config/rofi/system.sh -show system"
 
 # back light
 bindsym XF86MonBrightnessUp exec "light -A 10"
@@ -178,11 +178,12 @@ input type:keyboard {
 	xkb_options ctrl:nocaps
 }
 
-for_window [class="Pavucontrol"] floating enable, resize set 600 400
-for_window [class="Fcitx-config-gtk3"] floating enable, resize set 600 400
-for_window [class="mozc_tool"] floating enable, resize set 600 400
 for_window [class="Blueman-manager"] floating enable, resize set 600 400
+for_window [class="Fcitx-config-gtk3"] floating enable, resize set 600 400
+for_window [class="Pavucontrol"] floating enable, resize set 600 400
+for_window [class="mozc_tool"] floating enable, resize set 600 400
 
+# no title bar
 default_border pixel 1
 
 gaps outer 8

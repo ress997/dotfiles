@@ -33,13 +33,13 @@ libsecret
 libu2f-host
 libxss
 light
+linux-zen
 mailcap-mime-types
 mako
 mimi-git
 neovim
 nodejs-lts-dubnium
 ntfs-3g
-opera
 pavucontrol
 profile-sync-daemon
 pulseaudio
