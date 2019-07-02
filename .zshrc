@@ -425,7 +425,7 @@ plugin::update() {
 
 plugin "ress997/zsh-ayame" ayame.zsh-theme
 
-export ENHANCD_DIR="${XDG_DATA_HOME}/enhancd"
+export ENHANCD_DIR="${XDG_CACHE_HOME}/enhancd"
 ENHANCD_DISABLE_HOME=1
 ENHANCD_DOT_SHOW_FULLPATH=1
 ENHANCD_USE_FUZZY_MATCH=0
