@@ -1,7 +1,7 @@
-rofi.theme: ~/.config/rofi/theme.rasi
+rofi.theme: Monokai.rasi
 
-rofi.sidebar-mode: true
-rofi.hide-scrollbar: true
+rofi.show-icons: true
+rofi.font: Cica 16
 
 rofi.modi: window,drun
 

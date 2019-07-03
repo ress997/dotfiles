@@ -2,16 +2,16 @@ umask 022
 limit coredumpsize 0
 zmodload zsh/files
 
-autoload -Uz colors && colors
-autoload -Uz compinit && compinit -d $XDG_CACHE_HOME/zcompdump
-autoload -Uz zmv
-
 typeset -gx -U fpath FPATH
 fpath=(
 	/usr/local/share/zsh/site-functions(N-/)
 	/usr/share/zsh/site-functions(N-/)
 	$fpath
 )
+
+autoload -Uz colors && colors
+autoload -Uz compinit && compinit -d $XDG_CACHE_HOME/zcompdump
+autoload -Uz zmv
 
 # Homebrew
 if (( $+commands[brew] )); then
@@ -23,11 +23,7 @@ if (( $+commands[brew] )); then
 fi
 
 # Editor
-if (( $+commands[nvim] )); then
-	export EDITOR='nvim'
-elif (( $+commands[vim] )); then
-	export EDITOR='vim'
-fi
+export EDITOR='nvim'
 export GIT_EDITOR=$EDITOR
 
 # ls color
@@ -109,7 +105,9 @@ _abbreviations+=(
 )
 
 ## Copy to clipboard
-if (( $+commands[xclip] )); then
+if (( $+commands[wl-copy] )); then
+	_abbreviations+=("CP" "| wl-copy")
+elif (( $+commands[xclip] )); then
 	_abbreviations+=("CP" "| xclip -in -selection clipboard")
 elif (( $+commands[xsel] )); then
 	_abbreviations+=("CP" "| xsel --input --clipboard")
@@ -389,6 +387,13 @@ showopt() {
 	set -o | sed -e 's/^no\(.*\)on$/\1  off/' -e 's/^no\(.*\)off$/\1  on/'
 }
 
+g() {
+	local repo=$(ghq list --full-path|$(available fzy fzf peco))
+	[[ -n "$repo" ]] && cd "$repo"
+}
+
+# ------
+[[ -f "~/.select" ]] && source ~/.select
 # ------
 
 path=(
@@ -398,26 +403,37 @@ path=(
 )
 
 # --- plugin ---
+typeset -g -A __plugins=()
 plugin() {
 	local dir="$HOME/.local/src"
 	local repo="$1"
 	local file="$2"
+	local site="${3-"github.com"}"
 
-	p="$dir/$repo/$file"
+	local sum="$(echo $repo|openssl md5|awk '{print $2}')"
+	__plugins+=("$sum" "$repo")
+
+	p="$dir/$site/$repo/$file"
 	[[ -f $p ]] && source $p
 }
 
-plugin "github.com/ress997/zsh-ayame" ayame.zsh-theme
+plugin::update() {
+	foreach repo (${__plugins})
+		ghq get -u "$repo"
+	end
+}
 
-export ENHANCD_DIR="${XDG_DATA_HOME}/enhancd"
+plugin "ress997/zsh-ayame" ayame.zsh-theme
+
+export ENHANCD_DIR="${XDG_CACHE_HOME}/enhancd"
 ENHANCD_DISABLE_HOME=1
 ENHANCD_DOT_SHOW_FULLPATH=1
 ENHANCD_USE_FUZZY_MATCH=0
-plugin "github.com/b4b4r07/enhancd" init.sh
+plugin "b4b4r07/enhancd" init.sh
 
-plugin "github.com/zsh-users/zsh-history-substring-search" zsh-history-substring-search.zsh
-plugin "github.com/zdharma/history-search-multi-word" history-search-multi-word.plugin.zsh
-plugin "github.com/zdharma/fast-syntax-highlighting" fast-syntax-highlighting.plugin.zsh
+plugin "zsh-users/zsh-history-substring-search" zsh-history-substring-search.zsh
+plugin "zdharma/history-search-multi-word" history-search-multi-word.plugin.zsh
+plugin "zdharma/fast-syntax-highlighting" fast-syntax-highlighting.plugin.zsh
 
 # ------
 
