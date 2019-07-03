@@ -1,0 +1,10 @@
+rofi.theme: ~/.config/rofi/theme.rasi
+
+rofi.sidebar-mode: true
+rofi.hide-scrollbar: true
+
+rofi.modi: window,drun
+
+rofi.kb-cancel: Escape,Control+bracketleft
+rofi.kb-mode-previous: Alt+u
+rofi.kb-mode-next: Alt+i
