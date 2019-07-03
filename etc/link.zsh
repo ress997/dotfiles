@@ -1,7 +1,7 @@
 #!/usr/bin/env zsh
 
 typeset -g -A _dotlist=()
-typeset -g    DOTPATH="$HOME/.local/src/github.com/ress997/dotfiles"
+typeset -g    DOTPATH="$HOME/.local/src/git.x39.dev/ress/dot"
 
 # --- func --- {{{
 __dot::add() {
