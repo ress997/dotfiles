@@ -94,7 +94,7 @@ bindsym s layout stacking
 	bindsym Escape mode "default"
 }
 
-bindsym $mod+r mode "resize"
+#bindsym $mod+r mode "resize"
 mode "resize" {
 bindsym Left resize shrink width 5 px or 5 ppt
 	bindsym h resize shrink width 5 px or 5 ppt
@@ -140,9 +140,6 @@ bindsym Mod4+Escape exec --no-startup-id $lock
 
 # terminal
 bindsym $mod+Return exec alacritty
-
-# File Manager
-bindsym $mod+e exec caja
 
 # Screen shot
 bindsym Print exec "~/.config/sway/screenshot.sh"

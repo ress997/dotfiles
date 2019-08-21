@@ -22,10 +22,6 @@ if (( $+commands[brew] )); then
 	export HOMEBREW_UPGRADE_CLEANUP=1
 fi
 
-# Editor
-export EDITOR='nvim'
-export GIT_EDITOR=$EDITOR
-
 # ls color
 export LS_COLORS='di=32:ln=36:so=32:pi=33:ex=31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
 
@@ -209,11 +205,43 @@ fi
 _abbreviations+=(
 	"sk" "ssh-keygen -t ed25519 -C '$(git config --get user.email)'"
 	"q" "exit"
-	# LS
-	"la" "ls -A"
-	"ll" "ls -l"
-	"lla" "ls -lA"
 )
+
+## LS
+if (( $+commands[exa] )); then
+	alias ls='exa -h'
+	alias la='exa -a'
+	alias ll='exa -l'
+	alias lla='exa -la'
+	_abbreviations+=(
+		"la" "exa -a"
+		"ll" "exa -l"
+		"lla" "exa -la"
+	)
+
+	if (( $+commands[tree] - 1 )); then
+		alias tree='exa --tree'
+		_abbreviations+=(
+			"tree" "exa --tree"
+		)
+	fi
+else
+	if (( $+commands[gls] )); then
+		alias ls='gls -F --color=auto'
+	elif [[ "${(L)$( uname -s )}" == mac ]]; then
+		alias ls='ls -F -G'
+	else
+		alias ls='ls -F --color=auto'
+	fi
+	alias la='ls -A'
+	alias ll='ls -l'
+	alias lla='ls -lA'
+	_abbreviations+=(
+		"la" "ls -A"
+		"ll" "ls -l"
+		"lla" "ls -lA"
+	)
+fi
 
 # iab setup
 setopt extended_glob
@@ -237,15 +265,13 @@ bindkey -M viins "^x " __iab::no-magic-abbrev-expand
 # }}}
 # --- alias ---
 
-alias ls='ls -F --color=auto'
-
-alias la='ls -A'
-alias ll='ls -l'
-alias lla='ls -lA'
-
 alias rename='noglob zmv -W'
 
 alias q='exit'
+
+if (( $+commands[wifi-menu] )); then
+	alias wifi='sudo wifi-menu'
+fi
 
 ## suffix alias
 if (( $+commands[unar] )); then
@@ -392,8 +418,6 @@ g() {
 	[[ -n "$repo" ]] && cd "$repo"
 }
 
-# ------
-[[ -f "~/.select" ]] && source ~/.select
 # ------
 
 path=(

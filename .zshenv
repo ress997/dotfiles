@@ -9,7 +9,8 @@ export LC_CTYPE="${LANGUAGE}"
 export LANG="${LANGUAGE}"
 
 # Editor
-export EDITOR='vi'
+export EDITOR='nvim'
+export GIT_EDITOR=$EDITOR
 
 # Pager
 export PAGER='less'

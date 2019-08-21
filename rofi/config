@@ -1,9 +1,10 @@
+# vim:ft=conf:
 rofi.theme: Monokai.rasi
 
 rofi.show-icons: true
 rofi.font: Cica 16
 
-rofi.modi: window,drun
+rofi.modi: drun,ssh,window,run
 
 rofi.kb-cancel: Escape,Control+bracketleft
 rofi.kb-mode-previous: Alt+u

@@ -1,4 +1,5 @@
 #!/usr/bin/env zsh
+
 # 共通
 brew insatll fd
 brew install fzf
@@ -11,8 +12,11 @@ brew install ripgrep
 brew install tig
 brew install tree
 
-if [[ "${(L)$( uname -s )}" == mac ]]; then
-# GNU
+if [[ "${(L)$( uname -s )}" != mac ]]; then
+	return
+fi
+
+# GNU command
 brew install coreutils
 brew install gawk
 brew install gnu-sed
@@ -25,9 +29,11 @@ brew install tmux
 brew install wget
 brew install zsh
 
-brew install neovim --HEAD
+brew install neovim
+#brew install neovim --HEAD
 # https://github.com/neovim/pynvim をインストール
 #brew install python
+#pip3 install -U pynvim
 
 brew install n
 brew install yarn --without-node
@@ -46,4 +52,3 @@ brew cask install webpquicklook
 
 # Font
 brew cask install font-cica
-fi
