@@ -2,16 +2,9 @@ Dotfile
 ===
 **Notes**: WIP
 
-My dot files for Unix
+My dot files for Unix terminal
 
-## 使用環境
-開発環境:
-
-- macOS
-- Arch Linux
-
-ログインシェルは `bash` を使用してます。
-ターミナル上では `zsh` を使用してます。
+[macOS](https://github.com/ress997/dotfiles-mac), [Arch Linux](https://github.com/ress997/dotfiles-linux), [Neovim](https://github.com/ress997/dotfiles-neovim) で使用するものを分離しました.
 
 ## License
 Copyright (c) 2016 [Ress](https://ress.mit-license.org/2016)
