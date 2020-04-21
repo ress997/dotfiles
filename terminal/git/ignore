@@ -1,0 +1,24 @@
+.secret
+
+# macOS
+.DS_Store
+._*
+
+# Golang
+vendor/
+
+# Node.js
+node_modules
+
+# Sass(SCSS)
+.sass-cache/
+*.css.map
+
+# Vim
+.netrwhist
+*~
+
+# ZSH
+*.zwc
+
+# vim:ft=conf:
