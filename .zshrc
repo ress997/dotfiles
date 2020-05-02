@@ -29,6 +29,11 @@ export LS_COLORS='di=32:ln=36:so=32:pi=33:ex=31:bd=46;34:cd=43;34:su=41;30:sg=46
 export RUSTUP_HOME="$XDG_DATA_HOME/rustup"
 export CARGO_HOME="$XDG_DATA_HOME/cargo"
 
+# nextword
+if [[ -d "$XDG_DATA_HOME/nextword/large" ]]; then
+	export NEXTWORD_DATA_PATH="$XDG_DATA_HOME/nextword/large"
+fi
+
 # --- history ---
 export HISTFILE="$XDG_DATA_HOME/zsh/history"
 export HISTSIZE=10000
@@ -405,8 +410,8 @@ showopt() {
 }
 
 g() {
-	local repo=$(ghq list --full-path|$(available fzy fzf peco))
-	[[ -n "$repo" ]] && cd "$repo"
+	local repo=$(ghq list --unique | $(available fzy fzf peco))
+	[[ -n "$repo" ]] && cd $(ghq list -p "$repo")
 }
 
 # ------
@@ -449,6 +454,10 @@ plugin "b4b4r07/enhancd" init.sh
 plugin "zsh-users/zsh-history-substring-search" zsh-history-substring-search.zsh
 plugin "zdharma/history-search-multi-word" history-search-multi-word.plugin.zsh
 plugin "zdharma/fast-syntax-highlighting" fast-syntax-highlighting.plugin.zsh
+
+if (( $+commands[wakatime] )); then
+	plugin "wbingli/zsh-wakatime" zsh-wakatime.plugin.zsh
+fi
 
 # ------
 
