@@ -1,5 +1,5 @@
 # vim:ft=gitconfig:
 [credential]
-	helper = store --file ~/.config/git/credentials
+	helper = libsecret
 [gpg]
 	program = /usr/bin/gpg

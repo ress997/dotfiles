@@ -30,8 +30,8 @@ export RUSTUP_HOME="$XDG_DATA_HOME/rustup"
 export CARGO_HOME="$XDG_DATA_HOME/cargo"
 
 # nextword
-if [[ -d "$XDG_DATA_HOME/nextword/large" ]]; then
-	export NEXTWORD_DATA_PATH="$XDG_DATA_HOME/nextword/large"
+if [[ -d "$XDG_DATA_HOME/nextword/data" ]]; then
+	export NEXTWORD_DATA_PATH="$XDG_DATA_HOME/nextword/data"
 fi
 
 # --- history ---
@@ -411,7 +411,7 @@ showopt() {
 
 g() {
 	local repo=$(ghq list --unique | $(available fzy fzf peco))
-	[[ -n "$repo" ]] && cd $(ghq list -p "$repo")
+	[[ -n "$repo" ]] && cd $(ghq list --full-path --exact "$repo")
 }
 
 # ------
