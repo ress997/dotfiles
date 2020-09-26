@@ -13,6 +13,21 @@ autoload -Uz colors && colors
 autoload -Uz compinit && compinit -d $XDG_CACHE_HOME/zcompdump
 autoload -Uz zmv
 
+# --- env ---
+# ls color
+export LS_COLORS='di=32:ln=36:so=32:pi=33:ex=31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
+
+
+# Rust
+export RUSTUP_HOME="$XDG_DATA_HOME/rustup"
+export CARGO_HOME="$XDG_DATA_HOME/cargo"
+
+# Go
+export GO111MODULE=on
+export GOBIN=$HOME/.local/bin
+export GOMODCACHE=$XDG_CACHE_HOME/go_mod
+
+
 # Homebrew
 if (( $+commands[brew] )); then
 	# Analytics: off
@@ -21,13 +36,6 @@ if (( $+commands[brew] )); then
 	# upgrade: 実行時 cleanup
 	export HOMEBREW_UPGRADE_CLEANUP=1
 fi
-
-# ls color
-export LS_COLORS='di=32:ln=36:so=32:pi=33:ex=31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
-
-# rust
-export RUSTUP_HOME="$XDG_DATA_HOME/rustup"
-export CARGO_HOME="$XDG_DATA_HOME/cargo"
 
 # nextword
 if [[ -d "$XDG_DATA_HOME/nextword/data" ]]; then
@@ -224,6 +232,7 @@ if (( $+commands[exa] )); then
 		"la" "exa -a"
 		"ll" "exa -l"
 		"lla" "exa -la"
+		"lg" "exa --git"
 	)
 
 	if (( $+commands[tree] - 1 )); then
