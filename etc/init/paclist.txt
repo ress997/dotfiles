@@ -2,7 +2,7 @@ base
 base-devel
 bat
 bind
-docker
+docker-bin
 docker-compose-bin
 exa
 exfat-utils

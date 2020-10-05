@@ -1,5 +1,7 @@
 # vim:ft=gitconfig:
 # ---
+[init]
+	defaultBranch = main
 [core]
 	pager = less -FRX
 	excludesfile = ~/.config/git/ignore
@@ -34,5 +36,6 @@
 [ghq]
 	user = ress997
 	root = ~/.local/src
+# Local config
 [include]
 	path = ~/.config/git/local
