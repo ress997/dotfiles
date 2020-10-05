@@ -1,16 +1,12 @@
 # vim:ft=gitconfig:
 # ---
-[init]
-	defaultBranch = main
 [core]
-	pager = less -FRX
 	excludesfile = ~/.config/git/ignore
+	pager = less -FRX
 	preloadindex = true
 [user]
 	name = Ress
 	email = 48500247+ress997@users.noreply.github.com
-[github]
-	user = ress997
 # ---
 [alias]
 	last = log -1 HEAD
@@ -30,6 +26,8 @@
 [diff]
 	algorithm = histogram
 	compactionHeuristic = true
+[init]
+	defaultBranch = main
 [push]
 	default = current
 # Third party
