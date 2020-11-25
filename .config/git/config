@@ -1,8 +1,6 @@
 # vim:ft=gitconfig:
-# ---
 [core]
-	excludesfile = ~/.config/git/ignore
-	pager = less -FRX
+	pager = delta
 	preloadindex = true
 [user]
 	name = Ress
@@ -12,14 +10,10 @@
 	last = log -1 HEAD
 [color]
 	ui = true
-[interactive]
-	diffFilter = diff-highlight
-[pager]
-	log  = diff-highlight | less -FRX
-	show = diff-highlight | less -FRX
-	diff = diff-highlight | less -FRX
 [help]
 	autocorrect = 1
+[interactive]
+	diffFilter = delta --color-only
 # Subcommands
 [commit]
 	template = ~/.config/git/message.txt
@@ -28,9 +22,14 @@
 	compactionHeuristic = true
 [init]
 	defaultBranch = main
+[pull]
+	ff = only
 [push]
 	default = current
 # Third party
+[delta]
+	line-numbers = true
+	side-by-side = true
 [ghq]
 	user = ress997
 	root = ~/.local/src

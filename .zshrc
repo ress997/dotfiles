@@ -1,6 +1,16 @@
+# vim:ft=zsh:foldmethod=marker:
 umask 022
 limit coredumpsize 0
 zmodload zsh/files
+
+path=(
+	~/.local/bin(N-/)
+	~/.yarn/bin(N-/)
+	~/.local/share/cargo/bin(N-/)
+	~/.local/go/bin(N-/)
+	/opt/homebrew/bin(N-/)
+	$path
+)
 
 typeset -gx -U fpath FPATH
 fpath=(
@@ -13,57 +23,92 @@ autoload -Uz colors && colors
 autoload -Uz compinit && compinit -d $XDG_CACHE_HOME/zcompdump
 autoload -Uz zmv
 
-# --- env ---
-# ls color
-export LS_COLORS='di=32:ln=36:so=32:pi=33:ex=31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
+# Apple Silicon
+if (( $+commands[arch] )); then
+	alias brew="arch -arch x86_64 /usr/local/bin/brew"
+	alias x64='exec arch -arch x86_64 "$SHELL"'
+	alias a64='exec arch -arch arm64e "$SHELL"'
+	switch-arch() {
+		if  [[ "$(uname -m)" == arm64 ]]; then
+			arch=x86_64
+		elif [[ "$(uname -m)" == x86_64 ]]; then
+			arch=arm64e
+		fi
+		exec arch -arch $arch "$SHELL"
+	}
+fi
 
+# --- env --- {{{
+# Editor
+if (( $+commands[nvim] )); then
+	export EDITOR='nvim'
+else
+	export EDITOR='vi'
+fi
+
+# Pager
+export PAGER='less'
+export LESS='-R -f -X -i -P ?f%f:(stdin). ?lb%lb?L/%L.. [?eEOF:?pb%pb\%..]'
+export LESSHISTFILE=-
+export LESS_TERMCAP_mb=$'\E[01;31m'       # begin blinking
+export LESS_TERMCAP_md=$'\E[01;31m'       # begin bold
+export LESS_TERMCAP_me=$'\E[0m'           # end mode
+export LESS_TERMCAP_se=$'\E[0m'           # end standout-mode
+export LESS_TERMCAP_so=$'\E[00;44;37m'    # begin standout-mode - info box
+export LESS_TERMCAP_ue=$'\E[0m'           # end underline
+export LESS_TERMCAP_us=$'\E[01;32m'       # begin underline
+
+## LS
+export LS_COLORS='di=32:ln=36:so=32:pi=33:ex=31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
+if [[ "${(L)$( uname -s )}" == darwin ]]; then
+	alias ls='ls -F -G'
+else
+	alias ls='ls -F --color=auto'
+fi
+
+# ---
 
 # Rust
 export RUSTUP_HOME="$XDG_DATA_HOME/rustup"
 export CARGO_HOME="$XDG_DATA_HOME/cargo"
 
 # Go
+export GOPATH="$HOME/.go"
 export GO111MODULE=on
-export GOBIN=$HOME/.local/bin
-export GOMODCACHE=$XDG_CACHE_HOME/go_mod
 
+# ---
 
 # Homebrew
 if (( $+commands[brew] )); then
 	# Analytics: off
 	export HOMEBREW_NO_ANALYTICS=1
 
-	# upgrade: 実行時 cleanup
-	export HOMEBREW_UPGRADE_CLEANUP=1
+	# auto cleanup
+	export HOMEBREW_INSTALL_CLEANUP=1
 fi
 
 # nextword
 if [[ -d "$XDG_DATA_HOME/nextword/data" ]]; then
 	export NEXTWORD_DATA_PATH="$XDG_DATA_HOME/nextword/data"
 fi
+# }}}
+# --- alias --- {{{
 
-# --- history ---
-export HISTFILE="$XDG_DATA_HOME/zsh/history"
-export HISTSIZE=10000
-export SAVEHIST=1000000000
-if [ $UID = 0 ]; then
-	unset HISTFILE
-	SAVEHIST=0
+alias rename='noglob zmv -W'
+
+alias q='exit'
+
+# LS
+alias la='ls -A'
+alias ll='ls -l'
+alias lla='ls -lA'
+
+## suffix alias
+if (( $+commands[unar] )); then
+	alias -s {gz,zip,7z}='unar'
 fi
-
-# 同じコマンドをヒストリに残さない
-setopt hist_ignore_all_dups
-
-# スペースから始まるコマンド行はヒストリに残さない
-setopt hist_ignore_space
-
-# ヒストリに保存するときに余分なスペースを削除する
-setopt hist_reduce_blanks
-
-# 同時に起動したzshの間でヒストリを共有する
-setopt share_history
-
-# --- key ---
+# }}}
+# --- key --- {{{
 bindkey -v
 
 # edit command line {{{
@@ -73,7 +118,6 @@ zle -N edit-command-line
 bindkey -M viins '^xe' edit-command-line
 bindkey -M vicmd '^xe' edit-command-line
 # }}}
-
 # quote previous word in single or double quote {{{
 # <ESC>s: 前の単語を ' で囲む {{{
 autoload -Uz modify-current-argument
@@ -94,7 +138,6 @@ zle -N _quote-previous-word-in-double
 bindkey '^[d' _quote-previous-word-in-double
 # }}}
 # }}}
-
 # <C-]>: 一つ前のコマンドの最後の単語を挿入 {{{
 autoload -Uz smart-insert-last-word
 zle -N insert-last-word smart-insert-last-word
@@ -102,12 +145,10 @@ zstyle :insert-last-word match \
 	'*([^[:space:]][[:alpha:]/\\]|[[:alpha:]/\\][^[:space:]])*'
 bindkey '^]' insert-last-word
 # }}}
-
 # iab {{{
-
 typeset -g -A _abbreviations=()
 
-# Global Alias
+# Global Alias {{{
 _abbreviations+=(
 	"P" "| $PAGER"
 	"C" "| wc -l"
@@ -116,18 +157,18 @@ _abbreviations+=(
 ## Copy to clipboard
 if (( $+commands[wl-copy] )); then
 	_abbreviations+=("CP" "| wl-copy")
+elif (( $+commands[pbcopy] )); then
+	_abbreviations+=("CP" "| pbcopy")
 elif (( $+commands[xclip] )); then
 	_abbreviations+=("CP" "| xclip -in -selection clipboard")
 elif (( $+commands[xsel] )); then
 	_abbreviations+=("CP" "| xsel --input --clipboard")
-elif (( $+commands[pbcopy] )); then
-	_abbreviations+=("CP" "| pbcopy")
 fi
 
 # Editor
 _abbreviations+=("e" "$EDITOR")
-
-# Package Manager
+# }}}
+# Package Manager {{{
 ## Homebrew
 if (( $+commands[brew] )); then
 _abbreviations+=(
@@ -143,8 +184,8 @@ _abbreviations+=(
 	"bll" "brew leaves"
 )
 fi
-
-# Git
+# }}}
+# Git {{{
 if (( $+commands[git] )); then
 _abbreviations+=(
 	"ga"  "git add"
@@ -168,24 +209,14 @@ _abbreviations+=(
 	"grau" "git remote add upstream"
 	"gs" "git status"
 	"gst" "git status --short --branch"
+	# GHQ
+	"gg" "ghq get"
+	"gl" "ghq list | sort"
+	"gt" "exa --tree -L 2 $(ghq root)/github.com"
 )
-
-	if (( $+commands[git-br] )); then
-		_abbreviations+=("gbr" "git br")
-	fi
-
-	if (( $+commands[ghq] )); then
-		_abbreviations+=(
-		"gg" "ghq get"
-		"gl" "ghq list | sort"
-		)
-		if (( $+commands[tree] )); then
-			_abbreviations+=("gt" "tree -L 2 ~/.local/src/github.com")
-		fi
-	fi
 fi
-
-# Docker
+# }}}
+# Docker {{{
 if (( $+commands[docker] )); then
 _abbreviations+=(
 	"di" "docker images"
@@ -197,35 +228,18 @@ _abbreviations+=(
 	"drmi" "docker rmi"
 	"ds" "docker start"
 	"dd" "docker system prune -f"
+	# Compose
+	"dcb" "docker-compose build"
+	"dcp" "docker-compose ps"
+	"dcu" "docker-compose up -d"
 )
-
-	if (( $+commands[docker-compose] )); then
-		_abbreviations+=(
-		"dcb" "docker-compose build"
-		"dcp" "docker-compose ps"
-		"dcu" "docker-compose up -d"
-		)
-	fi
 fi
-
-# Miss
+# }}}
+# Miss {{{
 _abbreviations+=(
 	"sk" "ssh-keygen -t ed25519 -C '$(git config --get user.email)'"
 	"q" "exit"
 )
-
-## LS
-if (( $+commands[gls] )); then
-	alias ls='gls -F --color=auto'
-elif [[ "${(L)$( uname -s )}" == mac ]]; then
-	alias ls='ls -F -G'
-else
-	alias ls='ls -F --color=auto'
-fi
-
-alias la='ls -A'
-alias ll='ls -l'
-alias lla='ls -lA'
 
 if (( $+commands[exa] )); then
 	_abbreviations+=(
@@ -247,8 +261,8 @@ else
 		"lla" "ls -lA"
 	)
 fi
-
-# iab setup
+# }}}
+# iab setup {{{
 setopt extended_glob
 
 __iab::magic-abbrev-expand() {
@@ -268,22 +282,30 @@ __iab::no-magic-abbrev-expand() {
 zle -N __iab::no-magic-abbrev-expand
 bindkey -M viins "^x " __iab::no-magic-abbrev-expand
 # }}}
-# --- alias ---
-
-alias rename='noglob zmv -W'
-
-alias q='exit'
-
-if (( $+commands[wifi-menu] )); then
-	alias wifi='sudo wifi-menu'
+# }}}
+# }}}
+# --- history --- {{{
+export HISTFILE="$XDG_DATA_HOME/zsh/history"
+export HISTSIZE=10000
+export SAVEHIST=1000000000
+if [ $UID = 0 ]; then
+	unset HISTFILE
+	SAVEHIST=0
 fi
 
-## suffix alias
-if (( $+commands[unar] )); then
-	alias -s {gz,zip,7z}='unar'
-fi
+# 同じコマンドをヒストリに残さない
+setopt hist_ignore_all_dups
 
-# --- complete ---
+# スペースから始まるコマンド行はヒストリに残さない
+setopt hist_ignore_space
+
+# ヒストリに保存するときに余分なスペースを削除する
+setopt hist_reduce_blanks
+
+# 同時に起動したzshの間でヒストリを共有する
+setopt share_history
+# }}}
+# --- complete --- {{{
 # TODO: 整理
 
 ## 単語の区切りを調整
@@ -385,8 +407,16 @@ zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([%0-9]#)*=0=01;31
 setopt correct
 export CORRECT_IGNORE='_*'
 export CORRECT_IGNORE_FILE='.*'
+# }}}
+# --- misc --- {{{
+ # Correctly display UTF-8 with combining characters.
+if [[ "$(locale LC_CTYPE)" == "UTF-8" ]]; then
+    setopt COMBINING_CHARS
+fi
 
-# --- misc ---
+# Disable the log builtin, so we don't conflict with /usr/bin/log
+disable log
+
 # beep を無効にする
 setopt no_beep
 
@@ -395,9 +425,8 @@ setopt no_flow_control
 
 # Ctrl+Dでzshを終了しない
 setopt ignore_eof
-
-# --- functions ---
-
+# }}}
+# --- functions --- {{{
 available() {
 	local x candidates
 	candidates="$1:"
@@ -419,19 +448,11 @@ showopt() {
 }
 
 g() {
-	local repo=$(ghq list --unique | $(available fzy fzf peco))
+	local repo=$(ghq list --unique | $(available "fzy:fzf:peco"))
 	[[ -n "$repo" ]] && cd $(ghq list --full-path --exact "$repo")
 }
-
-# ------
-
-path=(
-	~/.local/bin
-	~/.yarn/bin(N-/)
-	$path
-)
-
-# --- plugin ---
+# }}}
+# --- plugin --- {{{
 # plugin "repo" "local file" "server (Default: github.com)"
 typeset -g -a __plugins=()
 plugin() {
@@ -460,15 +481,14 @@ ENHANCD_DOT_SHOW_FULLPATH=1
 ENHANCD_USE_FUZZY_MATCH=0
 plugin "b4b4r07/enhancd" init.sh
 
-plugin "zsh-users/zsh-history-substring-search" zsh-history-substring-search.zsh
 plugin "zdharma/history-search-multi-word" history-search-multi-word.plugin.zsh
+
 plugin "zdharma/fast-syntax-highlighting" fast-syntax-highlighting.plugin.zsh
 
 if (( $+commands[wakatime] )); then
 	plugin "wbingli/zsh-wakatime" zsh-wakatime.plugin.zsh
 fi
-
-# ------
+# }}}
 
 if [[ "~/.zshrc" -nt "~/.zshrc.zwc" || ! -f "~/.zshrc.zwc"  ]]; then
 	zcompile ~/.zshrc
