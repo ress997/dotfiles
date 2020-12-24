@@ -10,6 +10,10 @@
 	last = log -1 HEAD
 [color]
 	ui = true
+[credential]
+	helper = osxkeychain
+	helper = libsecret
+	helper = store # $XDG_CONFIG_HOME/git/credentials
 [help]
 	autocorrect = 1
 [interactive]
@@ -33,6 +37,4 @@
 [ghq]
 	user = ress997
 	root = ~/.local/src
-# Local config
-[include]
-	path = ~/.config/git/local
+
