@@ -1,0 +1,26 @@
+# Lang
+go
+rust
+
+# C
+fzy
+
+# Go
+fzf
+ghq
+hugo
+
+# Rust
+bat
+exa
+fd
+git-delta
+ripgrep
+sd
+
+neovim
+#luajit --HEAD
+#tree-sitter --HEAD
+#neovim --HEAD
+
+homebrew/cask-fonts/font-cica

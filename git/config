@@ -12,8 +12,8 @@
 	ui = true
 [credential]
 	helper = osxkeychain
-	helper = libsecret
-	helper = store # $XDG_CONFIG_HOME/git/credentials
+	#helper = libsecret
+	#helper = store # $XDG_CONFIG_HOME/git/credentials
 [help]
 	autocorrect = 1
 [interactive]

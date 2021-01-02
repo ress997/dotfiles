@@ -3,17 +3,9 @@ umask 022
 limit coredumpsize 0
 zmodload zsh/files
 
-path=(
-	~/.local/bin(N-/)
-	~/.yarn/bin(N-/)
-	~/.local/share/cargo/bin(N-/)
-	~/.local/go/bin(N-/)
-	/opt/homebrew/bin(N-/)
-	$path
-)
-
 typeset -gx -U fpath FPATH
 fpath=(
+	/opt/homebrew/share/zsh/site-functions(N-/)
 	/usr/local/share/zsh/site-functions(N-/)
 	/usr/share/zsh/site-functions(N-/)
 	$fpath
@@ -21,22 +13,6 @@ fpath=(
 
 autoload -Uz colors && colors
 autoload -Uz compinit && compinit -d $XDG_CACHE_HOME/zcompdump
-autoload -Uz zmv
-
-# Apple Silicon
-if (( $+commands[arch] )); then
-	alias brew="arch -arch x86_64 /usr/local/bin/brew"
-	alias x64='exec arch -arch x86_64 "$SHELL"'
-	alias a64='exec arch -arch arm64e "$SHELL"'
-	switch-arch() {
-		if  [[ "$(uname -m)" == arm64 ]]; then
-			arch=x86_64
-		elif [[ "$(uname -m)" == x86_64 ]]; then
-			arch=arm64e
-		fi
-		exec arch -arch $arch "$SHELL"
-	}
-fi
 
 # --- env --- {{{
 # Editor
@@ -73,10 +49,14 @@ export RUSTUP_HOME="$XDG_DATA_HOME/rustup"
 export CARGO_HOME="$XDG_DATA_HOME/cargo"
 
 # Go
-export GOPATH="$HOME/.go"
+export GOPATH="$XDG_DATA_HOME/go"
 export GO111MODULE=on
 
 # ---
+
+# FZF
+export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
+export FZF_DEFAULT_OPTS="--no-sort --exact --cycle --multi --ansi --reverse --border --sync --bind='ctrl-t:toggle,ctrl-k:kill-line,?:toggle-preview,down:preview-down,up:preview-up'"
 
 # Homebrew
 if (( $+commands[brew] )); then
@@ -87,13 +67,20 @@ if (( $+commands[brew] )); then
 	export HOMEBREW_INSTALL_CLEANUP=1
 fi
 
-# nextword
+# Nextword
 if [[ -d "$XDG_DATA_HOME/nextword/data" ]]; then
 	export NEXTWORD_DATA_PATH="$XDG_DATA_HOME/nextword/data"
 fi
 # }}}
+path=(
+	~/.local/bin(N-/)
+	~/.yarn/bin(N-/)
+	$CARGO_HOME/bin(N-/)
+	$GOPATH/bin(N-/)
+	$path
+)
 # --- alias --- {{{
-
+autoload -Uz zmv
 alias rename='noglob zmv -W'
 
 alias q='exit'
@@ -119,17 +106,16 @@ bindkey -M viins '^xe' edit-command-line
 bindkey -M vicmd '^xe' edit-command-line
 # }}}
 # quote previous word in single or double quote {{{
-# <ESC>s: 前の単語を ' で囲む {{{
 autoload -Uz modify-current-argument
+# <C-[>s: 前の単語を ' で囲む {{{
 _quote-previous-word-in-single() {
 	modify-current-argument '${(qq)${(Q)ARG}}'
 	zle vi-forward-blank-word
 }
-# }}}
-# <ESC>d: 前の単語を " で囲む {{{
 zle -N _quote-previous-word-in-single
 bindkey '^[s' _quote-previous-word-in-single
-
+# }}}
+# <C-[>d: 前の単語を " で囲む {{{
 _quote-previous-word-in-double() {
 	modify-current-argument '${(qqq)${(Q)ARG}}'
 	zle vi-forward-blank-word
@@ -251,7 +237,7 @@ if (( $+commands[exa] )); then
 
 	if (( $+commands[tree] - 1 )); then
 		_abbreviations+=(
-			"tree" "exa --tree"
+			"tree" "exa --tree --git-ignore"
 		)
 	fi
 else
@@ -313,9 +299,10 @@ export WORDCHARS='*?.[]~&;!#$%^(){}<>'
 
 ## キャッシュを使う
 zstyle ':completion:*' use-cache true
+zstyle ':completion:*' cache-path "$XDG_CACHE_HOME/zcompdumps"
 
 ## compctl を使用しない
-zstyle ':completion:*' use-compctl false
+#zstyle ':completion:*' use-compctl false
 
 ## 補完で小文字でも大文字にマッチさせる
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
@@ -409,14 +396,6 @@ export CORRECT_IGNORE='_*'
 export CORRECT_IGNORE_FILE='.*'
 # }}}
 # --- misc --- {{{
- # Correctly display UTF-8 with combining characters.
-if [[ "$(locale LC_CTYPE)" == "UTF-8" ]]; then
-    setopt COMBINING_CHARS
-fi
-
-# Disable the log builtin, so we don't conflict with /usr/bin/log
-disable log
-
 # beep を無効にする
 setopt no_beep
 
@@ -425,6 +404,14 @@ setopt no_flow_control
 
 # Ctrl+Dでzshを終了しない
 setopt ignore_eof
+
+# Correctly display UTF-8 with combining characters.
+if [[ "$(locale LC_CTYPE)" == "UTF-8" ]]; then
+    setopt COMBINING_CHARS
+fi
+
+# Disable the log builtin, so we don't conflict with /usr/bin/log
+disable log
 # }}}
 # --- functions --- {{{
 available() {
@@ -451,6 +438,22 @@ g() {
 	local repo=$(ghq list --unique | $(available "fzy:fzf:peco"))
 	[[ -n "$repo" ]] && cd $(ghq list --full-path --exact "$repo")
 }
+
+# Apple Silicon {{{
+if [[ "${(L)$( uname -s )}" == darwin ]] && (( $+commands[arch] )); then
+	[[ -x /usr/local/bin/brew ]] && alias brew="arch -arch x86_64 /usr/local/bin/brew"
+	alias x64='exec arch -arch x86_64 "$SHELL"'
+	alias a64='exec arch -arch arm64e "$SHELL"'
+	switch-arch() {
+		if  [[ "$(uname -m)" == arm64 ]]; then
+			arch=x86_64
+		elif [[ "$(uname -m)" == x86_64 ]]; then
+			arch=arm64e
+		fi
+		exec arch -arch $arch "$SHELL"
+	}
+fi
+# }}}
 # }}}
 # --- plugin --- {{{
 # plugin "repo" "local file" "server (Default: github.com)"
