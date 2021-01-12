@@ -13,9 +13,6 @@ export HISTCONTROL=ignoreboth
 export XAUTHORITY="$XDG_RUNTIME_DIR/Xauthority"
 
 if [[ -n $SSH_TTY ]]; then
-	# change shell
-	export SHELL=zsh
-
 	exec zsh --login
 elif [[ -z $DISPLAY && $XDG_VTNR -eq 1 ]]; then
 	# Terminal

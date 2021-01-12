@@ -1,3 +1,4 @@
+# vim:ft=conf:
 base
 base-devel
 bat

@@ -11,7 +11,7 @@
 [color]
 	ui = true
 [credential]
-	helper = osxkeychain
+	#helper = osxkeychain
 	#helper = libsecret
 	#helper = store # $XDG_CONFIG_HOME/git/credentials
 [help]
@@ -32,9 +32,9 @@
 	default = current
 # Third party
 [delta]
+	hunk-header-style = omit
 	line-numbers = true
 	side-by-side = true
 [ghq]
 	user = ress997
 	root = ~/.local/src
-
