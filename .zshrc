@@ -9,8 +9,7 @@ fpath=(
 	$fpath
 )
 
-autoload -Uz colors && colors
-autoload -Uz compinit && compinit -d $XDG_CACHE_HOME/zcompdump -C
+autoload -Uz compinit
 
 # ENV {{{
 export EDITOR='nvim'
@@ -40,12 +39,6 @@ path=($GOPATH/bin(N-/) $path)
 
 # ---
 
-# FZF
-if (( $+commands[fzf] )); then
-	export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
-	export FZF_DEFAULT_OPTS="--no-sort --exact --cycle --multi --ansi --reverse --border --sync --bind='ctrl-t:toggle,ctrl-k:kill-line,?:toggle-preview,down:preview-down,up:preview-up'"
-fi
-
 # GHQ
 export GHQ_ROOT="$HOME/.local/src"
 
@@ -69,14 +62,11 @@ path=(~/.local/bin(N-/) $path)
 # }}}
 # Alias {{{
 # LS
-if [[ "${(L)$( uname -s )}" == darwin ]]; then
+if (( $+commands[sw_vers] )); then
 	alias ls='ls -F -G'
 else
 	alias ls='ls -F --color=auto'
 fi
-alias la='ls -A'
-alias ll='ls -l'
-alias lla='ls -lA'
 
 # 高機能 mv
 autoload -Uz zmv
@@ -87,7 +77,7 @@ if (( $+commands[unar] )); then
 	alias -s {gz,zip,7z}='unar'
 fi
 # }}}
-# Complete {{{
+# Comp {{{
 # TODO: 整理
 
 ## 単語の区切りを調整
@@ -189,40 +179,27 @@ setopt correct
 export CORRECT_IGNORE='_*'
 export CORRECT_IGNORE_FILE='.*'
 # }}}
-# Functions {{{
+# Func {{{
 showopt() {
 	set -o | sed -e 's/^no\(.*\)on$/\1  off/' -e 's/^no\(.*\)off$/\1  on/'
 }
 
-# Fuzzy {{{
+# Fuzzy
 ## Editor
-# TODO: fzf+bat でプレビューしながらファイルを開く
-#e() {}
+e() {
+	local file=$(git ls-tree -r --name-only HEAD || fd --type f --hidden --follow --exclude .git)
+	local selected=$(echo $file | fzy)
+	[[ -n "$selected" ]] && nvim $selected
+}
 
 ## GHQ
-# TODO: fzf+bat でREADME.mdをプレビューしながらディレクトリを選択
 g() {
-	local repo=$(ghq list | fzy)
-	[[ -n "$repo" ]] && cd $(ghq list --full-path --exact "$repo")
+	local repo=$(ghq list --unique | fzy)
+	local path=$(ghq list --full-path --exact "$repo")
+	[[ -n "$path" ]] && cd "$path"
 }
 # }}}
-# Apple Silicon {{{
-if [[ "${(L)$( uname -s )}" == darwin ]] && (( $+commands[arch] )); then
-	[[ -x /usr/local/bin/brew ]] && alias brew="arch -arch x86_64 /usr/local/bin/brew"
-	alias x64='exec arch -arch x86_64 "$SHELL"'
-	alias a64='exec arch -arch arm64e "$SHELL"'
-	switch-arch() {
-		if  [[ "$(uname -m)" == arm64 ]]; then
-			arch=x86_64
-		elif [[ "$(uname -m)" == x86_64 ]]; then
-			arch=arm64e
-		fi
-		exec arch -arch $arch "$SHELL"
-	}
-fi
-# }}}
-# }}}
-# History {{{
+# Hist {{{
 export HISTFILE="$XDG_DATA_HOME/zsh/history"
 export HISTSIZE=10000
 export SAVEHIST=1000000000
@@ -255,15 +232,14 @@ bindkey -M vicmd '^xe' edit-command-line
 # <C-]>: 一つ前のコマンドの最後の単語を挿入
 autoload -Uz smart-insert-last-word
 zle -N insert-last-word smart-insert-last-word
-zstyle :insert-last-word match \
-	'*([^[:space:]][[:alpha:]/\\]|[[:alpha:]/\\][^[:space:]])*'
+zstyle :insert-last-word match '*([^[:space:]][[:alpha:]/\\]|[[:alpha:]/\\][^[:space:]])*'
 bindkey -M viins '^]' insert-last-word
 # }}}
 # Abbrev {{{
 typeset -g -A _abbreviations=(
 	"e" "$EDITOR"
 	"q" "exit"
-	"sk" "ssh-keygen -t ed25519 -C '$(git config --get user.email)'"
+	"sk" "ssh-keygen -t ed25519 -C \$(git config --get user.email)"
 	# git: get branch name
 	"B" "\$(git symbolic-ref --short HEAD)"
 	# PIPE
@@ -273,28 +249,26 @@ typeset -g -A _abbreviations=(
 
 ## Copy to clipboard
 if (( $+commands[wl-copy] )); then
-	_abbreviations+=("CP" "| wl-copy")
+	_abbreviations[CP]="| wl-copy"
 elif (( $+commands[pbcopy] )); then
-	_abbreviations+=("CP" "| pbcopy")
+	_abbreviations[CP]="| pbcopy"
 elif (( $+commands[xclip] )); then
-	_abbreviations+=("CP" "| xclip -in -selection clipboard")
+	_abbreviations[CP]="| xclip -in -selection clipboard"
 elif (( $+commands[xsel] )); then
-	_abbreviations+=("CP" "| xsel --input --clipboard")
+	_abbreviations[CP]="| xsel --input --clipboard"
 fi
 
 ## LS
 if (( $+commands[exa] )); then
 	_abbreviations+=(
-		"la" "exa -a"
-		"ll" "exa -l"
-		"lla" "exa -la"
-		"lg" "exa --git"
+		"ls" "exa -F --group-directories-first --icons"
+		"la" "exa -Fa --group-directories-first --icons"
+		"ll" "exa -Fl --group-directories-first --icons --git --time-style=long-iso"
+		"lla" "exa -Fla --group-directories-first --icons --git --time-style=long-iso"
 	)
 
 	if (( $+commands[tree] - 1 )); then
-		_abbreviations+=(
-			"tree" "exa --tree --git-ignore"
-		)
+		_abbreviations[tree]="exa --tree --git-ignore"
 	fi
 else
 	_abbreviations+=(
@@ -303,33 +277,39 @@ else
 		"lla" "ls -lA"
 	)
 fi
+alias la=$_abbreviations[la]
+alias ll=$_abbreviations[ll]
+alias lla=$_abbreviations[lla]
+
 # Package Manager {{{
+# TODO: 必要なものだけにする
+
 ## Homebrew
 if (( $+commands[brew] )); then
 _abbreviations+=(
-	"pi" "brew install"
-	"pl" "brew list"
-	"pll" "brew leaves"
-	"ps" "brew search"
-	"pu" "brew upgrade"
+	"bc" "brew cleanup"
+	"bi" "brew install"
+	"bl" "brew list"
+	"bs" "brew search"
+	"bu" "brew upgrade"
 	# misc
-	"pc" "brew cleanup"
-	"pd" "brew doctor"
-	"pdt" "brew deps --tree --installed"
+	"bd" "brew doctor"
+	"bdt" "brew deps \$(brew leaves) --tree"
+	"bll" "brew leaves"
 )
 fi
 
 ## yay
 if (( $+commnads[yay] )); then
 _abbreviations+=(
-	"pi" "yay -S"
-	"pl" "comm -23 <(pacman -Qqe|sort) <(pacman -Qqg base-devel|sort)"
-	"pll" "comm -23 <(pacman -Qqtt|sort) <(pacman -Qqg base-devel|sort)"
-	"ps" "yay -Ss"
-	"pu" "yay -Syyu"
+	"yc" "yay -Yc"
+	"yi" "yay -S"
+	"yl" "comm -23 <(pacman -Qqe|sort) <(pacman -Qqg base-devel|sort)"
+	"ys" "yay -Ss"
+	"yu" "yay -Syyu"
 	# misc
-	"pc" "yay -Yc"
-	"pd" "yay -Ps"
+	"yd" "yay -Ps"
+	"yll" "comm -23 <(pacman -Qqtt|sort) <(pacman -Qqg base-devel|sort)"
 )
 fi
 # }}}
@@ -412,57 +392,44 @@ setopt ignore_eof
 
 # Correctly display UTF-8 with combining characters.
 if [[ "$(locale LC_CTYPE)" == "UTF-8" ]]; then
-    setopt COMBINING_CHARS
+	setopt COMBINING_CHARS
 fi
 
 # Disable the log builtin, so we don't conflict with /usr/bin/log
 disable log
 # }}}
 # Plugin {{{
-# plugin "repo" "local file" "server (Default: github.com)"
-typeset -g -a __plugins=()
-typeset -g -a __plugins_file=()
+# plugin "repo" "load file"
+local -A __plugins=()
 plugin() {
-	local repo="$1"
-	local file="$2"
-	local site="github.com"
-
-	__plugins+=("$repo")
-
-	p="$GHQ_ROOT/$site/$repo/$file"
-	[[ -f $p ]] && __plugins_file+=("$p")
+	__plugins+=("$1" "$2")
 }
 
 plugin-update() {
-	foreach repo (${__plugins})
+	for repo file in ${(kv)__plugins}; do
 		ghq get -u "$repo"
-	end
 
-	foreach file (${__plugins_file})
-		if [[ "$file" -nt "$file.zwc" || ! -f "$file.zwc"  ]]; then
-			zcompile $file
+		local p="$GHQ_ROOT/github.com/$repo/$file"
+		if [[ "$p" -nt "$p.zwc" || ! -f "$p.zwc"  ]]; then
+			zcompile "$p"
 		fi
-	end
+	done
 }
-
-plugin "b4b4r07/enhancd" init.sh
-export ENHANCD_DIR="${XDG_CACHE_HOME}/enhancd"
-ENHANCD_DISABLE_HOME=1
-ENHANCD_DOT_SHOW_FULLPATH=1
-ENHANCD_USE_FUZZY_MATCH=0
 
 plugin "zdharma/history-search-multi-word" history-search-multi-word.plugin.zsh
 
 plugin "zdharma/fast-syntax-highlighting" fast-syntax-highlighting.plugin.zsh
 
-foreach file (${__plugins_file})
-	source "$file"
-end
+plugin-load() {
+	for repo file in ${(kv)__plugins}; do
+		source $GHQ_ROOT/github.com/$repo/$file
+	done
+}
 # }}}
 # Prompt {{{
-local COLOR_OFF="%{$reset_color%}"
-local COLOR_PATH=$'%{\e[38;5;244m%}%}'
+autoload -Uz colors && colors
 
+local COLOR_OFF="%{$reset_color%}"
 local COLOR_0="%{$fg[black]%}"
 local COLOR_1="%{$fg[red]%}"
 local COLOR_2="%{$fg[green]%}"
@@ -471,6 +438,7 @@ local COLOR_4="%{$fg[blue]%}"
 local COLOR_5="%{$fg[magenta]%}"
 local COLOR_6="%{$fg[cyan]%}"
 local COLOR_7="%{$fg[white]%}"
+local COLOR_PATH=$'%{\e[38;5;244m%}%}'
 
 local PROMPT_CHAR="❯"
 
@@ -497,6 +465,28 @@ RPROMPT+='${COLOR_5}%m${COLOR_OFF}'
 RPROMPT+='${COLOR_7}:${COLOR_OFF}'
 RPROMPT+='${COLOR_PATH}$(__pathshorten "${PWD/$HOME/~}")${COLOR_OFF}'
 # }}}
+
+# Lazy Load
+PERIOD=2
+__init() {
+	if [[ -n $XDG_CACHE_HOME/zcompdump(#qN.mh+24) ]]; then
+		compinit -d $XDG_CACHE_HOME/zcompdump
+	else
+		compinit -C -d $XDG_CACHE_HOME/zcompdump
+	fi
+	if [[ "$XDG_CACHE_HOME/zcompdump" -nt "$XDG_CACHE_HOME/zcompdump.zwc" || ! -f "$XDG_CACHE_HOME/zcompdump.zwc" ]]; then
+		zcompile $XDG_CACHE_HOME/zcompdump
+	fi
+
+	# Load plugin
+	plugin-load
+
+	# reset
+	unset PERIOD
+	add-zsh-hook -d periodic __init
+	unfunction __init
+}
+autoload -Uz add-zsh-hook && add-zsh-hook periodic __init
 
 if [[ "~/.zshrc" -nt "~/.zshrc.zwc" || ! -f "~/.zshrc.zwc"  ]]; then
 	zcompile ~/.zshrc

@@ -1,0 +1,3 @@
+[credential]
+	#helper = libsecret
+	#helper = store # $XDG_CONFIG_HOME/git/credentials
