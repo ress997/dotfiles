@@ -62,10 +62,22 @@ path=(~/.local/bin(N-/) $path)
 # }}}
 # Alias {{{
 # LS
-if (( $+commands[sw_vers] )); then
-	alias ls='ls -F -G'
+
+## LS
+if (( $+commands[exa] )); then
+	alias ls="exa -F --group-directories-first --icons"
+	alias la="exa -Fa --group-directories-first --icons"
+	alias ll="exa -Fl --group-directories-first --icons --git --time-style=long-iso"
+	alias lla="exa -Fla --group-directories-first --icons --git --time-style=long-iso"
 else
-	alias ls='ls -F --color=auto'
+	if (( $+commands[sw_vers] )); then
+		alias ls='ls -F -G'
+	else
+		alias ls='ls -F --color=auto'
+	fi
+	alias la="ls -A"
+	alias ll="ls -l"
+	alias lla="ls -lA"
 fi
 
 # 高機能 mv
@@ -258,28 +270,11 @@ elif (( $+commands[xsel] )); then
 	_abbreviations[CP]="| xsel --input --clipboard"
 fi
 
-## LS
-if (( $+commands[exa] )); then
-	_abbreviations+=(
-		"ls" "exa -F --group-directories-first --icons"
-		"la" "exa -Fa --group-directories-first --icons"
-		"ll" "exa -Fl --group-directories-first --icons --git --time-style=long-iso"
-		"lla" "exa -Fla --group-directories-first --icons --git --time-style=long-iso"
-	)
-
-	if (( $+commands[tree] - 1 )); then
-		_abbreviations[tree]="exa --tree --git-ignore"
-	fi
-else
-	_abbreviations+=(
-		"la" "ls -A"
-		"ll" "ls -l"
-		"lla" "ls -lA"
-	)
+# tree
+if (( $+commands[tree] - 1 )); then
+	_abbreviations[tree]="exa --tree --git-ignore"
 fi
-alias la=$_abbreviations[la]
-alias ll=$_abbreviations[ll]
-alias lla=$_abbreviations[lla]
+
 
 # Package Manager {{{
 # TODO: 必要なものだけにする
@@ -415,6 +410,13 @@ plugin-update() {
 		fi
 	done
 }
+
+plugin "b4b4r07/enhancd" init.sh
+export ENHANCD_DIR="${XDG_CACHE_HOME}/enhancd"
+ENHANCD_DISABLE_HOME=1
+ENHANCD_DOT_SHOW_FULLPATH=1
+ENHANCD_USE_FUZZY_MATCH=0
+export ENHANCD_DOT_ARG='...'
 
 plugin "zdharma/history-search-multi-word" history-search-multi-word.plugin.zsh
 

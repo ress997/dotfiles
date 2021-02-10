@@ -1,5 +1,4 @@
 unsetopt GLOBAL_RCS
-export SHELL='zsh'
 
 # XDG Base Directory
 export XDG_CACHE_HOME="$HOME/.cache"
