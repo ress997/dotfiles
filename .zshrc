@@ -34,7 +34,6 @@ path=($CARGO_HOME/bin(N-/) $path)
 
 # Go
 export GOPATH="$XDG_DATA_HOME/go"
-export GO111MODULE=on
 path=($GOPATH/bin(N-/) $path)
 
 # ---
@@ -49,6 +48,9 @@ if (( $+commands[brew] )); then
 
 	# auto cleanup
 	export HOMEBREW_INSTALL_CLEANUP=1
+
+	# 高速化
+	export HOMEBREW_BOOTSNAP=1
 fi
 
 # Nextword
