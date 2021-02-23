@@ -278,38 +278,6 @@ if (( $+commands[tree] - 1 )); then
 fi
 
 
-# Package Manager {{{
-# TODO: 必要なものだけにする
-
-## Homebrew
-if (( $+commands[brew] )); then
-_abbreviations+=(
-	"bc" "brew cleanup"
-	"bi" "brew install"
-	"bl" "brew list"
-	"bs" "brew search"
-	"bu" "brew upgrade"
-	# misc
-	"bd" "brew doctor"
-	"bdt" "brew deps \$(brew leaves) --tree"
-	"bll" "brew leaves"
-)
-fi
-
-## yay
-if (( $+commnads[yay] )); then
-_abbreviations+=(
-	"yc" "yay -Yc"
-	"yi" "yay -S"
-	"yl" "comm -23 <(pacman -Qqe|sort) <(pacman -Qqg base-devel|sort)"
-	"ys" "yay -Ss"
-	"yu" "yay -Syyu"
-	# misc
-	"yd" "yay -Ps"
-	"yll" "comm -23 <(pacman -Qqtt|sort) <(pacman -Qqg base-devel|sort)"
-)
-fi
-# }}}
 # Git {{{
 if (( $+commands[git] )); then
 _abbreviations+=(
@@ -358,6 +326,7 @@ _abbreviations+=(
 )
 fi
 # }}}
+
 setopt extended_glob
 
 __magic-abbrev-expand() {
