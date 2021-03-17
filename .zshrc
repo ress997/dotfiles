@@ -27,6 +27,9 @@ export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 
 # ---
 
+# Python (for macOS)
+path=(~/Library/Python/3.8/bin(N-/) $path)
+
 # Rust
 export RUSTUP_HOME="$XDG_DATA_HOME/rustup"
 export CARGO_HOME="$XDG_DATA_HOME/cargo"
@@ -48,9 +51,6 @@ if (( $+commands[brew] )); then
 
 	# auto cleanup
 	export HOMEBREW_INSTALL_CLEANUP=1
-
-	# 高速化
-	export HOMEBREW_BOOTSNAP=1
 fi
 
 # Nextword
@@ -203,14 +203,14 @@ showopt() {
 e() {
 	local file=$(git ls-tree -r --name-only HEAD || fd --type f --hidden --follow --exclude .git)
 	local selected=$(echo $file | fzy)
-	[[ -n "$selected" ]] && nvim $selected
+	[[ -f "$selected" ]] && nvim $selected
 }
 
 ## GHQ
 g() {
 	local repo=$(ghq list --unique | fzy)
 	local path=$(ghq list --full-path --exact "$repo")
-	[[ -n "$path" ]] && cd "$path"
+	[[ -d "$path" ]] && cd "$path"
 }
 # }}}
 # Hist {{{
